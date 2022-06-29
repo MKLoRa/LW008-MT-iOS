@@ -28,15 +28,21 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://github.com/aadyx2007@163.com/MKLoRaWAN-MT.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '12.0'
 
   s.source_files = 'MKLoRaWAN-MT/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'MKLoRaWAN-MT' => ['MKLoRaWAN-MT/Assets/*.png']
-  # }
+  s.resource_bundles = {
+    'MKLoRaWAN-MT' => ['MKLoRaWAN-MT/Assets/*.png']
+  }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'MKBaseModuleLibrary'
+  s.dependency 'MKCustomUIModule'
+  s.dependency 'MKBaseBleModule'
+  
+  s.dependency 'HHTransition'
+  s.dependency 'MLInputDodger'
+  s.dependency 'iOSDFULibrary'
+  s.dependency 'FMDB'
+  
 end
