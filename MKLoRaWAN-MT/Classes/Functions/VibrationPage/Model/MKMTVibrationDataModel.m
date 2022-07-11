@@ -22,7 +22,7 @@
 @end
 
 @implementation MKMTVibrationDataModel
-/*
+
 - (void)readWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
         if (![self readVibrationDetection]) {
@@ -74,7 +74,7 @@
 #pragma mark - interface
 - (BOOL)readVibrationDetection {
     __block BOOL success = NO;
-    [MKMTInterface mt_readVibrationDetectionStatusWithSucBlock:^(id  _Nonnull returnData) {
+    [MKMTInterface mt_readShockDetectionStatusWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         self.isOn = [returnData[@"result"][@"isOn"] boolValue];
         dispatch_semaphore_signal(self.semaphore);
@@ -87,7 +87,7 @@
 
 - (BOOL)configVibrationDetection {
     __block BOOL success = NO;
-    [MKMTInterface mt_configVibrationDetectionStatus:self.isOn sucBlock:^{
+    [MKMTInterface mt_configShockDetectionStatus:self.isOn sucBlock:^{
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
@@ -99,7 +99,7 @@
 
 - (BOOL)readReportInterval {
     __block BOOL success = NO;
-    [MKMTInterface mt_readVibrationDetectionReportIntervalWithSucBlock:^(id  _Nonnull returnData) {
+    [MKMTInterface mt_readShockDetectionReportIntervalWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         self.reportInterval = returnData[@"result"][@"interval"];
         dispatch_semaphore_signal(self.semaphore);
@@ -112,7 +112,7 @@
 
 - (BOOL)configReportInterval {
     __block BOOL success = NO;
-    [MKMTInterface mt_configVibrationDetectionReportInterval:[self.reportInterval integerValue] sucBlock:^{
+    [MKMTInterface mt_configShockDetectionReportInterval:[self.reportInterval integerValue] sucBlock:^{
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
@@ -124,7 +124,7 @@
 
 - (BOOL)readVibrationTimeout {
     __block BOOL success = NO;
-    [MKMTInterface mt_readVibrationTimeoutWithSucBlock:^(id  _Nonnull returnData) {
+    [MKMTInterface mt_readShockTimeoutWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         self.vibrationTimeout = returnData[@"result"][@"interval"];
         dispatch_semaphore_signal(self.semaphore);
@@ -137,7 +137,7 @@
 
 - (BOOL)configVibrationTimeout {
     __block BOOL success = NO;
-    [MKMTInterface mt_configVibrationTimeout:[self.vibrationTimeout integerValue] sucBlock:^{
+    [MKMTInterface mt_configShockTimeout:[self.vibrationTimeout integerValue] sucBlock:^{
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
@@ -166,7 +166,7 @@
     }
     return YES;
 }
-*/
+
 #pragma mark - getter
 - (dispatch_semaphore_t)semaphore {
     if (!_semaphore) {

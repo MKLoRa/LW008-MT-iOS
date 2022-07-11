@@ -53,14 +53,13 @@ mk_textSwitchCellDelegate>
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-//    [self readDatasFromDevice];
+    [self readDatasFromDevice];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
     [self loadSectionDatas];
-    [self updateCellStatus];
 }
 
 #pragma mark - UITableViewDelegate
@@ -172,43 +171,43 @@ mk_textSwitchCellDelegate>
 - (void)readDatasFromDevice {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     @weakify(self);
-//    [self.dataModel readDataWithSucBlock:^{
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self updateCellStatus];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [self.dataModel readDataWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self updateCellStatus];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 - (void)configBXPAcc:(BOOL)isOn {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-//    [MKMTInterface mt_configBXPAccFilterStatus:isOn sucBlock:^{
-//        [[MKHudManager share] hide];
-//        self.dataModel.bxpAcc = isOn;
-//        MKTextSwitchCellModel *cellModel = self.section1List[0];
-//        cellModel.isOn = isOn;
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//        [self.tableView mk_reloadRow:0 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
-//    }];
+    [MKMTInterface mt_configBXPAccFilterStatus:isOn sucBlock:^{
+        [[MKHudManager share] hide];
+        self.dataModel.bxpAcc = isOn;
+        MKTextSwitchCellModel *cellModel = self.section1List[0];
+        cellModel.isOn = isOn;
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.tableView mk_reloadRow:0 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 
 - (void)configBXPTH:(BOOL)isOn {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-//    [MKMTInterface mt_configBXPTHFilterStatus:isOn sucBlock:^{
-//        [[MKHudManager share] hide];
-//        self.dataModel.bxpTH = isOn;
-//        MKTextSwitchCellModel *cellModel = self.section1List[1];
-//        cellModel.isOn = isOn;
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//        [self.tableView mk_reloadRow:1 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
-//    }];
+    [MKMTInterface mt_configBXPTHFilterStatus:isOn sucBlock:^{
+        [[MKHudManager share] hide];
+        self.dataModel.bxpTH = isOn;
+        MKTextSwitchCellModel *cellModel = self.section1List[1];
+        cellModel.isOn = isOn;
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.tableView mk_reloadRow:1 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 
 #pragma mark - loadSectionDatas

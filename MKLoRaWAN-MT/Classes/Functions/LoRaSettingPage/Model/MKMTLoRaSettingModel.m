@@ -33,7 +33,6 @@
 
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
-        /*
         if (![self readModem]) {
             [self operationFailedBlockWithMsg:@"Read Modem Error" block:failedBlock];
             return;
@@ -118,7 +117,6 @@
             [self operationFailedBlockWithMsg:@"Read ADR ACK DELAY Error" block:failedBlock];
             return;
         }
-         */
         moko_dispatch_main_safe(^{
             if (sucBlock) {
                 sucBlock();
@@ -129,7 +127,6 @@
 
 - (void)configDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
-        /*
         if (![self checkParams]) {
             [self operationFailedBlockWithMsg:@"Opps！Save failed. Please check the input characters and try again." block:failedBlock];
             return;
@@ -232,7 +229,6 @@
             [self operationFailedBlockWithMsg:@"Connect network error" block:failedBlock];
             return;
         }
-         */
         moko_dispatch_main_safe(^{
             if (sucBlock) {
                 sucBlock();
@@ -330,7 +326,6 @@
 }
 
 #pragma mark - interface
-/*
 - (BOOL)readModem {
     __block BOOL success = NO;
     [MKMTInterface mt_readLorawanModemWithSucBlock:^(id  _Nonnull returnData) {
@@ -805,7 +800,7 @@
                 return NO;
             }
         }
-        if (self.retransmission < 0 && self.retransmission > 7) {
+        if (self.retransmission < 0 && self.retransmission > 3) {
             return NO;
         }
         if (self.DRL < 0 || self.DRL > 6 || self.DRH < self.DRL || self.DRH > 6) {
@@ -822,7 +817,7 @@
     }
     return YES;
 }
-*/
+
 - (NSDictionary *)RegionDic {
     return @{
         @"0":@"AS923",

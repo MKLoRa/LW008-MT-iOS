@@ -12,7 +12,9 @@
 
 #import "MKMacroDefines.h"
 #import "MKBaseTableView.h"
+#import "UIView+MKAdd.h"
 
+#import "MKHudManager.h"
 #import "MKNormalTextCell.h"
 #import "MKTextSwitchCell.h"
 
@@ -41,6 +43,11 @@ mk_textSwitchCellDelegate>
 
 - (void)dealloc {
     NSLog(@"MKMTPositionController销毁");
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self readDatasFromDevice];
 }
 
 - (void)viewDidLoad {
@@ -118,8 +125,45 @@ mk_textSwitchCellDelegate>
 - (void)mk_textSwitchCellStatusChanged:(BOOL)isOn index:(NSInteger)index {
     if (index == 0) {
         //Offline Fix
+        [self saveDataToDevice:isOn];
         return;
     }
+}
+
+#pragma mark - interface
+- (void)readDatasFromDevice {
+    [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
+    @weakify(self);
+    [self.dataModel readDataWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        MKTextSwitchCellModel *cellModel = self.section1List[0];
+        cellModel.isOn = self.dataModel.offline;
+        [self.tableView reloadData];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
+}
+
+- (void)saveDataToDevice:(BOOL)offline {
+    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
+    @weakify(self);
+    [self.dataModel configOffline:offline sucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:@"Success"];
+        
+        self.dataModel.offline = offline;
+        MKTextSwitchCellModel *cellModel = self.section1List[0];
+        cellModel.isOn = offline;
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - loadSections

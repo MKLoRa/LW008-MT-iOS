@@ -45,12 +45,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong)NSArray *rawDataList;
 
-//- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
-//
-//- (void)configWithRawDataList:(NSArray <MKMTFilterRawAdvDataModel *>*)list
-//                 relationship:(mk_mt_filterByOther)relationship
-//                     sucBlock:(void (^)(void))sucBlock
-//                  failedBlock:(void (^)(NSError *error))failedBlock;
+- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
+
+- (void)configWithRawDataList:(NSArray <MKMTFilterRawAdvDataModel *>*)list
+                 relationship:(mk_mt_filterByOther)relationship
+                     sucBlock:(void (^)(void))sucBlock
+                  failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

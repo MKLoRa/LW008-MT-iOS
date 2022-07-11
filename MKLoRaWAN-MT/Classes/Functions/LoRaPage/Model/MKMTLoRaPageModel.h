@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 网络连接状态
 @property (nonatomic, copy)NSString *networkStatus;
 
-//- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
+- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

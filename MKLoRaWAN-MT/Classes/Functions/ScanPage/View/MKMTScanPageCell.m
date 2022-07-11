@@ -154,6 +154,7 @@ static CGFloat const batteryIconHeight = 12.f;
     self.macLabel.text = [@"MAC: " stringByAppendingString:(ValidStr(_dataModel.macAddress) ? _dataModel.macAddress : @"N/A")];
     self.timeLabel.text = _dataModel.scanTime;
     self.txPowerLabel.text = [NSString stringWithFormat:@"%@%lddBm",@"Tx Power:  ",(long)[_dataModel.txPower integerValue]];
+    self.batteryLabel.text = (_dataModel.lowPower ? @"Low" : @"Full");
     self.connectButton.hidden = !_dataModel.connectable;
 }
 

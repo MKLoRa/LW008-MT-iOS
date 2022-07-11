@@ -23,7 +23,7 @@
 @end
 
 @implementation MKMTFilterByMacModel
-/*
+
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
         if (![self readFilterPreciseMatch]) {
@@ -172,7 +172,7 @@
     }
     return YES;
 }
-*/
+
 #pragma mark - getter
 - (dispatch_semaphore_t)semaphore {
     if (!_semaphore) {

@@ -30,17 +30,18 @@ NS_ASSUME_NONNULL_BEGIN
  2:GPS
  3:WIFI+GPS
  4:BLE+GPS
- 5:WIFI+BLE+GPS
+ 5:WIFI+BLE
+ 6:WIFI+BLE+GPS
  */
 @property (nonatomic, assign)NSInteger strategy;
 
 @property (nonatomic, strong)NSArray <MKMTTimingModeTimePointModel *>*pointList;
 
-//- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
-//
-//- (void)configData:(NSArray <MKMTTimingModeTimePointModel *>*)pointList
-//          sucBlock:(void (^)(void))sucBlock
-//       failedBlock:(void (^)(NSError *error))failedBlock;
+- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
+
+- (void)configData:(NSArray <MKMTTimingModeTimePointModel *>*)pointList
+          sucBlock:(void (^)(void))sucBlock
+       failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

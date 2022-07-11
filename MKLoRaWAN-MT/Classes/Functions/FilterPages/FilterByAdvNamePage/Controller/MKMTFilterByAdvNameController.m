@@ -58,7 +58,7 @@ MKMTFilterEditSectionHeaderViewDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
-    [self loadSectionDatas];
+    [self readDatasFromDevice];
 }
 
 #pragma mark - super method
@@ -187,15 +187,15 @@ MKMTFilterEditSectionHeaderViewDelegate>
 - (void)readDatasFromDevice {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     @weakify(self);
-//    [self.dataModel readDataWithSucBlock:^{
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self loadSectionDatas];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [self.dataModel readDataWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self loadSectionDatas];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 - (void)saveDataToDevice {
@@ -206,15 +206,15 @@ MKMTFilterEditSectionHeaderViewDelegate>
         MKTextFieldCellModel *cellModel = self.section1List[i];
         [nameList addObject:SafeStr(cellModel.textFieldValue)];
     }
-//    [self.dataModel configDataWithNameList:nameList sucBlock:^{
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:@"Success"];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [self.dataModel configDataWithNameList:nameList sucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:@"Success"];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 #pragma mark - loadSectionDatas

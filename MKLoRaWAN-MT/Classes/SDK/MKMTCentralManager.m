@@ -467,21 +467,17 @@ static dispatch_once_t onceToken;
         return @{};
     }
     
-    NSData *manufacturerData = advDic[CBAdvertisementDataManufacturerDataKey];
-    if (manufacturerData.length != 14) {
+    NSData *manufacturerData = advDic[@"kCBAdvDataServiceData"][[CBUUID UUIDWithString:@"AA09"]];
+    if (manufacturerData.length != 12) {
         return @{};
     }
-    NSString *header = [[MKBLEBaseSDKAdopter hexStringFromData:manufacturerData] substringWithRange:NSMakeRange(0, 4)];
-    if (![[header uppercaseString] isEqualToString:@"09AA"]) {
-        return @{};
-    }
-    NSString *content = [[MKBLEBaseSDKAdopter hexStringFromData:manufacturerData] substringFromIndex:4];
+    NSString *content = [MKBLEBaseSDKAdopter hexStringFromData:manufacturerData];
     
     NSString *deviceType = [content substringWithRange:NSMakeRange(0, 2)];
     NSNumber *txPower = [MKBLEBaseSDKAdopter signedHexTurnString:[content substringWithRange:NSMakeRange(2, 2)]];
     NSString *deviceState = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(4, 2)];
     
-    NSString *tempState = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(6, 2)];
+    NSString *tempState = [content substringWithRange:NSMakeRange(6, 2)];
     NSString *binary = [MKBLEBaseSDKAdopter binaryByhex:tempState];
     
     BOOL lowPower = [[binary substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"1"];

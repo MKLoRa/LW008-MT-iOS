@@ -44,11 +44,15 @@ MKTextButtonCellDelegate>
     NSLog(@"MKMTDeviceModeController销毁");
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self readDataFromDevice];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
     [self loadSectionDatas];
-//    [self readDataFromDevice];
 }
 
 #pragma mark - UITableViewDelegate
@@ -119,27 +123,27 @@ MKTextButtonCellDelegate>
 #pragma mark - interface
 - (void)readDataFromDevice {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
-//    [MKMTInterface mt_readWorkModeWithSucBlock:^(id  _Nonnull returnData) {
-//        [[MKHudManager share] hide];
-//        [self updateDeviceMode:[returnData[@"result"][@"mode"] integerValue]];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [MKMTInterface mt_readWorkModeWithSucBlock:^(id  _Nonnull returnData) {
+        [[MKHudManager share] hide];
+        [self updateDeviceMode:[returnData[@"result"][@"mode"] integerValue]];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 - (void)saveWorkModeToDevice:(NSInteger)mode {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-//    [MKMTInterface mt_configWorkMode:mode sucBlock:^{
-//        [[MKHudManager share] hide];
-//        MKTextButtonCellModel *cellModel = self.section0List[0];
-//        cellModel.dataListIndex = mode;
-//        [self.tableView mk_reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//        [self.tableView mk_reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
-//    }];
+    [MKMTInterface mt_configWorkMode:mode sucBlock:^{
+        [[MKHudManager share] hide];
+        MKTextButtonCellModel *cellModel = self.section0List[0];
+        cellModel.dataListIndex = mode;
+        [self.tableView mk_reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.tableView mk_reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 
 #pragma mark - updateCellValues

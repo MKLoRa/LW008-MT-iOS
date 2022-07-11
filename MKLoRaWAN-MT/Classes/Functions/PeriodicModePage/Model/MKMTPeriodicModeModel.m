@@ -22,7 +22,7 @@
 @end
 
 @implementation MKMTPeriodicModeModel
-/*
+
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
         if (![self readStrategy]) {
@@ -130,7 +130,7 @@
     }
     return YES;
 }
-*/
+
 #pragma mark - getter
 - (dispatch_semaphore_t)semaphore {
     if (!_semaphore) {

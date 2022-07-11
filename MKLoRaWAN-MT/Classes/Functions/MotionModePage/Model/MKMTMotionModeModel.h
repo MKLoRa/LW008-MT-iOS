@@ -40,7 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
  2:GPS
  3:WIFI+GPS
  4:BLE+GPS
- 5:WIFI+BLE+GPS
+ 5:WIFI+BLE
+ 6:WIFI+BLE+GPS
  */
 @property (nonatomic, assign)NSInteger posStrategyOnStart;
 
@@ -54,7 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
  2:GPS
  3:WIFI+GPS
  4:BLE+GPS
- 5:WIFI+BLE+GPS
+ 5:WIFI+BLE
+ 6:WIFI+BLE+GPS
  */
 @property (nonatomic, assign)NSInteger posStrategyInTrip;
 
@@ -82,9 +84,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign)BOOL notifyEventOnEnd;
 
-//- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
-//
-//- (void)configDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
+- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
+
+- (void)configDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

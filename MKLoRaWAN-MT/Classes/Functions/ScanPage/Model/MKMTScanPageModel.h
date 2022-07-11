@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 电压，v
 @property (nonatomic, copy)NSString *voltage;
 
-/// 低点模式
+/// 低电模式
 @property (nonatomic, assign)BOOL lowPower;
 
 /// 是否需要密码连接

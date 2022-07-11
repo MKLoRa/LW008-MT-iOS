@@ -22,7 +22,7 @@
 @end
 
 @implementation MKMTBleFixDataModel
-/*
+
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
         if (![self readBlePositioningTimeout]) {
@@ -35,6 +35,10 @@
         }
         if (![self readFilterRssi]) {
             [self operationFailedBlockWithMsg:@"Read Filter Rssi Error" block:failedBlock];
+            return;
+        }
+        if (![self readPHYMode]) {
+            [self operationFailedBlockWithMsg:@"Read PHY Mode Error" block:failedBlock];
             return;
         }
         if (![self readFilterRelationship]) {
@@ -65,6 +69,10 @@
         }
         if (![self configFilterRssi]) {
             [self operationFailedBlockWithMsg:@"Config Filter Rssi Error" block:failedBlock];
+            return;
+        }
+        if (![self configPHYMode]) {
+            [self operationFailedBlockWithMsg:@"Config PHY Mode Error" block:failedBlock];
             return;
         }
         if (![self configFilterRelationship]) {
@@ -155,6 +163,31 @@
     return success;
 }
 
+- (BOOL)readPHYMode {
+    __block BOOL success = NO;
+    [MKMTInterface mt_readScanningPHYTypeWithSucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        self.phy = [returnData[@"result"][@"phyType"] integerValue];
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configPHYMode {
+    __block BOOL success = NO;
+    [MKMTInterface mt_configScanningPHYType:self.phy sucBlock:^{
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
 - (BOOL)readFilterRelationship {
     __block BOOL success = NO;
     [MKMTInterface mt_readFilterRelationshipWithSucBlock:^(id  _Nonnull returnData) {
@@ -202,7 +235,7 @@
     }
     return YES;
 }
-*/
+
 #pragma mark - getter
 - (dispatch_semaphore_t)semaphore {
     if (!_semaphore) {

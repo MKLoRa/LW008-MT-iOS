@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign)NSInteger DRH;
 
-/// 0~7
+/// 0~3
 @property (nonatomic, assign)NSInteger retransmission;
 
 /// 1~100
@@ -87,9 +87,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 1~100
 @property (nonatomic, copy)NSString *ackDelay;
 
-//- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
-//
-//- (void)configDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
+- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
+
+- (void)configDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
 
 /// 用户主动选择了region，底部高级设置需要按照需求设置为默认值
 - (void)configAdvanceSettingDefaultParams;

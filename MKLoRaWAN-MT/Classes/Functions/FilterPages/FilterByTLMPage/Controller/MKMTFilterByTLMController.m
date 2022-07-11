@@ -46,7 +46,7 @@ mk_textSwitchCellDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
-    [self loadSectionDatas];
+    [self readDataFromDevice];
 }
 
 #pragma mark - UITableViewDelegate
@@ -112,56 +112,56 @@ mk_textSwitchCellDelegate>
 - (void)readDataFromDevice {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     @weakify(self);
-//    [self.dataModel readDataWithSucBlock:^{
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self loadSectionDatas];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//        [self.tableView mk_reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
-//    }];
+    [self.dataModel readDataWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self loadSectionDatas];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.tableView mk_reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 
 - (void)configFilterStatus:(BOOL)isOn {
-//    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-//    [MKMTInterface mt_configFilterByTLMStatus:isOn sucBlock:^{
-//        [[MKHudManager share] hide];
-//        self.dataModel.isOn = isOn;
-//        MKTextSwitchCellModel *cellModel = self.section0List[0];
-//        cellModel.isOn = isOn;
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
+    [MKMTInterface mt_configFilterByTLMStatus:isOn sucBlock:^{
+        [[MKHudManager share] hide];
+        self.dataModel.isOn = isOn;
+        MKTextSwitchCellModel *cellModel = self.section0List[0];
+        cellModel.isOn = isOn;
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 - (void)configTLMVersion:(NSInteger)version {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-//    [MKMTInterface mt_configFilterByTLMVersion:version sucBlock:^{
-//        [[MKHudManager share] hide];
-//        self.dataModel.tlm = version;
-//        MKTextButtonCellModel *cellModel = self.section1List[0];
-//        cellModel.dataListIndex = version;
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [MKMTInterface mt_configFilterByTLMVersion:version sucBlock:^{
+        [[MKHudManager share] hide];
+        self.dataModel.tlm = version;
+        MKTextButtonCellModel *cellModel = self.section1List[0];
+        cellModel.dataListIndex = version;
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 - (void)configDataToDevice {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
     @weakify(self);
-//    [self.dataModel configDataWithSucBlock:^{
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:@"Setup succeed!"];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [self.dataModel configDataWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:@"Setup succeed!"];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 #pragma mark - loadSectionDatas

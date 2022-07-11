@@ -87,23 +87,22 @@ MKLoRaSettingCHCellDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
-    [self loadSectionDatas];
-//    [self readDatasFromDevice];
+    [self readDatasFromDevice];
 }
 
 #pragma mark - super method
 - (void)rightButtonMethod {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
     @weakify(self);
-//    [self.dataModel configDataWithSucBlock:^{
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:@"Success!"];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [self.dataModel configDataWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:@"Success!"];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 #pragma mark - UITableViewDelegate
@@ -533,15 +532,15 @@ MKLoRaSettingCHCellDelegate>
 - (void)readDatasFromDevice {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     @weakify(self);
-//    [self.dataModel readDataWithSucBlock:^{
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self loadSectionDatas];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [self.dataModel readDataWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self loadSectionDatas];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 #pragma mark - private method
@@ -808,7 +807,7 @@ MKLoRaSettingCHCellDelegate>
     MKTextButtonCellModel *retransmissionModel = [[MKTextButtonCellModel alloc] init];
     retransmissionModel.index = 6;
     retransmissionModel.msg = @"Max retransmission times";
-    retransmissionModel.dataList = @[@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7"];
+    retransmissionModel.dataList = @[@"0",@"1",@"2",@"3"];
     retransmissionModel.buttonLabelFont = MKFont(13.f);
     retransmissionModel.dataListIndex = self.dataModel.retransmission;
     [self.optionsList8 addObject:retransmissionModel];

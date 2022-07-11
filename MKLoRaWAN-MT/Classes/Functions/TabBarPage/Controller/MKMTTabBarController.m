@@ -11,7 +11,7 @@
 #import "MKMacroDefines.h"
 #import "MKBaseNavigationController.h"
 
-#import "MKAlertController.h"
+#import "MKAlertView.h"
 
 #import "MKMTLoRaController.h"
 #import "MKMTPositionController.h"
@@ -24,11 +24,14 @@
 
 /// 当触发
 /// 01:表示连接成功后，1分钟内没有通过密码验证（未输入密码，或者连续输入密码错误）认为超时，返回结果， 然后断开连接
-/// 02:连续三分钟设备没有数据通信断开，返回结果，断开连接
-/// 03:修改密码成功后，返回结果，断开连接
+/// 02:修改密码成功后，返回结果，断开连接
+/// 03:连续三分钟设备没有数据通信断开，返回结果，断开连接
 /// 04:重启设备，就不需要显示断开连接的弹窗了，只需要显示对应的弹窗
 /// 05:设备恢复出厂设置
 @property (nonatomic, assign)BOOL disconnectType;
+
+/// 产品要求，进入debugger模式之后，设备断开连接也要停留在当前页面，只有退出debugger模式才进行正常模式通信
+@property (nonatomic, assign)BOOL isDebugger;
 
 @end
 
@@ -73,6 +76,14 @@
                                              selector:@selector(deviceConnectStateChanged)
                                                  name:mk_mt_peripheralConnectStateChangedNotification
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(deviceEnterDebuggerMode)
+                                                 name:@"mk_mt_startDebuggerMode"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(deviceStopDebuggerMode)
+                                                 name:@"mk_mt_stopDebuggerMode"
+                                               object:nil];
 }
 
 #pragma mark - notes
@@ -104,11 +115,11 @@
     /// 05:设备恢复出厂设置
     self.disconnectType = YES;
     if ([type isEqualToString:@"02"]) {
-        [self showAlertWithMsg:@"No data communication for 3 minutes, the device is disconnected." title:@""];
+        [self showAlertWithMsg:@"Password changed successfully! Please reconnect the device." title:@"Change Password"];
         return;
     }
     if ([type isEqualToString:@"03"]) {
-        [self showAlertWithMsg:@"Password changed successfully! Please reconnect the device." title:@"Change Password"];
+        [self showAlertWithMsg:@"No data communication for 3 minutes, the device is disconnected." title:@""];
         return;
     }
     if ([type isEqualToString:@"04"]) {
@@ -138,27 +149,31 @@
     return;
 }
 
+- (void)deviceEnterDebuggerMode {
+    self.isDebugger = YES;
+}
+
+- (void)deviceStopDebuggerMode {
+    self.isDebugger = NO;
+}
+
 #pragma mark - private method
 - (void)showAlertWithMsg:(NSString *)msg title:(NSString *)title{
-    MKAlertController *alertController = [MKAlertController alertControllerWithTitle:title
-                                                                             message:msg
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    @weakify(self);
-    UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        @strongify(self);
-        [self gotoScanPage];
-    }];
-    [alertController addAction:moreAction];
-    
     //让setting页面推出的alert消失
     [[NSNotificationCenter defaultCenter] postNotificationName:@"mk_mt_needDismissAlert" object:nil];
     //让所有MKPickView消失
     [[NSNotificationCenter defaultCenter] postNotificationName:@"mk_customUIModule_dismissPickView" object:nil];
-    [self performSelector:@selector(presentAlert:) withObject:alertController afterDelay:1.2f];
-}
-
-- (void)presentAlert:(UIAlertController *)alert {
-    [self presentViewController:alert animated:YES completion:nil];
+    
+    @weakify(self);
+    MKAlertViewAction *confirmAction = [[MKAlertViewAction alloc] initWithTitle:@"OK" handler:^{
+        @strongify(self);
+        if (!self.isDebugger) {
+            [self gotoScanPage];
+        }
+    }];
+    MKAlertView *alertView = [[MKAlertView alloc] init];
+    [alertView addAction:confirmAction];
+    [alertView showAlertWithTitle:title message:msg notificationName:@"mk_mt_needDismissAlert"];
 }
 
 - (void)loadSubPages {

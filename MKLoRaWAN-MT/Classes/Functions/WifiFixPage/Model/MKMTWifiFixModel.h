@@ -19,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// 0:DAS   1:Custome
 @property (nonatomic, assign)NSInteger dataType;
 
+- (void)readWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
+
+- (void)configWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

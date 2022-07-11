@@ -40,7 +40,7 @@ MKTextButtonCellDelegate>
     [super viewDidLoad];
     [self loadSubViews];
     [self loadSectionDatas];
-//    [self readDataFromDevice];
+    [self readDataFromDevice];
 }
 
 #pragma mark - UITableViewDataSource
@@ -72,27 +72,27 @@ MKTextButtonCellDelegate>
 
 #pragma mark - interface
 - (void)readDataFromDevice {
-//    [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
-//    [MKMTInterface mt_readDownlinkForPositioningStrategyWithSucBlock:^(id  _Nonnull returnData) {
-//        [[MKHudManager share] hide];
-//        [self updateCellValues:[returnData[@"result"][@"strategy"] integerValue]];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
+    [MKMTInterface mt_readDownlinkPositioningStrategyWithSucBlock:^(id  _Nonnull returnData) {
+        [[MKHudManager share] hide];
+        [self updateCellValues:[returnData[@"result"][@"strategy"] integerValue]];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 - (void)configDownlinkForPositioningStrategy:(NSInteger)strategy {
-//    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-//    [MKMTInterface mt_configDownlinkForPositioningStrategy:strategy sucBlock:^{
-//        [[MKHudManager share] hide];
-//        MKTextButtonCellModel *cellModel = self.section0List[0];
-//        cellModel.dataListIndex = strategy;
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//        [self.tableView reloadData];
-//    }];
+    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
+    [MKMTInterface mt_configDownlinkPositioningStrategy:strategy sucBlock:^{
+        [[MKHudManager share] hide];
+        MKTextButtonCellModel *cellModel = self.section0List[0];
+        cellModel.dataListIndex = strategy;
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - loadSectionDatas
@@ -111,34 +111,9 @@ MKTextButtonCellDelegate>
 #pragma mark - private method
 - (void)updateCellValues:(NSInteger)strategy {
     MKTextButtonCellModel *cellModel = self.section0List[0];
-    cellModel.dataListIndex = [self getPositioningStrategy:strategy];
+    cellModel.dataListIndex = strategy;
     
     [self.tableView reloadData];
-}
-
-- (NSInteger)getPositioningStrategy:(NSInteger)deviceValue {
-    if (deviceValue == 1) {
-        return 0;
-    }
-    if (deviceValue == 2) {
-        return 1;
-    }
-    if (deviceValue == 3) {
-        return 5;
-    }
-    if (deviceValue == 4) {
-        return 2;
-    }
-    if (deviceValue == 5) {
-        return 3;
-    }
-    if (deviceValue == 6) {
-        return 4;
-    }
-    if (deviceValue == 7) {
-        return 6;
-    }
-    return 0;
 }
 
 #pragma mark - UI

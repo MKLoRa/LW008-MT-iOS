@@ -18,11 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong)NSArray *nameList;
 
-//- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
-//
-//- (void)configDataWithNameList:(NSArray <NSString *>*)nameList
-//                      sucBlock:(void (^)(void))sucBlock
-//                   failedBlock:(void (^)(NSError *error))failedBlock;
+- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
+
+- (void)configDataWithNameList:(NSArray <NSString *>*)nameList
+                      sucBlock:(void (^)(void))sucBlock
+                   failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

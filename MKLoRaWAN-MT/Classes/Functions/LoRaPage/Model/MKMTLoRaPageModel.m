@@ -21,7 +21,7 @@
 @end
 
 @implementation MKMTLoRaPageModel
-/*
+
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
         if (![self readModem]) {
@@ -122,7 +122,7 @@
         @"9":@"RU864"
     };
 }
-*/
+
 #pragma mark - getter
 - (dispatch_semaphore_t)semaphore {
     if (!_semaphore) {

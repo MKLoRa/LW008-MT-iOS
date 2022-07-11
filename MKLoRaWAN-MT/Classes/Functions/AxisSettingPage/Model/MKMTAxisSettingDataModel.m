@@ -22,7 +22,7 @@
 @end
 
 @implementation MKMTAxisSettingDataModel
-/*
+
 - (void)readWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
         if (![self readWakeupConditions]) {
@@ -125,7 +125,7 @@
 
 - (BOOL)readVibrationThresholds {
     __block BOOL success = NO;
-    [MKMTInterface mt_readVibrationThresholdsWithSucBlock:^(id  _Nonnull returnData) {
+    [MKMTInterface mt_readShockThresholdsWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         self.vibrationThresholds = returnData[@"result"][@"threshold"];
         dispatch_semaphore_signal(self.semaphore);
@@ -138,7 +138,7 @@
 
 - (BOOL)configVibrationThresholds {
     __block BOOL success = NO;
-    [MKMTInterface mt_configVibrationThresholds:[self.vibrationThresholds integerValue] sucBlock:^{
+    [MKMTInterface mt_configShockThresholds:[self.vibrationThresholds integerValue] sucBlock:^{
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
@@ -176,7 +176,7 @@
     }
     return YES;
 }
-*/
+
 #pragma mark - getter
 - (dispatch_semaphore_t)semaphore {
     if (!_semaphore) {

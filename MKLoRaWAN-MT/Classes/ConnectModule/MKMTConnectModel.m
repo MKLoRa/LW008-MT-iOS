@@ -109,17 +109,16 @@
 }
 
 - (BOOL)configDate {
-    return YES;
-//    __block BOOL success = NO;
-//    long long recordTime = [[NSDate date] timeIntervalSince1970];
-//    [MKMTInterface mt_configDeviceTime:recordTime sucBlock:^{
-//        success = YES;
-//        dispatch_semaphore_signal(self.semaphore);
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        dispatch_semaphore_signal(self.semaphore);
-//    }];
-//    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-//    return success;
+    __block BOOL success = NO;
+    long long recordTime = [[NSDate date] timeIntervalSince1970];
+    [MKMTInterface mt_configDeviceTime:recordTime sucBlock:^{
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
 }
 
 #pragma mark - private method

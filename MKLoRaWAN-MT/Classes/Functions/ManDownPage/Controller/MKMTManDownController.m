@@ -19,7 +19,7 @@
 #import "MKHudManager.h"
 #import "MKTextFieldCell.h"
 #import "MKTextSwitchCell.h"
-#import "MKAlertController.h"
+#import "MKAlertView.h"
 
 #import "MKMTTextButtonCell.h"
 
@@ -41,7 +41,7 @@ MKMTTextButtonCellDelegate>
 
 @property (nonatomic, strong)MKMTManDownDataModel *dataModel;
 
-@property (nonatomic, strong)MKAlertController *alertView;
+@property (nonatomic, strong)MKAlertView *alertView;
 
 @end
 
@@ -60,7 +60,7 @@ MKMTTextButtonCellDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
-    [self loadSectionDatas];
+    [self readDataFromDevice];
 }
 
 #pragma mark - super method
@@ -141,7 +141,9 @@ MKMTTextButtonCellDelegate>
 - (void)mt_textButtonCell_buttonAction:(NSInteger)index {
     if (index == 0) {
         //Idle Status
-        [self presentViewController:self.alertView animated:YES completion:nil];
+        [self.alertView showAlertWithTitle:@"Reset Idle Status"
+                                   message:@"Whether to confirm the reset"
+                          notificationName:@"mk_mt_needDismissAlert"];
         return;
     }
 }
@@ -150,42 +152,42 @@ MKMTTextButtonCellDelegate>
 - (void)readDataFromDevice {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     @weakify(self);
-//    [self.dataModel readWithSucBlock:^{
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self loadSectionDatas];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [self.dataModel readWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self loadSectionDatas];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 - (void)configDataToDevice {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
     @weakify(self);
-//    [self.dataModel configWithSucBlock:^{
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:@"Success"];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [self.dataModel configWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:@"Success"];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 - (void)resetIdleStatus{
     [[MKHudManager share] showHUDWithTitle:@"Setting..."
                                      inView:self.view
                               isPenetration:NO];
-//    [self.dataModel resetIdleStatusWithSucBlock:^{
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:@"Success"];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [self.dataModel resetIdleStatusWithSucBlock:^{
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:@"Success"];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 #pragma mark - loadSectionDatas
@@ -277,22 +279,18 @@ MKMTTextButtonCellDelegate>
     return _dataModel;
 }
 
-- (MKAlertController *)alertView {
+- (MKAlertView *)alertView {
     if (!_alertView) {
-        _alertView = [MKAlertController alertControllerWithTitle:@"Reset Idle Status"
-                                                         message:@"Whether to confirm the reset"
-                                                  preferredStyle:UIAlertControllerStyleAlert];
-        _alertView.notificationName = @"mk_mt_needDismissAlert";
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-        }];
-        [_alertView addAction:cancelAction];
         @weakify(self);
-        UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        MKAlertViewAction *cancelAction = [[MKAlertViewAction alloc] initWithTitle:@"Cancel" handler:^{
+        }];
+        MKAlertViewAction *confirmAction = [[MKAlertViewAction alloc] initWithTitle:@"OK" handler:^{
             @strongify(self);
             [self resetIdleStatus];
         }];
-        [_alertView addAction:moreAction];
+        _alertView = [[MKAlertView alloc] init];
+        [_alertView addAction:cancelAction];
+        [_alertView addAction:confirmAction];
     }
     return _alertView;
 }

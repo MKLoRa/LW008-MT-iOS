@@ -21,7 +21,7 @@
 #import "MKSearchButton.h"
 #import "MKSearchConditionsView.h"
 #import "MKCustomUIAdopter.h"
-#import "MKAlertController.h"
+#import "MKAlertView.h"
 
 #import "MKMTSDK.h"
 
@@ -69,8 +69,6 @@ MKMTTabBarControllerDelegate>
 //扫描到新的设备不能立即刷新列表，降低刷新频率
 @property (nonatomic, assign)BOOL isNeedRefresh;
 
-@property (nonatomic, strong)UITextField *passwordField;
-
 /// 保存当前密码输入框ascii字符部分
 @property (nonatomic, copy)NSString *asciiText;
 
@@ -99,7 +97,6 @@ MKMTTabBarControllerDelegate>
 #pragma mark - super method
 
 - (void)rightButtonMethod {
-    [self pushTabBarPage];
 //    UIViewController *vc = [[CTMediator sharedInstance] CTMediator_LORAWAN_mt_AboutPage];
 //    [self.navigationController pushViewController:vc animated:YES];
 }
@@ -202,13 +199,12 @@ MKMTTabBarControllerDelegate>
 - (void)showCentralStatus{
     if ([MKMTCentralManager shared].centralStatus != mk_mt_centralManagerStatusEnable) {
         NSString *msg = @"The current system of bluetooth is not available!";
-        MKAlertController *alertController = [MKAlertController alertControllerWithTitle:@"Dismiss"
-                                                                                 message:msg
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        [alertController addAction:moreAction];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
+        MKAlertViewAction *cancelAction = [[MKAlertViewAction alloc] initWithTitle:@"OK" handler:^{
+            
+        }];
+        MKAlertView *alertView = [[MKAlertView alloc] init];
+        [alertView addAction:cancelAction];
+        [alertView showAlertWithTitle:@"Dismiss" message:msg notificationName:@""];
         return;
     }
     [self refreshButtonPressed];
@@ -366,48 +362,46 @@ MKMTTabBarControllerDelegate>
         return;
     }
     
-    NSString *msg = @"Please enter connection password.";
-    MKAlertController *alertController = [MKAlertController alertControllerWithTitle:@"Enter password"
-                                                                             message:msg
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
     @weakify(self);
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+    MKAlertViewAction *cancelAction = [[MKAlertViewAction alloc] initWithTitle:@"Cancel" handler:^{
         @strongify(self);
-        self.passwordField = nil;
-        self.passwordField = textField;
-        NSString *localPassword = [[NSUserDefaults standardUserDefaults] objectForKey:localPasswordKey];
-        textField.text = localPassword;
-        self.asciiText = localPassword;
-        self.passwordField.placeholder = @"The password is 8 characters.";
-        [textField addTarget:self action:@selector(passwordInput) forControlEvents:UIControlEventEditingChanged];
+        self.rightButton.selected = NO;
+        [self rightButtonMethod];
     }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        @strongify(self);
-        self.refreshButton.selected = NO;
-        [self refreshButtonPressed];
-    }];
-    [alertController addAction:cancelAction];
-    UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    
+    MKAlertViewAction *confirmAction = [[MKAlertViewAction alloc] initWithTitle:@"OK" handler:^{
         @strongify(self);
         [self connectDeviceWithDataModel:scanDataModel];
     }];
-    [alertController addAction:moreAction];
+    NSString *localPassword = [[NSUserDefaults standardUserDefaults] objectForKey:localPasswordKey];
+    self.asciiText = localPassword;
+    MKAlertViewTextField *textField = [[MKAlertViewTextField alloc] initWithTextValue:SafeStr(localPassword)
+                                                                          placeholder:@"The password is 8 characters."
+                                                                        textFieldType:mk_normal
+                                                                            maxLength:8
+                                                                              handler:^(NSString * _Nonnull text) {
+        @strongify(self);
+        self.asciiText = text;
+    }];
     
-    [self presentViewController:alertController animated:YES completion:nil];
+    NSString *msg = @"Please enter connection password.";
+    MKAlertView *alertView = [[MKAlertView alloc] init];
+    [alertView addAction:cancelAction];
+    [alertView addAction:confirmAction];
+    [alertView addTextField:textField];
+    [alertView showAlertWithTitle:@"Enter password" message:msg notificationName:@"mk_mt_needDismissAlert"];
 }
 
 - (void)connectDeviceWithDataModel:(MKMTScanPageModel *)scanDataModel {
-    if (scanDataModel.needPassword) {
-        NSString *password = self.passwordField.text;
-        if (password.length != 8) {
-            [self.view showCentralToast:@"The password should be 8 characters."];
-            return;
-        }
+    NSString *password = self.asciiText;
+    if (scanDataModel.needPassword && password.length != 8) {
+        [self.view showCentralToast:@"The password should be 8 characters."];
+        return;
     }
     [[MKHudManager share] showHUDWithTitle:@"Connecting..." inView:self.view isPenetration:NO];
-    [[MKMTConnectModel shared] connectDevice:scanDataModel.peripheral password:(scanDataModel.needPassword ? self.passwordField.text : @"") sucBlock:^{
-        if (scanDataModel.needPassword && ValidStr(self.passwordField.text) && self.passwordField.text.length == 8) {
-            [[NSUserDefaults standardUserDefaults] setObject:self.passwordField.text forKey:localPasswordKey];
+    [[MKMTConnectModel shared] connectDevice:scanDataModel.peripheral password:(scanDataModel.needPassword ? password : @"") sucBlock:^{
+        if (scanDataModel.needPassword && ValidStr(self.asciiText) && self.asciiText.length == 8) {
+            [[NSUserDefaults standardUserDefaults] setObject:self.asciiText forKey:localPasswordKey];
         }
         [[MKHudManager share] hide];
         [self.view showCentralToast:@"Time sync completed!"];
@@ -432,32 +426,6 @@ MKMTTabBarControllerDelegate>
 - (void)connectFailed {
     self.refreshButton.selected = NO;
     [self refreshButtonPressed];
-}
-
-/**
- 监听输入的密码
- */
-- (void)passwordInput{
-    NSString *inputValue = self.passwordField.text;
-    if (!ValidStr(inputValue)) {
-        self.passwordField.text = @"";
-        self.asciiText = @"";
-        return;
-    }
-    NSInteger strLen = inputValue.length;
-    NSInteger dataLen = [inputValue dataUsingEncoding:NSUTF8StringEncoding].length;
-    NSString *currentStr = self.asciiText;
-    if (dataLen == strLen) {
-        //当前输入是ascii字符
-        currentStr = inputValue;
-    }
-    if (currentStr.length > 8) {
-        self.passwordField.text = [currentStr substringToIndex:8];
-        self.asciiText = [currentStr substringToIndex:8];
-    }else {
-        self.passwordField.text = currentStr;
-        self.asciiText = currentStr;
-    }
 }
 
 #pragma mark - UI

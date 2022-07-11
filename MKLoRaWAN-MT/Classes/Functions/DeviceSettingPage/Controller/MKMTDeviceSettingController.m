@@ -19,7 +19,7 @@
 #import "MKNormalTextCell.h"
 #import "MKTextSwitchCell.h"
 #import "MKTextButtonCell.h"
-#import "MKAlertController.h"
+#import "MKAlertView.h"
 
 #import "MKTableSectionLineHeader.h"
 
@@ -352,21 +352,19 @@ mk_textSwitchCellDelegate>
 #pragma mark - 恢复出厂设置
 
 - (void)factoryReset{
-    NSString *msg = @"After factory reset,all the data will be reseted to the factory values.";
-    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@"Factory Reset"
-                                                                       message:msg
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-    alertView.notificationName = @"mk_mt_needDismissAlert";
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-    [alertView addAction:cancelAction];
     @weakify(self);
-    UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    MKAlertViewAction *cancelAction = [[MKAlertViewAction alloc] initWithTitle:@"Cancel" handler:^{
+    }];
+    
+    MKAlertViewAction *confirmAction = [[MKAlertViewAction alloc] initWithTitle:@"OK" handler:^{
         @strongify(self);
         [self sendResetCommandToDevice];
     }];
-    [alertView addAction:moreAction];
-    
-    [self presentViewController:alertView animated:YES completion:nil];
+    NSString *msg = @"After factory reset,all the data will be reseted to the factory values.";
+    MKAlertView *alertView = [[MKAlertView alloc] init];
+    [alertView addAction:cancelAction];
+    [alertView addAction:confirmAction];
+    [alertView showAlertWithTitle:@"Factory Reset" message:msg notificationName:@"mk_mt_needDismissAlert"];
 }
 
 - (void)sendResetCommandToDevice{
@@ -384,24 +382,21 @@ mk_textSwitchCellDelegate>
 
 #pragma mark - 开关机
 - (void)powerOff{
-    NSString *msg = @"Are you sure to turn off the device? Please make sure the device has a button to turn on!";
-    MKAlertController *alertView = [MKAlertController alertControllerWithTitle:@"Warning!"
-                                                                       message:msg
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-    alertView.notificationName = @"mk_mt_needDismissAlert";
     @weakify(self);
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    MKAlertViewAction *cancelAction = [[MKAlertViewAction alloc] initWithTitle:@"Cancel" handler:^{
         @strongify(self);
         [self.tableView mk_reloadSection:7 withRowAnimation:UITableViewRowAnimationNone];
     }];
-    [alertView addAction:cancelAction];
-    UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    
+    MKAlertViewAction *confirmAction = [[MKAlertViewAction alloc] initWithTitle:@"OK" handler:^{
         @strongify(self);
         [self commandPowerOff];
     }];
-    [alertView addAction:moreAction];
-    
-    [self presentViewController:alertView animated:YES completion:nil];
+    NSString *msg = @"Are you sure to turn off the device? Please make sure the device has a button to turn on!";
+    MKAlertView *alertView = [[MKAlertView alloc] init];
+    [alertView addAction:cancelAction];
+    [alertView addAction:confirmAction];
+    [alertView showAlertWithTitle:@"Warning!" message:msg notificationName:@"mk_mt_needDismissAlert"];
 }
 
 - (void)commandPowerOff{

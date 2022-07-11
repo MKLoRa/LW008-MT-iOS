@@ -78,7 +78,7 @@ static const char *mt_customNotifySuccessKey = "mt_customNotifySuccessKey";
         objc_setAssociatedObject(self, &mt_disconnectTypeNotifySuccessKey, @(YES), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         return;
     }
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"AA05"]]) {
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"AA02"]]) {
         objc_setAssociatedObject(self, &mt_customNotifySuccessKey, @(YES), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         return;
     }

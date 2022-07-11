@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, mk_mt_positioningStrategy) {
     mk_mt_positioningStrategy_gps,
     mk_mt_positioningStrategy_wifiAndGps,
     mk_mt_positioningStrategy_bleAndGps,
+    mk_mt_positioningStrategy_wifiAndBle,
     mk_mt_positioningStrategy_wifiAndBleAndGps,
 };
 
@@ -54,6 +55,18 @@ typedef NS_ENUM(NSInteger, mk_mt_filterByOther) {
     mk_mt_filterByOther_ABC,               //Filter by A & B & C condition.
     mk_mt_filterByOther_ABOrC,             //Filter by (A & B) | C condition.
     mk_mt_filterByOther_AOrBOrC,           //Filter by A | B | C condition.
+};
+
+typedef NS_ENUM(NSInteger, mk_mt_dataFormat) {
+    mk_mt_dataFormat_DAS,
+    mk_mt_dataFormat_Custome,
+};
+
+typedef NS_ENUM(NSInteger, mk_mt_PHYMode) {
+    mk_mt_PHYMode_BLE4,                     //1M PHY (BLE 4.x)
+    mk_mt_PHYMode_BLE5,                     //1M PHY (BLE 5)
+    mk_mt_PHYMode_BLE4AndBLE5,              //1M PHY (BLE 4.x + BLE 5)
+    mk_mt_PHYMode_CodedBLE5,                //Coded PHY(BLE 5)
 };
 
 typedef NS_ENUM(NSInteger, mk_mt_loraWanRegion) {

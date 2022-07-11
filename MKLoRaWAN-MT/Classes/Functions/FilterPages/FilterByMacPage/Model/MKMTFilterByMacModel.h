@@ -18,11 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong)NSArray *macList;
 
-//- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
-//
-//- (void)configDataWithMacList:(NSArray <NSString *>*)macList
-//                     sucBlock:(void (^)(void))sucBlock
-//                  failedBlock:(void (^)(NSError *error))failedBlock;
+- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
+
+- (void)configDataWithMacList:(NSArray <NSString *>*)macList
+                     sucBlock:(void (^)(void))sucBlock
+                  failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

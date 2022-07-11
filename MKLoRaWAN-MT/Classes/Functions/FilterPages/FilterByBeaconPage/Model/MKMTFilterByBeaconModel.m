@@ -22,7 +22,7 @@
 @end
 
 @implementation MKMTFilterByBeaconModel
-/*
+
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     if (self.pageType == mk_mt_filterByBeaconPageType_beacon) {
         [self readBeaconDataWithSucBlock:sucBlock failedBlock:failedBlock];
@@ -666,7 +666,7 @@
     
     return YES;
 }
-*/
+
 #pragma mark - getter
 - (dispatch_semaphore_t)semaphore {
     if (!_semaphore) {
