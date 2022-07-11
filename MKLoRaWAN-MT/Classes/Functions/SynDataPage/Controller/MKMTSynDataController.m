@@ -152,45 +152,45 @@ mk_mt_storageDataDelegate>
         return;
     }
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-//    [MKMTInterface mt_readNumberOfDaysStoredData:[self.headerView.textField.text integerValue] sucBlock:^{
-//        self.isMaxCount = ([self.headerView.textField.text integerValue] == 65535);
-//        [[NSUserDefaults standardUserDefaults] setValue:self.headerView.textField.text forKey:@"mt_readRecordDataDayNumKey"];
-//        [[MKHudManager share] hide];
-//        [self startButtonMethod];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [MKMTInterface mt_readNumberOfDaysStoredData:[self.headerView.textField.text integerValue] sucBlock:^{
+        self.isMaxCount = ([self.headerView.textField.text integerValue] == 65535);
+        [[NSUserDefaults standardUserDefaults] setValue:self.headerView.textField.text forKey:@"mt_readRecordDataDayNumKey"];
+        [[MKHudManager share] hide];
+        [self startButtonMethod];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 - (void)synButtonPressed {
     [self syncButtonStateUpdate];
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-//    [MKMTInterface mt_pauseSendLocalData:!self.headerView.synButton.selected sucBlock:^{
-//        [[MKHudManager share] hide];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [MKMTInterface mt_pauseSendLocalData:!self.headerView.synButton.selected sucBlock:^{
+        [[MKHudManager share] hide];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 - (void)emptyButtonPressed {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-//    [MKMTInterface mt_clearAllDatasWithSucBlock:^{
-//        [[MKHudManager share] hide];
-//        [self.dataList removeAllObjects];
-//        [self.contentList removeAllObjects];
-//        if (self.parseTimer) {
-//            dispatch_cancel(self.parseTimer);
-//        }
-//        self.headerView.sumLabel.text = @"Sum:0";
-//        self.headerView.countLabel.text = @"Count:0";
-//        [self.tableView reloadData];
-//        [self emptyButtonMethod];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [MKMTInterface mt_clearAllDatasWithSucBlock:^{
+        [[MKHudManager share] hide];
+        [self.dataList removeAllObjects];
+        [self.contentList removeAllObjects];
+        if (self.parseTimer) {
+            dispatch_cancel(self.parseTimer);
+        }
+        self.headerView.sumLabel.text = @"Sum:0";
+        self.headerView.countLabel.text = @"Count:0";
+        [self.tableView reloadData];
+        [self emptyButtonMethod];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 - (void)exportButtonPressed {

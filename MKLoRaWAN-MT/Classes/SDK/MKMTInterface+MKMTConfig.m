@@ -88,6 +88,21 @@ static NSInteger const maxDataLen = 100;
                    failedBlock:failedBlock];
 }
 
++ (void)mt_configIndicatorSettings:(id <mk_mt_indicatorSettingsProtocol>)protocol
+                          sucBlock:(void (^)(void))sucBlock
+                       failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *value = [MKMTSDKDataAdopter parseIndicatorSettingsCommand:protocol];
+    if (!MKValidStr(value)) {
+        [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *commandString = [NSString stringWithFormat:@"%@%@",@"ed011601",value];
+    [self configDataWithTaskID:mk_mt_taskConfigIndicatorSettingsOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
 + (void)mt_configHeartbeatInterval:(NSInteger)interval
                           sucBlock:(void (^)(void))sucBlock
                        failedBlock:(void (^)(NSError *error))failedBlock {
@@ -103,11 +118,41 @@ static NSInteger const maxDataLen = 100;
                    failedBlock:failedBlock];
 }
 
++ (void)mt_configShutdownPayloadStatus:(BOOL)isOn
+                              sucBlock:(void (^)(void))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = (isOn ? @"ed01190101" : @"ed01190100");
+    [self configDataWithTaskID:mk_mt_taskConfigShutdownPayloadStatusOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
 + (void)mt_configOfflineFix:(BOOL)isOn
                    sucBlock:(void (^)(void))sucBlock
                 failedBlock:(void (^)(NSError *error))failedBlock {
     NSString *commandString = (isOn ? @"ed011a0101" : @"ed011a0100");
     [self configDataWithTaskID:mk_mt_taskConfigOfflineFixOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configLowPowerPayloadStatus:(BOOL)isOn
+                              sucBlock:(void (^)(void))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = (isOn ? @"ed011b0101" : @"ed011b0100");
+    [self configDataWithTaskID:mk_mt_taskConfigLowPowerPayloadStatusOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configLowPowerPrompt:(mk_mt_lowPowerPrompt)prompt
+                       sucBlock:(void (^)(void))sucBlock
+                    failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = [@"ed011c01" stringByAppendingString:[MKBLEBaseSDKAdopter fetchHexValue:prompt byteLen:1]];
+    [self configDataWithTaskID:mk_mt_taskConfigLowPowerPromptOperation
                           data:commandString
                       sucBlock:sucBlock
                    failedBlock:failedBlock];
@@ -1488,6 +1533,42 @@ static NSInteger const maxDataLen = 100;
     NSString *intervalString = [MKBLEBaseSDKAdopter fetchHexValue:interval byteLen:4];
     NSString *commandString = [@"ed01bb04" stringByAppendingString:intervalString];
     [self configDataWithTaskID:mk_mt_taskConfigActiveStateTimeoutOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
+#pragma mark ****************************************存储数据协议************************************************
+
++ (void)mt_readNumberOfDaysStoredData:(NSInteger)days
+                             sucBlock:(void (^)(void))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock {
+    if (days < 1 || days > 65535) {
+        [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *value = [MKBLEBaseSDKAdopter fetchHexValue:days byteLen:2];
+    NSString *commandString = [@"ed01c002" stringByAppendingString:value];
+    [self configDataWithTaskID:mk_mt_taskReadNumberOfDaysStoredDataOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_clearAllDatasWithSucBlock:(void (^)(void))sucBlock
+                         failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = @"ed01c100";
+    [self configDataWithTaskID:mk_mt_taskClearAllDatasOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_pauseSendLocalData:(BOOL)pause
+                     sucBlock:(void (^)(void))sucBlock
+                  failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = (pause ? @"ed01c20100" : @"ed01c20101");
+    [self configDataWithTaskID:mk_mt_taskPauseSendLocalDataOperation
                           data:commandString
                       sucBlock:sucBlock
                    failedBlock:failedBlock];

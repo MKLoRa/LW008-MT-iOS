@@ -56,6 +56,14 @@ NS_ASSUME_NONNULL_BEGIN
                  sucBlock:(void (^)(void))sucBlock
               failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Configure Indicator Settings.
+/// @param protocol protocol.
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configIndicatorSettings:(id <mk_mt_indicatorSettingsProtocol>)protocol
+                          sucBlock:(void (^)(void))sucBlock
+                       failedBlock:(void (^)(NSError *error))failedBlock;
+
 /// Heartbeat Interval.
 /// @param interval 300S~86400S
 /// @param sucBlock Success callback
@@ -64,6 +72,14 @@ NS_ASSUME_NONNULL_BEGIN
                           sucBlock:(void (^)(void))sucBlock
                        failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Configure Shutdown Payload Status.
+/// @param isOn isOn
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configShutdownPayloadStatus:(BOOL)isOn
+                              sucBlock:(void (^)(void))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock;
+
 ///  Whether to enable positioning when the device fails to connect to the Lorawan network.
 /// @param isOn isOn
 /// @param sucBlock Success callback
@@ -71,6 +87,22 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)mt_configOfflineFix:(BOOL)isOn
                    sucBlock:(void (^)(void))sucBlock
                 failedBlock:(void (^)(NSError *error))failedBlock;
+
+///  Whether to trigger a heartbeat when the device is low on battery.
+/// @param isOn isOn
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configLowPowerPayloadStatus:(BOOL)isOn
+                              sucBlock:(void (^)(void))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// When the power of the device is lower than how much, it is judged as a low power state.
+/// @param prompt prompt
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configLowPowerPrompt:(mk_mt_lowPowerPrompt)prompt
+                       sucBlock:(void (^)(void))sucBlock
+                    failedBlock:(void (^)(NSError *error))failedBlock;
 
 #pragma mark ****************************************蓝牙相关参数************************************************
 
@@ -804,6 +836,29 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)mt_configActiveStateTimeout:(long long)interval
                            sucBlock:(void (^)(void))sucBlock
                         failedBlock:(void (^)(NSError *error))failedBlock;
+
+#pragma mark ****************************************存储协议************************************************
+/// Read the data stored by the device every day.
+/// @param days 1 ~ 65535
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readNumberOfDaysStoredData:(NSInteger)days
+                             sucBlock:(void (^)(void))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Clear all data stored in the device.
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_clearAllDatasWithSucBlock:(void (^)(void))sucBlock
+                         failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Pause/resume data transmission of local data.
+/// @param pause YES:pause,NO:resume
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_pauseSendLocalData:(BOOL)pause
+                     sucBlock:(void (^)(void))sucBlock
+                  failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

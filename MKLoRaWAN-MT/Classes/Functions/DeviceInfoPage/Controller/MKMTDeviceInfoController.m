@@ -69,7 +69,7 @@ MKMTTextButtonCellDelegate>
     [super viewDidAppear:animated];
     if (!self.isDfuModel) {
         //用户进入dfu页面开启升级模式，返回该页面，不需要读取任何的数据
-//        [self readDataFromDevice];
+        [self readDataFromDevice];
     }
 }
 
@@ -194,18 +194,18 @@ MKMTTextButtonCellDelegate>
 - (void)readDataFromDevice {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     @weakify(self);
-//    [self.dataModel startLoadSystemInformation:self.onlyBattery sucBlock:^{
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        if (!self.onlyBattery) {
-//            self.onlyBattery = YES;
-//        }
-//        [self updateCellDatas];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [self.dataModel startLoadSystemInformation:self.onlyBattery sucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        if (!self.onlyBattery) {
+            self.onlyBattery = YES;
+        }
+        [self updateCellDatas];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 - (void)updateCellDatas {
@@ -224,8 +224,7 @@ MKMTTextButtonCellDelegate>
     
     if (ValidStr(self.dataModel.battery)) {
         MKNormalTextCellModel *soc = self.section3List[0];
-        NSString *mvValue = [NSString stringWithFormat:@"%.3f",[self.dataModel.battery integerValue] * 0.001];
-        soc.rightMsg = [NSString stringWithFormat:@"%@%@",mvValue,@"V"];
+        soc.rightMsg = [NSString stringWithFormat:@"%@%@",self.dataModel.battery,@"V"];
     }
     
     if (ValidStr(self.dataModel.macAddress)) {

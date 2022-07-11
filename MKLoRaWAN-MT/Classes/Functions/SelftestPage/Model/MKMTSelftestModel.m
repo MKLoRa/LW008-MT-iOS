@@ -21,7 +21,7 @@
 @end
 
 @implementation MKMTSelftestModel
-/*
+
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
         if (![self readPCBAStatus]) {
@@ -68,7 +68,7 @@
     dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
     return success;
 }
-*/
+
 #pragma mark - private method
 - (NSString *)binaryByhex:(NSString *)hex {
     NSDictionary *hexDic = @{

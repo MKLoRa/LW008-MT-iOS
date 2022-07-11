@@ -78,7 +78,7 @@ mk_textSwitchCellDelegate>
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-//    [self readDataFromDevice];
+    [self readDataFromDevice];
 }
 
 - (void)viewDidLoad {
@@ -264,72 +264,72 @@ mk_textSwitchCellDelegate>
 - (void)readDataFromDevice {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     @weakify(self);
-//    [self.dataModel readWithSucBlock:^{
-//        [[MKHudManager share] hide];
-//        [self updateCellStates];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [self.dataModel readDataWithSucBlock:^{
+        [[MKHudManager share] hide];
+        [self updateCellStates];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 - (void)configCurrentTimeZone:(NSInteger)index {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-//    [MKMTInterface mt_configTimeZone:(index - 12) sucBlock:^{
-//        [[MKHudManager share] hide];
-//        MKTextButtonCellModel *cellModel = self.section2List[0];
-//        cellModel.dataListIndex = index;
-//        self.dataModel.currentTimeZone = index;
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//        [self.tableView mk_reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
-//    }];
+    [MKMTInterface mt_configTimeZone:(index - 24) sucBlock:^{
+        [[MKHudManager share] hide];
+        MKTextButtonCellModel *cellModel = self.section2List[0];
+        cellModel.dataListIndex = index;
+        self.dataModel.timeZone = index;
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.tableView mk_reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 
 - (void)configShutdownPayload:(BOOL)isOn {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-//    [MKMTInterface mt_configShutdownPayloadStatus:isOn sucBlock:^{
-//        [[MKHudManager share] hide];
-//        MKTextSwitchCellModel *cellModel = self.section3List[0];
-//        cellModel.isOn = isOn;
-//        self.dataModel.shutdownPayload = isOn;
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//        [self.tableView mk_reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
-//    }];
+    [MKMTInterface mt_configShutdownPayloadStatus:isOn sucBlock:^{
+        [[MKHudManager share] hide];
+        MKTextSwitchCellModel *cellModel = self.section3List[0];
+        cellModel.isOn = isOn;
+        self.dataModel.shutdownPayload = isOn;
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.tableView mk_reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 
 - (void)configLowPowerPrompt:(NSInteger)prompt {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-//    [MKMTInterface mt_configLowPowerPayload:self.dataModel.lowPowerPayload prompt:prompt sucBlock:^{
-//        [[MKHudManager share] hide];
-//        MKTextButtonCellModel *cellModel = self.section4List[0];
-//        cellModel.dataListIndex = prompt;
-//        cellModel.noteMsg = [NSString stringWithFormat:@"*When the battery is less than or equal to %@, the green LED will flashe once every 10 seconds.",cellModel.dataList[prompt]];
-//        self.dataModel.prompt = prompt;
-//        [self.tableView mk_reloadRow:0 inSection:4 withRowAnimation:UITableViewRowAnimationNone];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//        [self.tableView mk_reloadRow:0 inSection:4 withRowAnimation:UITableViewRowAnimationNone];
-//    }];
+    [MKMTInterface mt_configLowPowerPrompt:prompt sucBlock:^{
+        [[MKHudManager share] hide];
+        MKTextButtonCellModel *cellModel = self.section4List[0];
+        cellModel.dataListIndex = prompt;
+        cellModel.noteMsg = [NSString stringWithFormat:@"*When the battery is less than or equal to %@, the green LED will flashe once every 10 seconds.",cellModel.dataList[prompt]];
+        self.dataModel.prompt = prompt;
+        [self.tableView mk_reloadRow:0 inSection:4 withRowAnimation:UITableViewRowAnimationNone];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.tableView mk_reloadRow:0 inSection:4 withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 
 - (void)configLowPowerPayload:(BOOL)isOn {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-//    [MKMTInterface mt_configLowPowerPayload:isOn prompt:self.dataModel.prompt sucBlock:^{
-//        [[MKHudManager share] hide];
-//        MKTextSwitchCellModel *cellModel = self.section3List[1];
-//        cellModel.isOn = isOn;
-//        self.dataModel.lowPowerPayload = isOn;
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//        [self.tableView mk_reloadRow:1 inSection:3 withRowAnimation:UITableViewRowAnimationNone];
-//    }];
+    [MKMTInterface mt_configLowPowerPayloadStatus:isOn sucBlock:^{
+        [[MKHudManager share] hide];
+        MKTextSwitchCellModel *cellModel = self.section3List[1];
+        cellModel.isOn = isOn;
+        self.dataModel.lowPowerPayload = isOn;
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.tableView mk_reloadRow:1 inSection:3 withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 
 - (void)updateCellStates {
@@ -371,13 +371,13 @@ mk_textSwitchCellDelegate>
     [[MKHudManager share] showHUDWithTitle:@"Setting..."
                                      inView:self.view
                               isPenetration:NO];
-//    [MKMTInterface mt_factoryResetWithSucBlock:^{
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:@"Factory reset successfully!Please reconnect the device."];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [MKMTInterface mt_factoryResetWithSucBlock:^{
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:@"Factory reset successfully!Please reconnect the device."];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 #pragma mark - 开关机
@@ -403,13 +403,13 @@ mk_textSwitchCellDelegate>
     [[MKHudManager share] showHUDWithTitle:@"Setting..."
                                      inView:self.view
                               isPenetration:NO];
-//    [MKMTInterface mt_configWorkMode:mk_mt_deviceMode_offMode sucBlock:^{
-//        [[MKHudManager share] hide];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//        [self.tableView mk_reloadSection:7 withRowAnimation:UITableViewRowAnimationNone];
-//    }];
+    [MKMTInterface mt_powerOffWithSucBlock:^{
+        [[MKHudManager share] hide];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.tableView mk_reloadSection:7 withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 
 #pragma mark - loadSections

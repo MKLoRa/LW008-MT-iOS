@@ -22,6 +22,11 @@ typedef NS_ENUM(NSInteger, mk_mt_deviceMode) {
     mk_mt_deviceMode_motionMode,          //Motion Mode
 };
 
+typedef NS_ENUM(NSInteger, mk_mt_lowPowerPrompt) {
+    mk_mt_lowPowerPrompt_fivePercent,
+    mk_mt_lowPowerPrompt_tenPercent
+};
+
 typedef NS_ENUM(NSInteger, mk_mt_positioningStrategy) {
     mk_mt_positioningStrategy_wifi,
     mk_mt_positioningStrategy_ble,

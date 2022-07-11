@@ -21,7 +21,7 @@
 @end
 
 @implementation MKMTDeviceInfoModel
-/*
+
 - (void)startLoadSystemInformation:(BOOL)onlyBattery
                           sucBlock:(void (^)(void))sucBlock
                        failedBlock:(void (^)(NSError *error))failedBlock {
@@ -70,9 +70,10 @@
 
 - (BOOL)readBatteryPower {
     __block BOOL success = NO;
-    [MKMTInterface mt_readBatteryLevelWithSucBlock:^(id  _Nonnull returnData) {
+    [MKMTInterface mt_readBatteryVoltageWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
-        self.battery = returnData[@"result"][@"batteryLevel"];
+        NSInteger battery = [returnData[@"result"][@"voltage"] integerValue];
+        self.battery = [NSString stringWithFormat:@"%.3f",(battery * 0.001)];
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);
@@ -158,7 +159,7 @@
     dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
     return success;
 }
-*/
+
 - (void)operationFailedBlockWithMsg:(NSString *)msg block:(void (^)(NSError *error))block {
     moko_dispatch_main_safe(^{
         NSError *error = [[NSError alloc] initWithDomain:@"deviceInformation"

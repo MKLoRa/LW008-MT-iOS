@@ -43,7 +43,7 @@ UITableViewDataSource>
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
-    [self loadSectionDatas];
+    [self readDataFromDevice];
 }
 
 #pragma mark - UITableViewDelegate
@@ -81,15 +81,15 @@ UITableViewDataSource>
 - (void)readDataFromDevice {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     @weakify(self);
-//    [self.dataModel readDataWithSucBlock:^{
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self loadSectionDatas];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [self.dataModel readDataWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self loadSectionDatas];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 #pragma mark - loadSections

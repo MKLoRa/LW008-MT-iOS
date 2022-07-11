@@ -22,12 +22,70 @@
 
 @implementation MKMTInterface
 
+#pragma mark ****************************************Device Service Information************************************************
+
++ (void)mt_readDeviceModelWithSucBlock:(void (^)(id returnData))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addReadTaskWithTaskID:mk_mt_taskReadDeviceModelOperation
+                           characteristic:peripheral.mt_deviceModel
+                             successBlock:sucBlock
+                             failureBlock:failedBlock];
+}
+
++ (void)mt_readFirmwareWithSucBlock:(void (^)(id returnData))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addReadTaskWithTaskID:mk_mt_taskReadFirmwareOperation
+                           characteristic:peripheral.mt_firmware
+                             successBlock:sucBlock
+                             failureBlock:failedBlock];
+}
+
++ (void)mt_readHardwareWithSucBlock:(void (^)(id returnData))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addReadTaskWithTaskID:mk_mt_taskReadHardwareOperation
+                           characteristic:peripheral.mt_hardware
+                             successBlock:sucBlock
+                             failureBlock:failedBlock];
+}
+
++ (void)mt_readSoftwareWithSucBlock:(void (^)(id returnData))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addReadTaskWithTaskID:mk_mt_taskReadSoftwareOperation
+                           characteristic:peripheral.mt_software
+                             successBlock:sucBlock
+                             failureBlock:failedBlock];
+}
+
++ (void)mt_readManufacturerWithSucBlock:(void (^)(id returnData))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock {
+    [centralManager addReadTaskWithTaskID:mk_mt_taskReadManufacturerOperation
+                           characteristic:peripheral.mt_manufacturer
+                             successBlock:sucBlock
+                             failureBlock:failedBlock];
+}
+
 #pragma mark ****************************************System************************************************
+
++ (void)mt_readTimeZoneWithSucBlock:(void (^)(id returnData))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadTimeZoneOperation
+                     cmdFlag:@"14"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
 
 + (void)mt_readWorkModeWithSucBlock:(void (^)(id returnData))sucBlock
                         failedBlock:(void (^)(NSError *error))failedBlock {
     [self readDataWithTaskID:mk_mt_taskReadWorkModeOperation
                      cmdFlag:@"15"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readIndicatorSettingsWithSucBlock:(void (^)(id returnData))sucBlock
+                                 failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadIndicatorSettingsOperation
+                     cmdFlag:@"16"
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
 }
@@ -40,10 +98,66 @@
                  failedBlock:failedBlock];
 }
 
++ (void)mt_readShutdownPayloadStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadShutdownPayloadStatusOperation
+                     cmdFlag:@"19"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
 + (void)mt_readOfflineFixStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                 failedBlock:(void (^)(NSError *error))failedBlock {
     [self readDataWithTaskID:mk_mt_taskReadOfflineFixStatusOperation
                      cmdFlag:@"1a"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readLowPowerPayloadStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadLowPowerPayloadStatusOperation
+                     cmdFlag:@"1b"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readLowPowerPromptWithSucBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadLowPowerPromptOperation
+                     cmdFlag:@"1c"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readBatteryVoltageWithSucBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadBatteryVoltageOperation
+                     cmdFlag:@"20"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readMacAddressWithSucBlock:(void (^)(id returnData))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadMacAddressOperation
+                     cmdFlag:@"21"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readPCBAStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadPCBAStatusOperation
+                     cmdFlag:@"22"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readSelftestStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadSelftestStatusOperation
+                     cmdFlag:@"23"
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
 }

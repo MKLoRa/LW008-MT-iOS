@@ -419,4 +419,35 @@
     return tempList;
 }
 
++ (NSDictionary *)fetchIndicatorSettings:(NSString *)content {
+    NSString *binary = [MKBLEBaseSDKAdopter binaryByhex:[content substringWithRange:NSMakeRange(0, 2)]];
+    BOOL LowPower = [[binary substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"1"];
+    BOOL networkCheck = [[binary substringWithRange:NSMakeRange(6, 1)] isEqualToString:@"1"];
+    BOOL inFix = [[binary substringWithRange:NSMakeRange(5, 1)] isEqualToString:@"1"];
+    BOOL fixSuccessful = [[binary substringWithRange:NSMakeRange(4, 1)] isEqualToString:@"1"];
+    BOOL failToFix = [[binary substringWithRange:NSMakeRange(3, 1)] isEqualToString:@"1"];
+    return @{
+        @"lowPower":@(LowPower),
+        @"networkCheck":@(networkCheck),
+        @"inFix":@(inFix),
+        @"fixSuccessful":@(fixSuccessful),
+        @"failToFix":@(failToFix),
+    };
+}
+
++ (NSString *)parseIndicatorSettingsCommand:(id <mk_mt_indicatorSettingsProtocol>)protocol {
+    if (![protocol conformsToProtocol:@protocol(mk_mt_indicatorSettingsProtocol)]) {
+        return @"";
+    }
+    NSString *LowPower = (protocol.LowPower ? @"1" : @"0");
+    NSString *NetworkCheck = (protocol.NetworkCheck ? @"1" : @"0");
+    NSString *InFix = (protocol.InFix ? @"1" : @"0");
+    NSString *FixSuccessful = (protocol.FixSuccessful ? @"1" : @"0");
+    NSString *FailToFix = (protocol.FailToFix ? @"1" : @"0");
+    
+    NSString *string = [NSString stringWithFormat:@"%@%@%@%@%@%@",@"000",FailToFix,FixSuccessful,InFix,NetworkCheck,LowPower];
+    
+    return [MKBLEBaseSDKAdopter getHexByBinary:string];
+}
+
 @end

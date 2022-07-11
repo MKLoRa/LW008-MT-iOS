@@ -22,7 +22,7 @@
 @end
 
 @implementation MKMTIndicatorSettingsModel
-/*
+
 - (void)readWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
         if (![self readIndicatorSettings]) {
@@ -55,17 +55,11 @@
     __block BOOL success = NO;
     [MKMTInterface mt_readIndicatorSettingsWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
-        self.Tamper = [returnData[@"result"][@"indicatorSettings"][@"Tamper"] boolValue];
-        self.LowPower = [returnData[@"result"][@"indicatorSettings"][@"LowPower"] boolValue];
-        self.InBluetoothFix = [returnData[@"result"][@"indicatorSettings"][@"InBluetoothFix"] boolValue];
-        self.BTFixSuccessful = [returnData[@"result"][@"indicatorSettings"][@"BTFixSuccessful"] boolValue];
-        self.FailToBTFix = [returnData[@"result"][@"indicatorSettings"][@"FailToBTFix"] boolValue];
-        self.InGPSFix = [returnData[@"result"][@"indicatorSettings"][@"InGPSFix"] boolValue];
-        self.GPSFixsuccessful = [returnData[@"result"][@"indicatorSettings"][@"GPSFixsuccessful"] boolValue];
-        self.FailToGPSFix = [returnData[@"result"][@"indicatorSettings"][@"FailToGPSFix"] boolValue];
-        self.InWIFIFix = [returnData[@"result"][@"indicatorSettings"][@"InWIFIFix"] boolValue];
-        self.WIFIFixSuccessful = [returnData[@"result"][@"indicatorSettings"][@"WIFIFixSuccessful"] boolValue];
-        self.FailToWIFIFix = [returnData[@"result"][@"indicatorSettings"][@"FailToWIFIFix"] boolValue];
+        self.LowPower = [returnData[@"result"][@"indicatorSettings"][@"lowPower"] boolValue];
+        self.NetworkCheck = [returnData[@"result"][@"indicatorSettings"][@"networkCheck"] boolValue];
+        self.InFix = [returnData[@"result"][@"indicatorSettings"][@"inFix"] boolValue];
+        self.FixSuccessful = [returnData[@"result"][@"indicatorSettings"][@"fixSuccessful"] boolValue];
+        self.FailToFix = [returnData[@"result"][@"indicatorSettings"][@"failToFix"] boolValue];
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);
@@ -85,7 +79,7 @@
     dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
     return success;
 }
-*/
+
 #pragma mark - private method
 - (void)operationFailedBlockWithMsg:(NSString *)msg block:(void (^)(NSError *error))block {
     moko_dispatch_main_safe(^{

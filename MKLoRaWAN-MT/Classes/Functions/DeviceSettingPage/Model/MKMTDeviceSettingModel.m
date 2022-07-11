@@ -21,7 +21,7 @@
 @end
 
 @implementation MKMTDeviceSettingModel
-/*
+
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
         if (![self readTimeZone]) {
@@ -36,8 +36,8 @@
             [self operationFailedBlockWithMsg:@"Read Low Power Payload Error" block:failedBlock];
             return;
         }
-        if (![self readVibrationIntensity]) {
-            [self operationFailedBlockWithMsg:@"Read Vibration Intensity Error" block:failedBlock];
+        if (![self readShutdownPayload]) {
+            [self operationFailedBlockWithMsg:@"Read Shutdown Payload Error" block:failedBlock];
             return;
         }
         moko_dispatch_main_safe(^{
@@ -66,22 +66,7 @@
     __block BOOL success = NO;
     [MKMTInterface mt_readLowPowerPromptWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
-        NSInteger value = [returnData[@"result"][@"value"] integerValue];
-        if (value > 0 && value <= 10) {
-            self.lowPowerPrompt = 0;
-        }else if (value > 10 && value <= 20) {
-            self.lowPowerPrompt = 1;
-        }else if (value > 20 && value <= 30) {
-            self.lowPowerPrompt = 2;
-        }else if (value > 30 && value <= 40) {
-            self.lowPowerPrompt = 3;
-        }else if (value > 40 && value <= 50) {
-            self.lowPowerPrompt = 4;
-        }else if (value > 50 && value <= 60) {
-            self.lowPowerPrompt = 5;
-        }else {
-            self.lowPowerPrompt = 0;
-        }
+        self.prompt = [returnData[@"result"][@"prompt"] integerValue];
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);
@@ -92,9 +77,9 @@
 
 - (BOOL)readLowPowerPayload {
     __block BOOL success = NO;
-    [MKMTInterface mt_readLowPowerPayloadWithSucBlock:^(id  _Nonnull returnData) {
+    [MKMTInterface mt_readLowPowerPayloadStatusWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
-        self.payload = [returnData[@"result"][@"isOn"] boolValue];
+        self.lowPowerPayload = [returnData[@"result"][@"isOn"] boolValue];
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);
@@ -103,22 +88,11 @@
     return success;
 }
 
-- (BOOL)readVibrationIntensity {
+- (BOOL)readShutdownPayload {
     __block BOOL success = NO;
-    [MKMTInterface mt_readMotorVibrationIntensityWithSucBlock:^(id  _Nonnull returnData) {
+    [MKMTInterface mt_readShutdownPayloadStatusWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
-        NSInteger intensity = [returnData[@"result"][@"intensity"] integerValue];
-        if (intensity > 0 && intensity < 10) {
-            self.vibrationIntensity = 0;
-        }else if (intensity >= 10 && intensity < 50) {
-            self.vibrationIntensity = 1;
-        }else if (intensity >= 50 && intensity < 80) {
-            self.vibrationIntensity = 2;
-        }else if (intensity >= 80 && intensity < 100) {
-            self.vibrationIntensity = 3;
-        }else {
-            self.vibrationIntensity = 0;
-        }
+        self.shutdownPayload = [returnData[@"result"][@"isOn"] boolValue];
         
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
@@ -137,7 +111,7 @@
         block(error);
     })
 }
-*/
+
 #pragma mark - getter
 - (dispatch_semaphore_t)semaphore {
     if (!_semaphore) {

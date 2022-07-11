@@ -11,9 +11,18 @@ typedef NS_ENUM(NSInteger, mk_mt_taskOperationID) {
     mk_mt_taskReadDeviceTypeOperation,         //读取产品类型
     
 #pragma mark - 系统参数读取
+    mk_mt_taskReadTimeZoneOperation,            //读取时区
     mk_mt_taskReadWorkModeOperation,            //读取工作模式
+    mk_mt_taskReadIndicatorSettingsOperation,   //读取指示灯开关状态
     mk_mt_taskReadHeartbeatIntervalOperation,   //读取设备心跳间隔
+    mk_mt_taskReadShutdownPayloadStatusOperation,   //读取关机信息上报状态
     mk_mt_taskReadOfflineFixStatusOperation,    //读取离线定位功能开关状态
+    mk_mt_taskReadLowPowerPayloadStatusOperation,   //读取低电触发心跳开关状态
+    mk_mt_taskReadLowPowerPromptOperation,          //读取低电百分比
+    mk_mt_taskReadBatteryVoltageOperation,          //读取电池电量
+    mk_mt_taskReadMacAddressOperation,              //读取mac地址
+    mk_mt_taskReadPCBAStatusOperation,              //读取产测状态
+    mk_mt_taskReadSelftestStatusOperation,          //读取自检故障原因
     
 #pragma mark - 蓝牙参数读取
     mk_mt_taskReadConnectationNeedPasswordOperation,    //读取连接是否需要密码
@@ -86,8 +95,12 @@ typedef NS_ENUM(NSInteger, mk_mt_taskOperationID) {
     mk_mt_taskConfigDeviceTimeOperation,                //配置时间戳
     mk_mt_taskConfigTimeZoneOperation,                  //配置时区
     mk_mt_taskConfigWorkModeOperation,                  //配置工作模式
+    mk_mt_taskConfigIndicatorSettingsOperation,         //配置指示灯开关状态
     mk_mt_taskConfigHeartbeatIntervalOperation,         //配置设备心跳间隔
+    mk_mt_taskConfigShutdownPayloadStatusOperation,     //配置关机信息上报状态
     mk_mt_taskConfigOfflineFixOperation,                //配置离线定位功能开关状态
+    mk_mt_taskConfigLowPowerPayloadStatusOperation,     //配置低电触发心跳开关状态
+    mk_mt_taskConfigLowPowerPromptOperation,            //配置低电百分比
     
 #pragma mark - 蓝牙参数配置
     mk_mt_taskConfigNeedPasswordOperation,              //配置是否需要连接密码
@@ -223,4 +236,9 @@ typedef NS_ENUM(NSInteger, mk_mt_taskOperationID) {
     mk_mt_taskConfigIdleStutasResetOperation,                   //闲置状态清除
     mk_mt_taskConfigActiveStateCountStatusOperation,            //配置活动记录使能
     mk_mt_taskConfigActiveStateTimeoutOperation,                //配置活动判定间隔
+    
+#pragma mark - 存储数据协议
+    mk_mt_taskReadNumberOfDaysStoredDataOperation,      //读取多少天本地存储的数据
+    mk_mt_taskClearAllDatasOperation,                   //清除存储的所有数据
+    mk_mt_taskPauseSendLocalDataOperation,              //暂停/恢复数据传输
 };

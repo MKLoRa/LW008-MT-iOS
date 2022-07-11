@@ -151,6 +151,12 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
     
     if ([cmd isEqualToString:@"01"]) {
         
+    }else if ([cmd isEqualToString:@"14"]) {
+        //读取时区
+        resultDic = @{
+            @"timeZone":[MKBLEBaseSDKAdopter signedHexTurnString:content],
+        };
+        operationID = mk_mt_taskReadTimeZoneOperation;
     }else if ([cmd isEqualToString:@"15"]) {
         //读取工作模式
         NSInteger mode = [MKBLEBaseSDKAdopter getDecimalWithHex:content range:NSMakeRange(0, content.length)];
@@ -158,12 +164,26 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
             @"mode":[NSString stringWithFormat:@"%ld",(mode - 1)],
         };
         operationID = mk_mt_taskReadWorkModeOperation;
+    }else if ([cmd isEqualToString:@"16"]) {
+        //读取指示灯功能
+        NSDictionary *indicatorSettings = [MKMTSDKDataAdopter fetchIndicatorSettings:content];
+        resultDic = @{
+            @"indicatorSettings":indicatorSettings,
+        };
+        operationID = mk_mt_taskReadIndicatorSettingsOperation;
     }else if ([cmd isEqualToString:@"17"]) {
         //读取设备心跳间隔
         resultDic = @{
             @"interval":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
         };
         operationID = mk_mt_taskReadHeartbeatIntervalOperation;
+    }else if ([cmd isEqualToString:@"19"]) {
+        //读取关机信息上报
+        BOOL isOn = [content isEqualToString:@"01"];
+        resultDic = @{
+            @"isOn":@(isOn),
+        };
+        operationID = mk_mt_taskReadShutdownPayloadStatusOperation;
     }else if ([cmd isEqualToString:@"1a"]) {
         //读取离线定位功能开关状态
         BOOL isOn = [content isEqualToString:@"01"];
@@ -171,6 +191,44 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
             @"isOn":@(isOn),
         };
         operationID = mk_mt_taskReadOfflineFixStatusOperation;
+    }else if ([cmd isEqualToString:@"1b"]) {
+        //读取低电触发心跳开关状态
+        BOOL isOn = [content isEqualToString:@"01"];
+        resultDic = @{
+            @"isOn":@(isOn),
+        };
+        operationID = mk_mt_taskReadLowPowerPayloadStatusOperation;
+    }else if ([cmd isEqualToString:@"1c"]) {
+        //读取低电百分比
+        resultDic = @{
+            @"prompt":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_mt_taskReadLowPowerPromptOperation;
+    }else if ([cmd isEqualToString:@"20"]) {
+        //读取电池电压
+        resultDic = @{
+            @"voltage":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_mt_taskReadBatteryVoltageOperation;
+    }else if ([cmd isEqualToString:@"21"]) {
+        //读取MAC地址
+        NSString *macAddress = [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",[content substringWithRange:NSMakeRange(0, 2)],[content substringWithRange:NSMakeRange(2, 2)],[content substringWithRange:NSMakeRange(4, 2)],[content substringWithRange:NSMakeRange(6, 2)],[content substringWithRange:NSMakeRange(8, 2)],[content substringWithRange:NSMakeRange(10, 2)]];
+        resultDic = @{@"macAddress":[macAddress uppercaseString]};
+        operationID = mk_mt_taskReadMacAddressOperation;
+    }else if ([cmd isEqualToString:@"22"]) {
+        //读取产测状态
+        NSString *status = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)];
+        resultDic = @{
+            @"status":status,
+        };
+        operationID = mk_mt_taskReadPCBAStatusOperation;
+    }else if ([cmd isEqualToString:@"23"]) {
+        //读取自检故障原因
+//        NSString *status = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)];
+        resultDic = @{
+            @"status":content,
+        };
+        operationID = mk_mt_taskReadSelftestStatusOperation;
     }else if ([cmd isEqualToString:@"30"]) {
         //读取密码开关
         BOOL need = ([content isEqualToString:@"01"]);
@@ -831,12 +889,24 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
     }else if ([cmd isEqualToString:@"15"]) {
         //配置工作模式
         operationID = mk_mt_taskConfigWorkModeOperation;
+    }else if ([cmd isEqualToString:@"16"]) {
+        //配置指示灯开关状态
+        operationID = mk_mt_taskConfigIndicatorSettingsOperation;
     }else if ([cmd isEqualToString:@"17"]) {
         //配置设备心跳间隔
         operationID = mk_mt_taskConfigHeartbeatIntervalOperation;
+    }else if ([cmd isEqualToString:@"19"]) {
+        //配置关机信息上报状态
+        operationID = mk_mt_taskConfigShutdownPayloadStatusOperation;
     }else if ([cmd isEqualToString:@"1a"]) {
         //配置离线定位功能开关
         operationID = mk_mt_taskConfigOfflineFixOperation;
+    }else if ([cmd isEqualToString:@"1b"]) {
+        //配置低电触发心跳开关状态
+        operationID = mk_mt_taskConfigLowPowerPayloadStatusOperation;
+    }else if ([cmd isEqualToString:@"1c"]) {
+        //配置低电百分比
+        operationID = mk_mt_taskConfigLowPowerPromptOperation;
     }else if ([cmd isEqualToString:@"30"]) {
         //配置是否需要连接密码
         operationID = mk_mt_taskConfigNeedPasswordOperation;
@@ -1089,6 +1159,15 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
     }else if ([cmd isEqualToString:@"bb"]) {
         //配置活动判定间隔
         operationID = mk_mt_taskConfigActiveStateTimeoutOperation;
+    }else if ([cmd isEqualToString:@"c0"]) {
+        //读取多少天本地存储的数据
+        operationID = mk_mt_taskReadNumberOfDaysStoredDataOperation;
+    }else if ([cmd isEqualToString:@"c1"]) {
+        //清除存储的所有数据
+        operationID = mk_mt_taskClearAllDatasOperation;
+    }else if ([cmd isEqualToString:@"c2"]) {
+        //暂停/恢复数据传输
+        operationID = mk_mt_taskPauseSendLocalDataOperation;
     }
     
     return [self dataParserGetDataSuccess:@{@"success":@(success)} operationID:operationID];

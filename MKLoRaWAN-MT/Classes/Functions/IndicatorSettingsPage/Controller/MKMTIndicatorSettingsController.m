@@ -45,7 +45,7 @@ mk_textSwitchCellDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
-    [self loadSectionDatas];
+    [self readDataFromDevice];
 }
 
 #pragma mark - super method
@@ -70,7 +70,7 @@ mk_textSwitchCellDelegate>
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return self.headerList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -142,29 +142,29 @@ mk_textSwitchCellDelegate>
 - (void)readDataFromDevice {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     @weakify(self);
-//    [self.dataModel readWithSucBlock:^{
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self loadSectionDatas];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [self.dataModel readWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self loadSectionDatas];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 - (void)configDataToDevice {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
     @weakify(self);
-//    [self.dataModel configWithSucBlock:^{
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:@"Success"];
-//    } failedBlock:^(NSError * _Nonnull error) {
-//        @strongify(self);
-//        [[MKHudManager share] hide];
-//        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
-//    }];
+    [self.dataModel configWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:@"Success"];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 #pragma mark - loadSectionDatas

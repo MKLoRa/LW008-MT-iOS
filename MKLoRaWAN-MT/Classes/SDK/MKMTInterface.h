@@ -14,7 +14,51 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MKMTInterface : NSObject
 
+#pragma mark ****************************************Device Service Information************************************************
+
+/// Read product model
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readDeviceModelWithSucBlock:(void (^)(id returnData))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read device firmware information
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readFirmwareWithSucBlock:(void (^)(id returnData))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read device hardware information
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readHardwareWithSucBlock:(void (^)(id returnData))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read device software information
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readSoftwareWithSucBlock:(void (^)(id returnData))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read device manufacturer information
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readManufacturerWithSucBlock:(void (^)(id returnData))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock;
+
 #pragma mark ****************************************System************************************************
+
+/// Read the time zone of the device.
+/*
+ @{
+ @"timeZone":@(-23)       //UTC-11:30
+ }
+ //-24~28((The time zone is in units of 30 minutes, UTC-12:00~UTC+14:00))
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readTimeZoneWithSucBlock:(void (^)(id returnData))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock;
 
 /// Read the working mode of the device.
 /*
@@ -32,6 +76,21 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)mt_readWorkModeWithSucBlock:(void (^)(id returnData))sucBlock
                         failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Read Indicator Settings.
+/*
+ @{
+    @"lowPower":@(YES),
+    @"networkCheck":@(NO),
+    @"inFix":@(YES),
+    @"fixSuccessful":@(NO),
+    @"failToFix":@(YES),
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readIndicatorSettingsWithSucBlock:(void (^)(id returnData))sucBlock
+                                 failedBlock:(void (^)(NSError *error))failedBlock;
+
 /// Heartbeat Interval.
 /*
  @{
@@ -43,6 +102,17 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)mt_readHeartbeatIntervalWithSucBlock:(void (^)(id returnData))sucBlock
                                  failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Read Shutdown Payload Status.
+/*
+ @{
+    @"isOn":@(YES)
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readShutdownPayloadStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock;
+
 /// Whether to enable positioning when the device fails to connect to the Lorawan network.
 /*
     @{
@@ -53,6 +123,62 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param failedBlock Failure callback
 + (void)mt_readOfflineFixStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                 failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Whether to trigger a heartbeat when the device is low on battery.
+/*
+    @{
+    @"isOn":@(YES),
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readLowPowerPayloadStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// When the power of the device is lower than how much, it is judged as a low power state.
+/*
+    @{
+    @"prompt":@"0",         //@"0":5%   @"1":10%
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readLowPowerPromptWithSucBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read battery voltage.
+/*
+ @{
+ @"voltage":@"3000",        //Unit:mV
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readBatteryVoltageWithSucBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read the mac address of the device.
+/*
+ @{
+    @"macAddress":@"AA:BB:CC:DD:EE:FF"
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readMacAddressWithSucBlock:(void (^)(id returnData))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read the PCBA Status of the device.
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readPCBAStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read the Selftest Status of the device.
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readSelftestStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock;
 
 #pragma mark ****************************************蓝牙相关参数************************************************
 

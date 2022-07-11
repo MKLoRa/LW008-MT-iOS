@@ -58,6 +58,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)fetchTimingModeReportingTimePoint:(NSArray <mk_mt_timingModeReportingTimePointProtocol>*)dataList;
 
++ (NSDictionary *)fetchIndicatorSettings:(NSString *)content;
+
++ (NSString *)parseIndicatorSettingsCommand:(id <mk_mt_indicatorSettingsProtocol>)protocol;
+
 @end
 
 NS_ASSUME_NONNULL_END
