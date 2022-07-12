@@ -660,6 +660,25 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
             @"conditionList":conditionList,
         };
         operationID = mk_mt_taskReadFilterByOtherConditionsOperation;
+    }else if ([cmd isEqualToString:@"77"]) {
+        //读取GPS定位超时时间(L76C)
+        resultDic = @{
+            @"timeout":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_mt_taskReadLCPositioningTimeoutOperation;
+    }else if ([cmd isEqualToString:@"78"]) {
+        //读取GPS定位超时时间(L76C)
+        resultDic = @{
+            @"pdop":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_mt_taskReadLCPDOPOperation;
+    }else if ([cmd isEqualToString:@"79"]) {
+        //读取GPS极限上传模式
+        BOOL isOn = ([content isEqualToString:@"01"]);
+        resultDic = @{
+            @"isOn":@(isOn)
+        };
+        operationID = mk_mt_taskReadLCGpsExtrmeModeStatusOperation;
     }else if ([cmd isEqualToString:@"7a"]) {
         //读取GPS定位超时时间(LR1110)
         resultDic = @{
@@ -1123,29 +1142,38 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
     }else if ([cmd isEqualToString:@"76"]) {
         //配置Other过滤条件列表
         operationID = mk_mt_taskConfigFilterByOtherConditionsOperation;
+    }else if ([cmd isEqualToString:@"77"]) {
+        //配置GPS定位超时时间(L76C)
+        operationID = mk_mt_taskConfigLCPositioningTimeoutOperation;
+    }else if ([cmd isEqualToString:@"78"]) {
+        //配置PDOP(L76C)
+        operationID = mk_mt_taskConfigLCPDOPOperation;
+    }else if ([cmd isEqualToString:@"79"]) {
+        //配置GPS极限上传模式(L76C)
+        operationID = mk_mt_taskConfigLCGpsExtrmeModeStatusOperation;
     }else if ([cmd isEqualToString:@"7a"]) {
-        //配置GPS定位超时时间
+        //配置GPS定位超时时间(LR1110)
         operationID = mk_mt_taskConfigLRPositioningTimeoutOperation;
     }else if ([cmd isEqualToString:@"7b"]) {
-        //配置GPS搜星数量
+        //配置GPS搜星数量(LR1110)
         operationID = mk_mt_taskConfigLRStatelliteThresholdOperation;
     }else if ([cmd isEqualToString:@"7c"]) {
-        //配置GPS定位数据格式
+        //配置GPS定位数据格式(LR1110)
         operationID = mk_mt_taskConfigLRGPSDataTypeOperation;
     }else if ([cmd isEqualToString:@"7d"]) {
-        //配置GPS定位星座
+        //配置GPS定位星座(LR1110)
         operationID = mk_mt_taskConfigLRPositioningSystemOperation;
     }else if ([cmd isEqualToString:@"7e"]) {
-        //配置定位方式选择
+        //配置定位方式选择(LR1110)
         operationID = mk_mt_taskConfigLRAutonomousAidingOperation;
     }else if ([cmd isEqualToString:@"7f"]) {
-        //配置辅助定位经纬度
+        //配置辅助定位经纬度(LR1110)
         operationID = mk_mt_taskConfigLRLatitudeLongitudeOperation;
     }else if ([cmd isEqualToString:@"80"]) {
-        //配置星历开始更新事件开关
+        //配置星历开始更新事件开关(LR1110)
         operationID = mk_mt_taskConfigLRNotifyOnEphemerisStartStatusOperation;
     }else if ([cmd isEqualToString:@"81"]) {
-        //配置星历结束更新事件开关
+        //配置星历结束更新事件开关(LR1110)
         operationID = mk_mt_taskConfigLRNotifyOnEphemerisEndStatusOperation;
     }else if ([cmd isEqualToString:@"91"]) {
         //配置LoRaWAN频段

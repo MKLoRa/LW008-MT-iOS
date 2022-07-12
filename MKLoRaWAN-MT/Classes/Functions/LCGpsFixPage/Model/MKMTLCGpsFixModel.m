@@ -23,12 +23,122 @@
 
 @implementation MKMTLCGpsFixModel
 
+- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
+    dispatch_async(self.readQueue, ^{
+        if (![self readPositioningTimeout]) {
+            [self operationFailedBlockWithMsg:@"Read Positioning Timeout Error" block:failedBlock];
+            return;
+        }
+        if (![self readPDOP]) {
+            [self operationFailedBlockWithMsg:@"Read PDOP Error" block:failedBlock];
+            return;
+        }
+        if (![self readExtrmeMode]) {
+            [self operationFailedBlockWithMsg:@"Read Extrme Mode Error" block:failedBlock];
+            return;
+        }
+        moko_dispatch_main_safe(^{
+            if (sucBlock) {
+                sucBlock();
+            }
+        });
+    });
+}
+
+- (void)configDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
+    dispatch_async(self.readQueue, ^{
+        if (![self validParams]) {
+            [self operationFailedBlockWithMsg:@"Opps！Save failed. Please check the input characters and try again." block:failedBlock];
+            return;
+        }
+        if (![self configPositioningTimeout]) {
+            [self operationFailedBlockWithMsg:@"Config Positioning Timeout Error" block:failedBlock];
+            return;
+        }
+        if (![self configPDOP]) {
+            [self operationFailedBlockWithMsg:@"Config PDOP Error" block:failedBlock];
+            return;
+        }
+        if (![self configExtrmeMode]) {
+            [self operationFailedBlockWithMsg:@"Config Extrme Mode Error" block:failedBlock];
+            return;
+        }
+        moko_dispatch_main_safe(^{
+            if (sucBlock) {
+                sucBlock();
+            }
+        });
+    });
+}
+
 #pragma mark - interfae
 - (BOOL)readPositioningTimeout {
     __block BOOL success = NO;
-    [MKMTInterface mt_readLRPositioningTimeoutWithSucBlock:^(id  _Nonnull returnData) {
+    [MKMTInterface mt_readLCPositioningTimeoutWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         self.timeout = returnData[@"result"][@"timeout"];
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configPositioningTimeout {
+    __block BOOL success = NO;
+    [MKMTInterface mt_configLCPositioningTimeout:[self.timeout integerValue] sucBlock:^{
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)readPDOP {
+    __block BOOL success = NO;
+    [MKMTInterface mt_readLCPDOPWithSucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        self.pdop = returnData[@"result"][@"pdop"];
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configPDOP {
+    __block BOOL success = NO;
+    [MKMTInterface mt_configLCPDOP:[self.pdop integerValue] sucBlock:^{
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)readExtrmeMode {
+    __block BOOL success = NO;
+    [MKMTInterface mt_readLCGpsExtrmeModeStatusWithSucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        self.extrmeMode = [returnData[@"result"][@"isOn"] boolValue];
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configExtrmeMode {
+    __block BOOL success = NO;
+    [MKMTInterface mt_configLCGpsExtrmeModeStatus:self.extrmeMode sucBlock:^{
+        success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);

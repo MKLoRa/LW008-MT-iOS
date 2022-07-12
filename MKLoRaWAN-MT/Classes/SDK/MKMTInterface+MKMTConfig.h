@@ -583,6 +583,30 @@ NS_ASSUME_NONNULL_BEGIN
                                 sucBlock:(void (^)(void))sucBlock
                              failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Configure GPS positioning timeout.(L76C)
+/// @param timeout 60s~600s
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configLCPositioningTimeout:(NSInteger)timeout
+                             sucBlock:(void (^)(void))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// PDOP.(L76C)
+/// @param pdop 25~100(Unit:0.1)
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configLCPDOP:(NSInteger)pdop
+               sucBlock:(void (^)(void))sucBlock
+            failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// GPS limit upload mode status.(L76C)
+/// @param isOn isOn
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configLCGpsExtrmeModeStatus:(BOOL)isOn
+                              sucBlock:(void (^)(void))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock;
+
 /// Configure GPS positioning timeout.(LR1110)
 /// @param timeout 1~5(x 9s)
 /// @param sucBlock Success callback

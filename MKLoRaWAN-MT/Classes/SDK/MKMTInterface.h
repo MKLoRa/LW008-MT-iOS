@@ -925,6 +925,40 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)mt_readFilterByOtherConditionsWithSucBlock:(void (^)(id returnData))sucBlock
                                        failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Read GPS positioning timeout.(L76C)
+/*
+ @{
+    @"timeout":@"1",        //Unit:s
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readLCPositioningTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
+                                    failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// PDOP.(L76C)
+/*
+ @{
+    @"pdop":@"1",        //Unit:0.1
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readLCPDOPWithSucBlock:(void (^)(id returnData))sucBlock
+                      failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// GPS limit upload mode status.(L76C)
+/*
+ @{
+    @"isOn":@(YES)
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readLCGpsExtrmeModeStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock;
+
+
 /// Read GPS positioning timeout.(LR1110)
 /*
  @{

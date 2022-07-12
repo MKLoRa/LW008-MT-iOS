@@ -654,6 +654,30 @@
                  failedBlock:failedBlock];
 }
 
++ (void)mt_readLCPositioningTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
+                                    failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadLCPositioningTimeoutOperation
+                     cmdFlag:@"77"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readLCPDOPWithSucBlock:(void (^)(id returnData))sucBlock
+                      failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadLCPDOPOperation
+                     cmdFlag:@"78"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readLCGpsExtrmeModeStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadLCGpsExtrmeModeStatusOperation
+                     cmdFlag:@"79"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
 + (void)mt_readLRPositioningTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
                                     failedBlock:(void (^)(NSError *error))failedBlock {
     [self readDataWithTaskID:mk_mt_taskReadLRPositioningTimeoutOperation

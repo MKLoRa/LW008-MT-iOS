@@ -1123,6 +1123,46 @@ static NSInteger const maxDataLen = 100;
                    failedBlock:failedBlock];
 }
 
++ (void)mt_configLCPositioningTimeout:(NSInteger)timeout
+                             sucBlock:(void (^)(void))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock {
+    if (timeout < 60 || timeout > 600) {
+        [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *value = [MKBLEBaseSDKAdopter fetchHexValue:timeout byteLen:2];
+    NSString *commandString = [NSString stringWithFormat:@"%@%@",@"ed017702",value];
+    [self configDataWithTaskID:mk_mt_taskConfigLCPositioningTimeoutOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configLCPDOP:(NSInteger)pdop
+               sucBlock:(void (^)(void))sucBlock
+            failedBlock:(void (^)(NSError *error))failedBlock {
+    if (pdop < 25 || pdop > 100) {
+        [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *value = [MKBLEBaseSDKAdopter fetchHexValue:pdop byteLen:1];
+    NSString *commandString = [NSString stringWithFormat:@"%@%@",@"ed017801",value];
+    [self configDataWithTaskID:mk_mt_taskConfigLCPDOPOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configLCGpsExtrmeModeStatus:(BOOL)isOn
+                              sucBlock:(void (^)(void))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = (isOn ? @"ed01790101" : @"ed01790100");
+    [self configDataWithTaskID:mk_mt_taskConfigLCGpsExtrmeModeStatusOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
 + (void)mt_configLRPositioningTimeout:(NSInteger)timeout
                              sucBlock:(void (^)(void))sucBlock
                           failedBlock:(void (^)(NSError *error))failedBlock {
