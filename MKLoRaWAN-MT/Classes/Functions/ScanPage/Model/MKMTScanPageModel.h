@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy)NSString *deviceName;
 
+/// 设备类型 @"00":LR1110    @"01":L76
+@property (nonatomic, copy)NSString *deviceType;
+
 @property (nonatomic, copy)NSString *macAddress;
 
 /// 电压，v

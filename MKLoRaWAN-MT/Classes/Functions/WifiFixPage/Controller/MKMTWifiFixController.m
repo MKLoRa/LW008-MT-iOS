@@ -187,7 +187,7 @@ MKTextButtonCellDelegate>
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 0;
     cellModel.msg = @"WIFI Data Type";
-    cellModel.dataList = @[@"DAS",@"Custome"];
+    cellModel.dataList = @[@"DAS",@"Customer"];
     cellModel.dataListIndex = self.dataModel.dataType;
     [self.section1List addObject:cellModel];
 }

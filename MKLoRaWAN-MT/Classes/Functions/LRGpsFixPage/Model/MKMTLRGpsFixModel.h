@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy)NSString *threshold;
 
-/// 0:DAS 1:Custome
+/// 0:DAS 1:Customer
 @property (nonatomic, assign)NSInteger dataType;
 
 /// 0:GPS 1:Beidou 2:GPS&Beidou
@@ -31,6 +31,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign)BOOL start;
 
 @property (nonatomic, assign)BOOL end;
+
+- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
+
+- (void)configDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy)NSString *number;
 
-/// 0:DAS   1:Custome
+/// 0:DAS   1:Customer
 @property (nonatomic, assign)NSInteger dataType;
 
 - (void)readWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;

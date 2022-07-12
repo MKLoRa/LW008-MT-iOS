@@ -15,7 +15,9 @@
 #import "MKMacroDefines.h"
 #import "MKBaseTableView.h"
 #import "UIView+MKAdd.h"
+#import "UITableView+MKAdd.h"
 
+#import "MKHudManager.h"
 #import "MKTextFieldCell.h"
 #import "MKTextSwitchCell.h"
 #import "MKTextButtonCell.h"
@@ -62,12 +64,12 @@ MKMTAutonomousValueCellDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
-    [self loadSectionDatas];
+    [self readDatasFromDevice];
 }
 
 #pragma mark - super method
 - (void)rightButtonMethod {
-    
+    [self saveDataToDevice];
 }
 
 #pragma mark - UITableViewDelegate
@@ -94,7 +96,7 @@ MKMTAutonomousValueCellDelegate>
         return self.section3List.count;
     }
     if (section == 4) {
-        return self.section4List.count;
+        return (self.dataModel.aiding ? self.section4List.count : 0);
     }
     return 0;
 }
@@ -185,6 +187,7 @@ MKMTAutonomousValueCellDelegate>
         self.dataModel.aiding = isOn;
         MKTextSwitchCellModel *cellModel = self.section2List[0];
         cellModel.isOn = isOn;
+        [self.tableView mk_reloadSection:4 withRowAnimation:UITableViewRowAnimationNone];
         return;
     }
     if (index == 1) {
@@ -194,7 +197,7 @@ MKMTAutonomousValueCellDelegate>
         cellModel.isOn = isOn;
         return;
     }
-    if (index == 0) {
+    if (index == 2) {
         //Notify On Ephemeris End
         self.dataModel.end = isOn;
         MKTextSwitchCellModel *cellModel = self.section4List[1];
@@ -221,6 +224,35 @@ MKMTAutonomousValueCellDelegate>
     }
 }
 
+#pragma mark - interface
+- (void)readDatasFromDevice {
+    [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
+    @weakify(self);
+    [self.dataModel readDataWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self loadSectionDatas];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
+}
+
+- (void)saveDataToDevice {
+    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
+    @weakify(self);
+    [self.dataModel configDataWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:@"Success"];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
+}
+
 #pragma mark - loadSections
 - (void)loadSectionDatas {
     [self loadSection0Datas];
@@ -237,7 +269,7 @@ MKMTAutonomousValueCellDelegate>
     cellModel1.index = 0;
     cellModel1.msg = @"Positioning Timeout";
     cellModel1.textFieldValue = self.dataModel.timeout;
-    cellModel1.textPlaceholder = @"1 ~ 8";
+    cellModel1.textPlaceholder = @"1 ~ 5";
     cellModel1.textFieldType = mk_realNumberOnly;
     cellModel1.unit = @"x9s";
     cellModel1.maxLength = 1;
@@ -258,13 +290,13 @@ MKMTAutonomousValueCellDelegate>
     MKTextButtonCellModel *cellModel1 = [[MKTextButtonCellModel alloc] init];
     cellModel1.index = 0;
     cellModel1.msg = @"GPS Data Type";
-    cellModel1.dataList = @[@"DAS",@"Custome"];
+    cellModel1.dataList = @[@"DAS",@"Customer"];
     cellModel1.dataListIndex = self.dataModel.dataType;
     [self.section1List addObject:cellModel1];
     
     MKTextButtonCellModel *cellModel2 = [[MKTextButtonCellModel alloc] init];
     cellModel2.index = 1;
-    cellModel2.msg = @"Positioning  System";
+    cellModel2.msg = @"Positioning System";
     cellModel2.dataList = @[@"GPS",@"Beidou",@"GPS&Beidou"];
     cellModel2.dataListIndex = self.dataModel.postionSystem;
     [self.section1List addObject:cellModel2];
@@ -304,7 +336,7 @@ MKMTAutonomousValueCellDelegate>
     [self.section4List addObject:cellModel1];
     
     MKTextSwitchCellModel *cellModel2 = [[MKTextSwitchCellModel alloc] init];
-    cellModel2.index = 0;
+    cellModel2.index = 2;
     cellModel2.msg = @"Notify On Ephemeris End";
     cellModel2.isOn = self.dataModel.end;
     [self.section4List addObject:cellModel2];

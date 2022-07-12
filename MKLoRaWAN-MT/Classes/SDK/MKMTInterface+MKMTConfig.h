@@ -583,6 +583,72 @@ NS_ASSUME_NONNULL_BEGIN
                                 sucBlock:(void (^)(void))sucBlock
                              failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Configure GPS positioning timeout.(LR1110)
+/// @param timeout 1~5(x 9s)
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configLRPositioningTimeout:(NSInteger)timeout
+                             sucBlock:(void (^)(void))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Configure the number of GPS search satellites.(LR1110)
+/// @param threshold 4~10
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configLRStatelliteThreshold:(NSInteger)threshold
+                              sucBlock:(void (^)(void))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Configure GPS data transfer format.(LR1110)
+/// @param format format
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configLRGPSDataType:(mk_mt_dataFormat)format
+                      sucBlock:(void (^)(void))sucBlock
+                   failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Configure GPS positioning system.(LR1110)
+/// @param system system
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configLRPositioningSystem:(mk_mt_positioningSystem)system
+                            sucBlock:(void (^)(void))sucBlock
+                         failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Whether reading auxiliary positioning is turned on (when turned off, the device will switch to automatic scanning and positioning).(LR1110)
+/// @param aiding YES:Assisted positioning.   NO:Automatic scanning and positioning.
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configLRAutonomousAiding:(BOOL)aiding
+                           sucBlock:(void (^)(void))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Configure auxiliary positioning latitude and longitude.(LR1110)
+/// @param latitude -9000000~9000000
+/// @param longitude -18000000~18000000
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configLRLatitude:(NSInteger)latitude
+                  longitude:(NSInteger)longitude
+                   sucBlock:(void (^)(void))sucBlock
+                failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Configure ephemeris start update notification status.(LR1110)
+/// @param isOn isOn
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configLRNotifyOnEphemerisStartStatus:(BOOL)isOn
+                                       sucBlock:(void (^)(void))sucBlock
+                                    failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Configure ephemeris end update notification status.(LR1110)
+/// @param isOn isOn
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configLRNotifyOnEphemerisEndStatus:(BOOL)isOn
+                                     sucBlock:(void (^)(void))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock;
+
 #pragma mark ****************************************设备lorawan信息设置************************************************
 
 /// Configure the region information of LoRaWAN.

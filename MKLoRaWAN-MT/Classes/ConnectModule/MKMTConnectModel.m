@@ -23,6 +23,9 @@
 /// 设备连接的时候是否需要密码
 @property (nonatomic, assign)BOOL hasPassword;
 
+/// 设备类型
+@property (nonatomic, copy)NSString *deviceType;
+
 @end
 
 @implementation MKMTConnectModel
@@ -39,8 +42,10 @@
 }
 
 #pragma mark - public method
+
 - (void)connectDevice:(CBPeripheral *)peripheral
              password:(NSString *)password
+           deviceType:(NSString *)deviceType
              sucBlock:(void (^)(void))sucBlock
           failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.connectQueue, ^{
@@ -63,6 +68,7 @@
             [self operationFailedMsg:@"Config Date Error" completeBlock:failedBlock];
             return;
         }
+        self.deviceType = deviceType;
         moko_dispatch_main_safe(^{
             if (sucBlock) {
                 sucBlock();

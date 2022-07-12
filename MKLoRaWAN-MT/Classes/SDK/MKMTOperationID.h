@@ -87,6 +87,14 @@ typedef NS_ENUM(NSInteger, mk_mt_taskOperationID) {
     mk_mt_taskReadFilterByOtherStatusOperation,         //读取Other过滤条件开关
     mk_mt_taskReadFilterByOtherRelationshipOperation,   //读取Other过滤条件的逻辑关系
     mk_mt_taskReadFilterByOtherConditionsOperation,     //读取Other的过滤条件列表
+    mk_mt_taskReadLRPositioningTimeoutOperation,        //读取GPS定位超时时间(LR1110)
+    mk_mt_taskReadLRStatelliteThresholdOperation,       //读取GPS搜星数量(LR1110)
+    mk_mt_taskReadLRGPSDataTypeOperation,               //读取GPS定位数据格式(LR1110)
+    mk_mt_taskReadLRPositioningSystemOperation,         //读取定位系统(LR1110)
+    mk_mt_taskReadLRAutonomousAidingOperation,          //读取定位方式选择(LR1110)
+    mk_mt_taskReadLRLatitudeLongitudeOperation,         //读取辅助定位经纬度(LR1110)
+    mk_mt_taskReadLRNotifyOnEphemerisStartStatusOperation,  //读取星历开始更新事件开关(LR1110)
+    mk_mt_taskReadLRNotifyOnEphemerisEndStatusOperation,    //读取星历结束更新事件开关(LR1110)
     
 #pragma mark - 设备控制参数配置
     mk_mt_taskPowerOffOperation,                        //关机
@@ -164,6 +172,14 @@ typedef NS_ENUM(NSInteger, mk_mt_taskOperationID) {
     mk_mt_taskConfigFilterByOtherStatusOperation,           //配置Other过滤关系开关
     mk_mt_taskConfigFilterByOtherRelationshipOperation,     //配置Other过滤条件逻辑关系
     mk_mt_taskConfigFilterByOtherConditionsOperation,       //配置Other过滤条件列表
+    mk_mt_taskConfigLRPositioningTimeoutOperation,          //配置GPS定位超时时间
+    mk_mt_taskConfigLRStatelliteThresholdOperation,         //配置GPS搜星数量
+    mk_mt_taskConfigLRGPSDataTypeOperation,                 //配置GPS定位数据格式
+    mk_mt_taskConfigLRPositioningSystemOperation,           //配置GPS定位星座
+    mk_mt_taskConfigLRAutonomousAidingOperation,            //配置定位方式选择
+    mk_mt_taskConfigLRLatitudeLongitudeOperation,           //配置辅助定位经纬度
+    mk_mt_taskConfigLRNotifyOnEphemerisStartStatusOperation,    //配置星历开始更新事件开关
+    mk_mt_taskConfigLRNotifyOnEphemerisEndStatusOperation,      //配置星历结束更新事件开关
     
 #pragma mark - 密码特征
     mk_mt_connectPasswordOperation,             //连接设备时候发送密码

@@ -1,5 +1,6 @@
 PODS:
   - CircleProgressBar (0.32)
+  - CTMediator (46)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -424,14 +425,1553 @@ PODS:
     - MJRefresh
     - MKBaseModuleLibrary
     - MKCustomUIModule/View/MKTextField
-  - MKLoRaWAN-MT (0.1.0):
+  - MKLoRaWAN-MT (0.0.1):
+    - MKLoRaWAN-MT/ConnectModule (= 0.0.1)
+    - MKLoRaWAN-MT/CTMediator (= 0.0.1)
+    - MKLoRaWAN-MT/DatabaseManager (= 0.0.1)
+    - MKLoRaWAN-MT/Expand (= 0.0.1)
+    - MKLoRaWAN-MT/Functions (= 0.0.1)
+    - MKLoRaWAN-MT/SDK (= 0.0.1)
+    - MKLoRaWAN-MT/Target (= 0.0.1)
+  - MKLoRaWAN-MT/ConnectModule (0.0.1):
+    - MKBaseModuleLibrary
+    - MKLoRaWAN-MT/SDK
+  - MKLoRaWAN-MT/CTMediator (0.0.1):
+    - CTMediator
+    - MKBaseModuleLibrary
+  - MKLoRaWAN-MT/DatabaseManager (0.0.1):
     - FMDB
-    - HHTransition
-    - iOSDFULibrary
-    - MKBaseBleModule
+    - MKBaseModuleLibrary
+    - MKLoRaWAN-MT/DatabaseManager/LogDatabase (= 0.0.1)
+    - MKLoRaWAN-MT/DatabaseManager/SyncDatabase (= 0.0.1)
+  - MKLoRaWAN-MT/DatabaseManager/LogDatabase (0.0.1):
+    - FMDB
+    - MKBaseModuleLibrary
+  - MKLoRaWAN-MT/DatabaseManager/SyncDatabase (0.0.1):
+    - FMDB
+    - MKBaseModuleLibrary
+  - MKLoRaWAN-MT/Expand (0.0.1):
     - MKBaseModuleLibrary
     - MKCustomUIModule
+    - MKLoRaWAN-MT/Expand/FilterCell (= 0.0.1)
+    - MKLoRaWAN-MT/Expand/TextButtonCell (= 0.0.1)
+  - MKLoRaWAN-MT/Expand/FilterCell (0.0.1):
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/Expand/FilterCell/FilterBeaconCell (= 0.0.1)
+    - MKLoRaWAN-MT/Expand/FilterCell/FilterByRawDataCell (= 0.0.1)
+    - MKLoRaWAN-MT/Expand/FilterCell/FilterEditSectionHeaderView (= 0.0.1)
+    - MKLoRaWAN-MT/Expand/FilterCell/FilterNormalTextFieldCell (= 0.0.1)
+  - MKLoRaWAN-MT/Expand/FilterCell/FilterBeaconCell (0.0.1):
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+  - MKLoRaWAN-MT/Expand/FilterCell/FilterByRawDataCell (0.0.1):
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+  - MKLoRaWAN-MT/Expand/FilterCell/FilterEditSectionHeaderView (0.0.1):
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+  - MKLoRaWAN-MT/Expand/FilterCell/FilterNormalTextFieldCell (0.0.1):
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+  - MKLoRaWAN-MT/Expand/TextButtonCell (0.0.1):
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+  - MKLoRaWAN-MT/Functions (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/AboutPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/ActiveStatePage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/AuxiliaryPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/AxisSettingPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/BleFixPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/BleSettingsPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/DebuggerPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/DeviceInfoPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/DeviceModePage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/DeviceSettingPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/DownlinkPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/GeneralPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/IndicatorSettingsPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/LCGpsFixPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/LoRaApplicationPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/LoRaPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/LoRaSettingPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/LRGpsFixPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/ManDownPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/MotionModePage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/PeriodicModePage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/PositionPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/ScanPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/SelftestPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/SynDataPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/TabBarPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/TimingModePage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/UpdatePage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/VibrationPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/WifiFixPage (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
     - MLInputDodger
+  - MKLoRaWAN-MT/Functions/AboutPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/AboutPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/AboutPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/ActiveStatePage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/ActiveStatePage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/ActiveStatePage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/ActiveStatePage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/ActiveStatePage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/ActiveStatePage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/AuxiliaryPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/AuxiliaryPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/AuxiliaryPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/ActiveStatePage/Controller
+    - MKLoRaWAN-MT/Functions/DownlinkPage/Controller
+    - MKLoRaWAN-MT/Functions/ManDownPage/Controller
+    - MKLoRaWAN-MT/Functions/VibrationPage/Controller
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/AxisSettingPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/AxisSettingPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/AxisSettingPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/AxisSettingPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/AxisSettingPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/AxisSettingPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/BleFixPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/BleFixPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/BleFixPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/BleFixPage/View (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/BleFixPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/BleFixPage/Model
+    - MKLoRaWAN-MT/Functions/BleFixPage/View
+    - MKLoRaWAN-MT/Functions/FilterPages
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/BleFixPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/BleFixPage/View (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/BleSettingsPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/BleSettingsPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/BleSettingsPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/BleSettingsPage/View (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/BleSettingsPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/BleSettingsPage/Model
+    - MKLoRaWAN-MT/Functions/BleSettingsPage/View
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/BleSettingsPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/BleSettingsPage/View (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/DebuggerPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/DebuggerPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/DebuggerPage/View (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/DebuggerPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/DebuggerPage/View
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/DebuggerPage/View (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/DeviceInfoPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/DeviceInfoPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/DeviceInfoPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/DeviceInfoPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/DebuggerPage/Controller
+    - MKLoRaWAN-MT/Functions/DeviceInfoPage/Model
+    - MKLoRaWAN-MT/Functions/SelftestPage/Controller
+    - MKLoRaWAN-MT/Functions/UpdatePage/Controller
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/DeviceInfoPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/DeviceModePage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/DeviceModePage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/DeviceModePage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/MotionModePage/Controller
+    - MKLoRaWAN-MT/Functions/PeriodicModePage/Controller
+    - MKLoRaWAN-MT/Functions/TimingModePage/Controller
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/DeviceSettingPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/DeviceSettingPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/DeviceSettingPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/DeviceSettingPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/DeviceInfoPage/Controller
+    - MKLoRaWAN-MT/Functions/DeviceSettingPage/Model
+    - MKLoRaWAN-MT/Functions/IndicatorSettingsPage/Controller
+    - MKLoRaWAN-MT/Functions/SynDataPage/Controller
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/DeviceSettingPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/DownlinkPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/DownlinkPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/DownlinkPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByAdvNamePage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBeaconPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByMacPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByOtherPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByRawDataPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByTLMPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByUIDPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByURLPage (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByAdvNamePage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByAdvNamePage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByAdvNamePage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByAdvNamePage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByAdvNamePage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByAdvNamePage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByBeaconPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBeaconPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBeaconPage/Header (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBeaconPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByBeaconPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBeaconPage/Header
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBeaconPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByBeaconPage/Header (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByBeaconPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBeaconPage/Header
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByMacPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByMacPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByMacPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByMacPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByMacPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByMacPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByOtherPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByOtherPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByOtherPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByOtherPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByOtherPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByOtherPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByRawDataPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByRawDataPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByRawDataPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByRawDataPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBeaconPage/Controller
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByOtherPage/Controller
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByRawDataPage/Model
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByTLMPage/Controller
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByUIDPage/Controller
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByURLPage/Controller
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByRawDataPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByTLMPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByTLMPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByTLMPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByTLMPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByTLMPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByTLMPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByUIDPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByUIDPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByUIDPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByUIDPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByUIDPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByUIDPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByURLPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByURLPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByURLPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByURLPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByURLPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByURLPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/GeneralPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/GeneralPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/GeneralPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/GeneralPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/AuxiliaryPage/Controller
+    - MKLoRaWAN-MT/Functions/AxisSettingPage/Controller
+    - MKLoRaWAN-MT/Functions/BleSettingsPage/Controller
+    - MKLoRaWAN-MT/Functions/DeviceModePage/Controller
+    - MKLoRaWAN-MT/Functions/GeneralPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/GeneralPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/IndicatorSettingsPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/IndicatorSettingsPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/IndicatorSettingsPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/IndicatorSettingsPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/IndicatorSettingsPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/IndicatorSettingsPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/LCGpsFixPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/LCGpsFixPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/LCGpsFixPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/LCGpsFixPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/LCGpsFixPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/LCGpsFixPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/LoRaApplicationPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/LoRaApplicationPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/LoRaApplicationPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/LoRaApplicationPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/LoRaApplicationPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/LoRaApplicationPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/LoRaPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/LoRaPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/LoRaPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/LoRaPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/LoRaApplicationPage/Controller
+    - MKLoRaWAN-MT/Functions/LoRaPage/Model
+    - MKLoRaWAN-MT/Functions/LoRaSettingPage/Controller
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/LoRaPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/LoRaSettingPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/LoRaSettingPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/LoRaSettingPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/LoRaSettingPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/LoRaSettingPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/LoRaSettingPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/LRGpsFixPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/LRGpsFixPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/LRGpsFixPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/LRGpsFixPage/View (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/LRGpsFixPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/LRGpsFixPage/Model
+    - MKLoRaWAN-MT/Functions/LRGpsFixPage/View
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/LRGpsFixPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/LRGpsFixPage/View (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/ManDownPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/ManDownPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/ManDownPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/ManDownPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/ManDownPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/ManDownPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/MotionModePage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/MotionModePage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/MotionModePage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/MotionModePage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/MotionModePage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/MotionModePage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/PeriodicModePage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/PeriodicModePage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/PeriodicModePage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/PeriodicModePage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/PeriodicModePage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/PeriodicModePage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/PositionPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/PositionPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/PositionPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/PositionPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/BleFixPage/Controller
+    - MKLoRaWAN-MT/Functions/LCGpsFixPage/Controller
+    - MKLoRaWAN-MT/Functions/LRGpsFixPage/Controller
+    - MKLoRaWAN-MT/Functions/PositionPage/Model
+    - MKLoRaWAN-MT/Functions/WifiFixPage/Controller
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/PositionPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/ScanPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/ScanPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/ScanPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/ScanPage/View (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/ScanPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/ScanPage/Model
+    - MKLoRaWAN-MT/Functions/ScanPage/View
+    - MKLoRaWAN-MT/Functions/TabBarPage/Controller
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/ScanPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/ScanPage/View (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/ScanPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/SelftestPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/SelftestPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/SelftestPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/SelftestPage/View (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/SelftestPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/SelftestPage/Model
+    - MKLoRaWAN-MT/Functions/SelftestPage/View
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/SelftestPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/SelftestPage/View (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/SynDataPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/SynDataPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/SynDataPage/View (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/SynDataPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/SynDataPage/View
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/SynDataPage/View (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/TabBarPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/TabBarPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/TabBarPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/DeviceSettingPage/Controller
+    - MKLoRaWAN-MT/Functions/GeneralPage/Controller
+    - MKLoRaWAN-MT/Functions/LoRaPage/Controller
+    - MKLoRaWAN-MT/Functions/PositionPage/Controller
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/TimingModePage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/TimingModePage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/TimingModePage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/TimingModePage/View (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/TimingModePage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/TimingModePage/Model
+    - MKLoRaWAN-MT/Functions/TimingModePage/View
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/TimingModePage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/TimingModePage/View (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/UpdatePage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/UpdatePage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/UpdatePage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/UpdatePage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/UpdatePage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/UpdatePage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/VibrationPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/VibrationPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/VibrationPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/VibrationPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/VibrationPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/VibrationPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/WifiFixPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/WifiFixPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/WifiFixPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/WifiFixPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/WifiFixPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/WifiFixPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/SDK (0.0.1):
+    - MKBaseBleModule
+  - MKLoRaWAN-MT/Target (0.0.1):
+    - MKLoRaWAN-MT/Functions
   - MLInputDodger (1.5.2)
   - Toast (4.0.0)
   - WRNavigationBar (1.4.0)
@@ -443,6 +1983,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - CircleProgressBar
+    - CTMediator
     - FMDB
     - HHTransition
     - iOSDFULibrary
@@ -463,6 +2004,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CircleProgressBar: 3920079be5224b62b3d9ed6eeb23ac01c835b681
+  CTMediator: f1cf58d509fb3192086c367711f039efd769b907
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   HHTransition: ca5035c126a6a2dc1eb9a90d084013784bf4bf0a
   iOSDFULibrary: 3500ac00451aa7d8ec48a752e91099669a2c1d27
@@ -472,7 +2014,7 @@ SPEC CHECKSUMS:
   MKBaseBleModule: ae6aa81e33e016777c5bf0ca7b05762647dfff77
   MKBaseModuleLibrary: bfe8141f0ec3f60a9d3d71fb3ea82eac1bcf74fb
   MKCustomUIModule: 49a47c2e1683bb06f15ba9659d6ce693a76c6a1b
-  MKLoRaWAN-MT: e4ffcf10e42646ecbc5b7c37e10f8adf70d8b032
+  MKLoRaWAN-MT: 938578d64fc2da953675fa4eb086de726fe0783f
   MLInputDodger: 79a0e420a80d0d3bba122bf2639603cc76609ba8
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   WRNavigationBar: 10bfdf96addf14d640d07c2ef08a029c18d8af10

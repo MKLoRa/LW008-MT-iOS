@@ -442,7 +442,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Read WIFI positioning data format.
 /*
  @{
-    @"dataType":@"0"        //@"0":DAS   @"1":@"Custome"
+    @"dataType":@"0"        //@"0":DAS   @"1":@"Customer"
  }
  */
 /// @param sucBlock Success callback
@@ -924,6 +924,95 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param failedBlock Failure callback
 + (void)mt_readFilterByOtherConditionsWithSucBlock:(void (^)(id returnData))sucBlock
                                        failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read GPS positioning timeout.(LR1110)
+/*
+ @{
+    @"timeout":@"1",        //Unit:9s
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readLRPositioningTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
+                                    failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read the number of GPS search satellites.(LR1110)
+/*
+ @{
+    @"number":@"7"
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readLRStatelliteThresholdWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read GPS data transfer format.(LR1110)
+/*
+ @{
+    @"dataType":@"0",       //@"0":DAS   @"Customer"
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readLRGPSDataTypeWithSucBlock:(void (^)(id returnData))sucBlock
+                             failedBlock:(void (^)(NSError *error))failedBlock;
+
+///Read GPS positioning system.(LR1110)
+/*
+ @{
+    @"type":@"0",       //@"0":GPS  @"1":Beidou     @"2":GPS+Beidou
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readLRPositioningSystemWithSucBlock:(void (^)(id returnData))sucBlock
+                                   failedBlock:(void (^)(NSError *error))failedBlock;
+
+///Whether reading auxiliary positioning is turned on (when turned off, the device will switch to automatic scanning and positioning).(LR1110)
+/*
+ @{
+    @"isOn":@(YES),     //YES:Assisted positioning.  NO:Automatic scanning and positioning
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readLRAutonomousAidingWithSucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock;
+
+///Read auxiliary positioning latitude and longitude.(LR1110)
+/*
+ @{
+     @"latitude":@"999999",         //0.00001
+     @"longitude":@"-11111111111"   //0.00001
+ };
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readLRLatitudeLongitudeWithSucBlock:(void (^)(id returnData))sucBlock
+                                   failedBlock:(void (^)(NSError *error))failedBlock;
+
+///Read ephemeris start update notification status.(LR1110)
+/*
+ @{
+    @"isOn":@(YES)
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readLRNotifyOnEphemerisStartStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                              failedBlock:(void (^)(NSError *error))failedBlock;
+
+///Read ephemeris end update notification status.(LR1110)
+/*
+ @{
+    @"isOn":@(YES)
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readLRNotifyOnEphemerisEndStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                            failedBlock:(void (^)(NSError *error))failedBlock;
 
 #pragma mark **************************************** LoRaWAN ************************************************
 /// Read the current network status of LoRaWAN.

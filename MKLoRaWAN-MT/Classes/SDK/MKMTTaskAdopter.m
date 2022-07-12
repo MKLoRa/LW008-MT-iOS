@@ -660,6 +660,60 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
             @"conditionList":conditionList,
         };
         operationID = mk_mt_taskReadFilterByOtherConditionsOperation;
+    }else if ([cmd isEqualToString:@"7a"]) {
+        //读取GPS定位超时时间(LR1110)
+        resultDic = @{
+            @"timeout":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_mt_taskReadLRPositioningTimeoutOperation;
+    }else if ([cmd isEqualToString:@"7b"]) {
+        //读取GPS定位超时时间(LR1110)
+        resultDic = @{
+            @"number":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_mt_taskReadLRStatelliteThresholdOperation;
+    }else if ([cmd isEqualToString:@"7c"]) {
+        //读取GPS定位数据格式(LR1110)
+        resultDic = @{
+            @"dataType":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_mt_taskReadLRGPSDataTypeOperation;
+    }else if ([cmd isEqualToString:@"7d"]) {
+        //读取定位系统(LR1110)
+        resultDic = @{
+            @"type":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_mt_taskReadLRPositioningSystemOperation;
+    }else if ([cmd isEqualToString:@"7e"]) {
+        //读取定位方式选择(LR1110)
+        BOOL isOn = ([content isEqualToString:@"00"]);
+        resultDic = @{
+            @"isOn":@(isOn)
+        };
+        operationID = mk_mt_taskReadLRAutonomousAidingOperation;
+    }else if ([cmd isEqualToString:@"7f"]) {
+        //读取定位方式选择(LR1110)
+        NSNumber *latitude = [MKBLEBaseSDKAdopter signedHexTurnString:[content substringWithRange:NSMakeRange(0, 8)]];
+        NSNumber *longitude = [MKBLEBaseSDKAdopter signedHexTurnString:[content substringWithRange:NSMakeRange(8, 8)]];
+        resultDic = @{
+            @"latitude":[NSString stringWithFormat:@"%@",latitude],
+            @"longitude":[NSString stringWithFormat:@"%@",longitude]
+        };
+        operationID = mk_mt_taskReadLRLatitudeLongitudeOperation;
+    }else if ([cmd isEqualToString:@"80"]) {
+        //读取星历开始更新事件开关(LR1110)
+        BOOL isOn = ([content isEqualToString:@"01"]);
+        resultDic = @{
+            @"isOn":@(isOn)
+        };
+        operationID = mk_mt_taskReadLRNotifyOnEphemerisStartStatusOperation;
+    }else if ([cmd isEqualToString:@"81"]) {
+        //读取星历结束更新事件开关(LR1110)
+        BOOL isOn = ([content isEqualToString:@"01"]);
+        resultDic = @{
+            @"isOn":@(isOn)
+        };
+        operationID = mk_mt_taskReadLRNotifyOnEphemerisEndStatusOperation;
     }else if ([cmd isEqualToString:@"90"]) {
         //读取LoRaWAN网络状态
         resultDic = @{
@@ -1069,6 +1123,30 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
     }else if ([cmd isEqualToString:@"76"]) {
         //配置Other过滤条件列表
         operationID = mk_mt_taskConfigFilterByOtherConditionsOperation;
+    }else if ([cmd isEqualToString:@"7a"]) {
+        //配置GPS定位超时时间
+        operationID = mk_mt_taskConfigLRPositioningTimeoutOperation;
+    }else if ([cmd isEqualToString:@"7b"]) {
+        //配置GPS搜星数量
+        operationID = mk_mt_taskConfigLRStatelliteThresholdOperation;
+    }else if ([cmd isEqualToString:@"7c"]) {
+        //配置GPS定位数据格式
+        operationID = mk_mt_taskConfigLRGPSDataTypeOperation;
+    }else if ([cmd isEqualToString:@"7d"]) {
+        //配置GPS定位星座
+        operationID = mk_mt_taskConfigLRPositioningSystemOperation;
+    }else if ([cmd isEqualToString:@"7e"]) {
+        //配置定位方式选择
+        operationID = mk_mt_taskConfigLRAutonomousAidingOperation;
+    }else if ([cmd isEqualToString:@"7f"]) {
+        //配置辅助定位经纬度
+        operationID = mk_mt_taskConfigLRLatitudeLongitudeOperation;
+    }else if ([cmd isEqualToString:@"80"]) {
+        //配置星历开始更新事件开关
+        operationID = mk_mt_taskConfigLRNotifyOnEphemerisStartStatusOperation;
+    }else if ([cmd isEqualToString:@"81"]) {
+        //配置星历结束更新事件开关
+        operationID = mk_mt_taskConfigLRNotifyOnEphemerisEndStatusOperation;
     }else if ([cmd isEqualToString:@"91"]) {
         //配置LoRaWAN频段
         operationID = mk_mt_taskConfigRegionOperation;

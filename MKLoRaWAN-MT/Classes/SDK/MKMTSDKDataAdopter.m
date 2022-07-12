@@ -121,7 +121,7 @@
     switch (dataType) {
         case mk_mt_dataFormat_DAS:
             return @"00";
-        case mk_mt_dataFormat_Custome:
+        case mk_mt_dataFormat_Customer:
             return @"01";
     }
 }
@@ -448,6 +448,17 @@
     NSString *string = [NSString stringWithFormat:@"%@%@%@%@%@%@",@"000",FailToFix,FixSuccessful,InFix,NetworkCheck,LowPower];
     
     return [MKBLEBaseSDKAdopter getHexByBinary:string];
+}
+
++ (NSString *)fetchLRPositioningSystemString:(mk_mt_positioningSystem)system {
+    switch (system) {
+        case mk_mt_positioningSystem_GPS:
+            return @"00";
+        case mk_mt_positioningSystem_Beidou:
+            return @"01";
+        case mk_mt_positioningSystem_GPSAndBeidou:
+            return @"02";
+    }
 }
 
 @end

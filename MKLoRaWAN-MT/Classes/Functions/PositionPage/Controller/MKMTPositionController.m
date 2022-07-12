@@ -18,6 +18,8 @@
 #import "MKNormalTextCell.h"
 #import "MKTextSwitchCell.h"
 
+#import "MKMTConnectModel.h"
+
 #import "MKMTPositionPageModel.h"
 
 #import "MKMTWifiFixController.h"
@@ -85,6 +87,14 @@ mk_textSwitchCellDelegate>
     }
     if (indexPath.row == 2) {
         //GPS Fix
+        
+        if ([[MKMTConnectModel shared].deviceType isEqualToString:@"01"]) {
+            //L76C
+            MKMTLCGpsFixController *vc = [[MKMTLCGpsFixController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            return;
+        }
+        //LR1110
         MKMTLRGpsFixController *vc = [[MKMTLRGpsFixController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
         return;

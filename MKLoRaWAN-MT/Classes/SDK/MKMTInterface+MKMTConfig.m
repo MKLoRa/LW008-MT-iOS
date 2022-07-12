@@ -1123,6 +1123,105 @@ static NSInteger const maxDataLen = 100;
                    failedBlock:failedBlock];
 }
 
++ (void)mt_configLRPositioningTimeout:(NSInteger)timeout
+                             sucBlock:(void (^)(void))sucBlock
+                          failedBlock:(void (^)(NSError *error))failedBlock {
+    if (timeout < 1 || timeout > 5) {
+        [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *value = [MKBLEBaseSDKAdopter fetchHexValue:timeout byteLen:1];
+    NSString *commandString = [NSString stringWithFormat:@"%@%@",@"ed017a01",value];
+    [self configDataWithTaskID:mk_mt_taskConfigLRPositioningTimeoutOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configLRStatelliteThreshold:(NSInteger)threshold
+                              sucBlock:(void (^)(void))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock {
+    if (threshold < 4 || threshold > 10) {
+        [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *value = [MKBLEBaseSDKAdopter fetchHexValue:threshold byteLen:1];
+    NSString *commandString = [NSString stringWithFormat:@"%@%@",@"ed017b01",value];
+    [self configDataWithTaskID:mk_mt_taskConfigLRStatelliteThresholdOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configLRGPSDataType:(mk_mt_dataFormat)format
+                      sucBlock:(void (^)(void))sucBlock
+                   failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *type = [MKMTSDKDataAdopter fetchDataFormatString:format];
+    NSString *commandString = [@"ed017c01" stringByAppendingString:type];
+    [self configDataWithTaskID:mk_mt_taskConfigLRGPSDataTypeOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configLRPositioningSystem:(mk_mt_positioningSystem)system
+                            sucBlock:(void (^)(void))sucBlock
+                         failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *type = [MKMTSDKDataAdopter fetchLRPositioningSystemString:system];
+    NSString *commandString = [@"ed017d01" stringByAppendingString:type];
+    [self configDataWithTaskID:mk_mt_taskConfigLRPositioningSystemOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configLRAutonomousAiding:(BOOL)aiding
+                           sucBlock:(void (^)(void))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = (aiding ? @"ed017e0100" : @"ed017e0101");
+    [self configDataWithTaskID:mk_mt_taskConfigLRAutonomousAidingOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configLRLatitude:(NSInteger)latitude
+                  longitude:(NSInteger)longitude
+                   sucBlock:(void (^)(void))sucBlock
+                failedBlock:(void (^)(NSError *error))failedBlock {
+    if (latitude < -9000000 || latitude > 9000000 || longitude < -18000000 || longitude > 18000000) {
+        return;
+    }
+    
+    NSString *latitudeString = [NSString stringWithFormat:@"%08x", (long)latitude];
+    NSString *longitudeString = [NSString stringWithFormat:@"%08x", (long)longitude];
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ed017f08",latitudeString,longitudeString];
+    [self configDataWithTaskID:mk_mt_taskConfigLRLatitudeLongitudeOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configLRNotifyOnEphemerisStartStatus:(BOOL)isOn
+                                       sucBlock:(void (^)(void))sucBlock
+                                    failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = (isOn ? @"ed01800101" : @"ed01800100");
+    [self configDataWithTaskID:mk_mt_taskConfigLRNotifyOnEphemerisStartStatusOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configLRNotifyOnEphemerisEndStatus:(BOOL)isOn
+                                     sucBlock:(void (^)(void))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = (isOn ? @"ed01810101" : @"ed01810100");
+    [self configDataWithTaskID:mk_mt_taskConfigLRNotifyOnEphemerisEndStatusOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
 #pragma mark ****************************************设备lorawan信息设置************************************************
 
 + (void)mt_configRegion:(mk_mt_loraWanRegion)region

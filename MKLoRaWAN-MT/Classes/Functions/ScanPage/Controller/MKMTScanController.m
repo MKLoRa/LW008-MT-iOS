@@ -27,7 +27,7 @@
 
 #import "MKMTConnectModel.h"
 
-//#import "CTMediator+MKMTAdd.h"
+#import "CTMediator+MKMTAdd.h"
 
 #import "MKMTScanPageModel.h"
 #import "MKMTScanPageCell.h"
@@ -97,8 +97,8 @@ MKMTTabBarControllerDelegate>
 #pragma mark - super method
 
 - (void)rightButtonMethod {
-//    UIViewController *vc = [[CTMediator sharedInstance] CTMediator_LORAWAN_mt_AboutPage];
-//    [self.navigationController pushViewController:vc animated:YES];
+    UIViewController *vc = [[CTMediator sharedInstance] CTMediator_LORAWAN_MT_AboutPage];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UITableViewDataSource
@@ -365,8 +365,8 @@ MKMTTabBarControllerDelegate>
     @weakify(self);
     MKAlertViewAction *cancelAction = [[MKAlertViewAction alloc] initWithTitle:@"Cancel" handler:^{
         @strongify(self);
-        self.rightButton.selected = NO;
-        [self rightButtonMethod];
+        self.refreshButton.selected = NO;
+        [self refreshButtonPressed];
     }];
     
     MKAlertViewAction *confirmAction = [[MKAlertViewAction alloc] initWithTitle:@"OK" handler:^{
@@ -399,7 +399,7 @@ MKMTTabBarControllerDelegate>
         return;
     }
     [[MKHudManager share] showHUDWithTitle:@"Connecting..." inView:self.view isPenetration:NO];
-    [[MKMTConnectModel shared] connectDevice:scanDataModel.peripheral password:(scanDataModel.needPassword ? password : @"") sucBlock:^{
+    [[MKMTConnectModel shared] connectDevice:scanDataModel.peripheral password:(scanDataModel.needPassword ? password : @"") deviceType:scanDataModel.deviceType sucBlock:^{
         if (scanDataModel.needPassword && ValidStr(self.asciiText) && self.asciiText.length == 8) {
             [[NSUserDefaults standardUserDefaults] setObject:self.asciiText forKey:localPasswordKey];
         }

@@ -654,6 +654,70 @@
                  failedBlock:failedBlock];
 }
 
++ (void)mt_readLRPositioningTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
+                                    failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadLRPositioningTimeoutOperation
+                     cmdFlag:@"7a"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readLRStatelliteThresholdWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadLRStatelliteThresholdOperation
+                     cmdFlag:@"7b"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readLRGPSDataTypeWithSucBlock:(void (^)(id returnData))sucBlock
+                             failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadLRGPSDataTypeOperation
+                     cmdFlag:@"7c"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readLRPositioningSystemWithSucBlock:(void (^)(id returnData))sucBlock
+                                   failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadLRPositioningSystemOperation
+                     cmdFlag:@"7d"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readLRAutonomousAidingWithSucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadLRAutonomousAidingOperation
+                     cmdFlag:@"7e"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readLRLatitudeLongitudeWithSucBlock:(void (^)(id returnData))sucBlock
+                                   failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadLRLatitudeLongitudeOperation
+                     cmdFlag:@"7f"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readLRNotifyOnEphemerisStartStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                              failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadLRNotifyOnEphemerisStartStatusOperation
+                     cmdFlag:@"80"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readLRNotifyOnEphemerisEndStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                            failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadLRNotifyOnEphemerisEndStatusOperation
+                     cmdFlag:@"81"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
 #pragma mark **************************************** LoRaWAN ************************************************
 
 + (void)mt_readLorawanNetworkStatusWithSucBlock:(void (^)(id returnData))sucBlock

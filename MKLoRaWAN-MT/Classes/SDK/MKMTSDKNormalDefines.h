@@ -64,7 +64,13 @@ typedef NS_ENUM(NSInteger, mk_mt_filterByOther) {
 
 typedef NS_ENUM(NSInteger, mk_mt_dataFormat) {
     mk_mt_dataFormat_DAS,
-    mk_mt_dataFormat_Custome,
+    mk_mt_dataFormat_Customer,
+};
+
+typedef NS_ENUM(NSInteger, mk_mt_positioningSystem) {
+    mk_mt_positioningSystem_GPS,
+    mk_mt_positioningSystem_Beidou,
+    mk_mt_positioningSystem_GPSAndBeidou
 };
 
 typedef NS_ENUM(NSInteger, mk_mt_PHYMode) {

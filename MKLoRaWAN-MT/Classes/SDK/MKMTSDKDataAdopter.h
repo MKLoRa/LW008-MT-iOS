@@ -62,6 +62,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)parseIndicatorSettingsCommand:(id <mk_mt_indicatorSettingsProtocol>)protocol;
 
++ (NSString *)fetchLRPositioningSystemString:(mk_mt_positioningSystem)system;
+
 @end
 
 NS_ASSUME_NONNULL_END
