@@ -132,9 +132,9 @@
             return @"00";
         case mk_mt_PHYMode_BLE5:
             return @"01";
-        case mk_mt_PHYMode_CodedBLE5:
-            return @"02";
         case mk_mt_PHYMode_BLE4AndBLE5:
+            return @"02";
+        case mk_mt_PHYMode_CodedBLE5:
             return @"03";
     }
 }

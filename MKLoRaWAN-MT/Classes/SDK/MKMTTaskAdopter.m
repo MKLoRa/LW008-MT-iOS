@@ -404,15 +404,7 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
         operationID = mk_mt_taskReadRssiFilterValueOperation;
     }else if ([cmd isEqualToString:@"56"]) {
         //读取蓝牙扫描phy选择
-        NSInteger value = [MKBLEBaseSDKAdopter getDecimalWithHex:content range:NSMakeRange(0, content.length)];
-        NSString *phyType = @"0";
-        if (value == 1) {
-            phyType = @"1";
-        }else if (value == 2) {
-            phyType = @"3";
-        }else if (value == 3) {
-            phyType = @"2";
-        }
+        NSString *phyType = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)];
         resultDic = @{@"phyType":phyType};
         operationID = mk_mt_taskReadScanningPHYTypeOperation;
     }else if ([cmd isEqualToString:@"57"]) {
