@@ -7897,23 +7897,7 @@
 			};
 			name = Debug;
 		};
-		DD3CDBE09468C89CD5BB3274C23CC1D9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 723F0804FA2A1B2E2249EC6D98F444F8 /* MKLoRaWAN-MT.release.xcconfig */;
-			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/MKLoRaWAN-MT";
-				IBSC_MODULE = MKLoRaWAN_MT;
-				INFOPLIST_FILE = "Target Support Files/MKLoRaWAN-MT/ResourceBundle-MKLoRaWAN-MT-MKLoRaWAN-MT-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				PRODUCT_NAME = "MKLoRaWAN-MT";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
-		E1AE8DE636F821726AC049E85795CB53 /* Debug */ = {
+		DB84021A03C41C37153D0A450935F600 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5CBA35200E4E20F993F23F87D4BE009E /* iOSDFULibrary.debug.xcconfig */;
 			buildSettings = {
@@ -7937,12 +7921,28 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.5;
+				SWIFT_VERSION = 5.6;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		DD3CDBE09468C89CD5BB3274C23CC1D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 723F0804FA2A1B2E2249EC6D98F444F8 /* MKLoRaWAN-MT.release.xcconfig */;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/MKLoRaWAN-MT";
+				IBSC_MODULE = MKLoRaWAN_MT;
+				INFOPLIST_FILE = "Target Support Files/MKLoRaWAN-MT/ResourceBundle-MKLoRaWAN-MT-MKLoRaWAN-MT-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				PRODUCT_NAME = "MKLoRaWAN-MT";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
 		};
 		EC357D98B238EAF3D94959D69ED847D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -7975,7 +7975,7 @@
 			};
 			name = Debug;
 		};
-		F640084CC5B6FA83AFC28E5A1BD56963 /* Release */ = {
+		F182127E7409E56D57E9BF915EB0B02C /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 536696CCC0D6CC8235DB7AE97284EFC2 /* iOSDFULibrary.release.xcconfig */;
 			buildSettings = {
@@ -7999,7 +7999,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.5;
+				SWIFT_VERSION = 5.6;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -8067,8 +8067,8 @@
 		37055AD38E71EB4FAFBE5AE7F2CF459C /* Build configuration list for PBXNativeTarget "iOSDFULibrary" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E1AE8DE636F821726AC049E85795CB53 /* Debug */,
-				F640084CC5B6FA83AFC28E5A1BD56963 /* Release */,
+				DB84021A03C41C37153D0A450935F600 /* Debug */,
+				F182127E7409E56D57E9BF915EB0B02C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
