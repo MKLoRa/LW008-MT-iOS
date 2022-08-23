@@ -42,15 +42,17 @@
     __block BOOL success = NO;
     [MKMTInterface mt_readFilterTypeStatusWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
-        self.other = [returnData[@"result"][@"unknown"] boolValue];
         self.iBeacon = [returnData[@"result"][@"iBeacon"] boolValue];
         self.uid = [returnData[@"result"][@"uid"] boolValue];
         self.url = [returnData[@"result"][@"url"] boolValue];
         self.tlm = [returnData[@"result"][@"tlm"] boolValue];
+        self.bxpBeacon = [returnData[@"result"][@"bxp_beacon"] boolValue];
+        self.bxpDeviceInfo = [returnData[@"result"][@"bxp_deviceInfo"] boolValue];
         self.bxpAcc = [returnData[@"result"][@"bxp_acc"] boolValue];
         self.bxpTH = [returnData[@"result"][@"bxp_th"] boolValue];
-        self.mk_iBeacon = [returnData[@"result"][@"mk_iBeacon"] boolValue];
-        self.mk_iBeaconAcc = [returnData[@"result"][@"mk_iBeacon_acc"] boolValue];
+        self.bxpButton = [returnData[@"result"][@"bxp_button"] boolValue];
+        self.bxpTag = [returnData[@"result"][@"bxp_tag"] boolValue];
+        self.other = [returnData[@"result"][@"other"] boolValue];
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);

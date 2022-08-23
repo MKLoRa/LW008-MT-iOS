@@ -450,26 +450,29 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
         operationID = mk_mt_taskReadFilterByAdvNameReverseFilterOperation;
     }else if ([cmd isEqualToString:@"5e"]) {
         //读取过滤设备类型开关
-        BOOL unknown = ([[content substringWithRange:NSMakeRange(0, 2)] isEqualToString:@"01"]);
-        BOOL iBeacon = ([[content substringWithRange:NSMakeRange(2, 2)] isEqualToString:@"01"]);
-        BOOL uid = ([[content substringWithRange:NSMakeRange(4, 2)] isEqualToString:@"01"]);
-        BOOL url = ([[content substringWithRange:NSMakeRange(6, 2)] isEqualToString:@"01"]);
-        BOOL tlm = ([[content substringWithRange:NSMakeRange(8, 2)] isEqualToString:@"01"]);
-        BOOL bxp_acc = ([[content substringWithRange:NSMakeRange(10, 2)] isEqualToString:@"01"]);
-        BOOL bxp_th = ([[content substringWithRange:NSMakeRange(12, 2)] isEqualToString:@"01"]);
-        BOOL mk_iBeacon = ([[content substringWithRange:NSMakeRange(14, 2)] isEqualToString:@"01"]);
-        BOOL mk_iBeacon_acc = ([[content substringWithRange:NSMakeRange(16, 2)] isEqualToString:@"01"]);
-
+        BOOL iBeacon = ([[content substringWithRange:NSMakeRange(0, 2)] isEqualToString:@"01"]);
+        BOOL uid = ([[content substringWithRange:NSMakeRange(2, 2)] isEqualToString:@"01"]);
+        BOOL url = ([[content substringWithRange:NSMakeRange(4, 2)] isEqualToString:@"01"]);
+        BOOL tlm = ([[content substringWithRange:NSMakeRange(6, 2)] isEqualToString:@"01"]);
+        BOOL bxp_beacon = ([[content substringWithRange:NSMakeRange(8, 2)] isEqualToString:@"01"]);
+        BOOL bxp_deviceInfo = ([[content substringWithRange:NSMakeRange(10, 2)] isEqualToString:@"01"]);
+        BOOL bxp_acc = ([[content substringWithRange:NSMakeRange(12, 2)] isEqualToString:@"01"]);
+        BOOL bxp_th = ([[content substringWithRange:NSMakeRange(14, 2)] isEqualToString:@"01"]);
+        BOOL bxp_button = ([[content substringWithRange:NSMakeRange(16, 2)] isEqualToString:@"01"]);
+        BOOL bxp_tag = ([[content substringWithRange:NSMakeRange(18, 2)] isEqualToString:@"01"]);
+        BOOL other = ([[content substringWithRange:NSMakeRange(20, 2)] isEqualToString:@"01"]);
         resultDic = @{
-            @"unknown":@(unknown),
             @"iBeacon":@(iBeacon),
             @"uid":@(uid),
             @"url":@(url),
             @"tlm":@(tlm),
+            @"bxp_beacon":@(bxp_beacon),
+            @"bxp_deviceInfo":@(bxp_deviceInfo),
             @"bxp_acc":@(bxp_acc),
             @"bxp_th":@(bxp_th),
-            @"mk_iBeacon":@(mk_iBeacon),
-            @"mk_iBeacon_acc":@(mk_iBeacon_acc)
+            @"bxp_button":@(bxp_button),
+            @"bxp_tag":@(bxp_tag),
+            @"other":@(other)
         };
         operationID = mk_mt_taskReadFilterTypeStatusOperation;
     }else if ([cmd isEqualToString:@"5f"]) {
@@ -508,14 +511,14 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
         };
         operationID = mk_mt_taskReadFilterByBeaconUUIDOperation;
     }else if ([cmd isEqualToString:@"63"]) {
-        //读取MKiBeacon类型过滤开关
+        //读取BXP-iBeacon类型过滤开关
         BOOL isOn = ([content isEqualToString:@"01"]);
         resultDic = @{
             @"isOn":@(isOn)
         };
-        operationID = mk_mt_taskReadFilterByMKBeaconStatusOperation;
+        operationID = mk_mt_taskReadFilterByBXPBeaconStatusOperation;
     }else if ([cmd isEqualToString:@"64"]) {
-        //读取MKiBeacon类型过滤的Major范围
+        //读取BXP-iBeacon类型过滤的Major范围
         BOOL isOn = ([[content substringWithRange:NSMakeRange(0, 2)] isEqualToString:@"01"]);
         NSString *minValue = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)];
         NSString *maxValue = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(6, 4)];
@@ -524,7 +527,7 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
             @"maxValue":maxValue,
             @"minValue":minValue,
         };
-        operationID = mk_mt_taskReadFilterByMKBeaconMajorRangeOperation;
+        operationID = mk_mt_taskReadFilterByBXPBeaconMajorRangeOperation;
     }else if ([cmd isEqualToString:@"65"]) {
         //读取iBeacon类型过滤的Minor范围
         BOOL isOn = ([[content substringWithRange:NSMakeRange(0, 2)] isEqualToString:@"01"]);
@@ -535,48 +538,41 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
             @"maxValue":maxValue,
             @"minValue":minValue,
         };
-        operationID = mk_mt_taskReadFilterByMKBeaconMinorRangeOperation;
+        operationID = mk_mt_taskReadFilterByBXPBeaconMinorRangeOperation;
     }else if ([cmd isEqualToString:@"66"]) {
         //读取iBeacon类型过滤的UUID
         resultDic = @{
             @"uuid":content,
         };
-        operationID = mk_mt_taskReadFilterByMKBeaconUUIDOperation;
+        operationID = mk_mt_taskReadFilterByBXPBeaconUUIDOperation;
     }else if ([cmd isEqualToString:@"67"]) {
-        //读取MKiBeacon&ACC类型过滤开关
+        //读取BXP-TagID类型开关
         BOOL isOn = ([content isEqualToString:@"01"]);
         resultDic = @{
             @"isOn":@(isOn)
         };
-        operationID = mk_mt_taskReadFilterByMKBeaconAccStatusOperation;
+        operationID = mk_mt_taskReadFilterByBXPTagIDStatusOperation;
     }else if ([cmd isEqualToString:@"68"]) {
-        //读取MKiBeacon&ACC类型过滤的Major范围
-        BOOL isOn = ([[content substringWithRange:NSMakeRange(0, 2)] isEqualToString:@"01"]);
-        NSString *minValue = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)];
-        NSString *maxValue = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(6, 4)];
+        //读取BXP-TagID类型精准过滤tagID开关
+        BOOL isOn = ([content isEqualToString:@"01"]);
         resultDic = @{
-            @"isOn":@(isOn),
-            @"maxValue":maxValue,
-            @"minValue":minValue,
+            @"isOn":@(isOn)
         };
-        operationID = mk_mt_taskReadFilterByMKBeaconAccMajorRangeOperation;
+        operationID = mk_mt_taskReadPreciseMatchTagIDStatusOperation;
     }else if ([cmd isEqualToString:@"69"]) {
-        //读取MKiBeacon&ACC类型过滤的Minor范围
-        BOOL isOn = ([[content substringWithRange:NSMakeRange(0, 2)] isEqualToString:@"01"]);
-        NSString *minValue = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 4)];
-        NSString *maxValue = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(6, 4)];
+        //读取读取BXP-TagID类型反向过滤tagID开关
+        BOOL isOn = ([content isEqualToString:@"01"]);
         resultDic = @{
-            @"isOn":@(isOn),
-            @"maxValue":maxValue,
-            @"minValue":minValue,
+            @"isOn":@(isOn)
         };
-        operationID = mk_mt_taskReadFilterByMKBeaconAccMinorRangeOperation;
+        operationID = mk_mt_taskReadReverseFilterTagIDStatusOperation;
     }else if ([cmd isEqualToString:@"6a"]) {
-        //读取MKiBeacon&ACC类型过滤的UUID
+        //读取BXP-TagID过滤规则
+        NSArray *tagIDList = [MKMTSDKDataAdopter parseFilterMacList:content];
         resultDic = @{
-            @"uuid":content,
+            @"tagIDList":(MKValidArray(tagIDList) ? tagIDList : @[]),
         };
-        operationID = mk_mt_taskReadFilterByMKBeaconAccUUIDOperation;
+        operationID = mk_mt_taskReadFilterBXPTagIDListOperation;
     }else if ([cmd isEqualToString:@"6b"]) {
         //读取UID类型过滤开关
         BOOL isOn = ([content isEqualToString:@"01"]);
@@ -725,6 +721,39 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
             @"isOn":@(isOn)
         };
         operationID = mk_mt_taskReadLRNotifyOnEphemerisEndStatusOperation;
+    }else if ([cmd isEqualToString:@"82"]) {
+        //读取BXP-DeviceInfo过滤条件开关
+        BOOL isOn = ([content isEqualToString:@"01"]);
+        resultDic = @{
+            @"isOn":@(isOn)
+        };
+        operationID = mk_mt_taskReadBXPDeviceInfoFilterStatusOperation;
+    }else if ([cmd isEqualToString:@"83"]) {
+        //读取BXP-Button过滤条件开关
+        BOOL isOn = ([content isEqualToString:@"01"]);
+        resultDic = @{
+            @"isOn":@(isOn)
+        };
+        operationID = mk_mt_taskReadBXPButtonFilterStatusOperation;
+    }else if ([cmd isEqualToString:@"84"]) {
+        //读取BXP-Button报警过滤开关
+        BOOL singlePresse = ([[content substringWithRange:NSMakeRange(0, 2)] isEqualToString:@"01"]);
+        BOOL doublePresse = ([[content substringWithRange:NSMakeRange(2, 2)] isEqualToString:@"01"]);
+        BOOL longPresse = ([[content substringWithRange:NSMakeRange(4, 2)] isEqualToString:@"01"]);
+        BOOL abnormal = ([[content substringWithRange:NSMakeRange(6, 2)] isEqualToString:@"01"]);
+        resultDic = @{
+            @"singlePresse":@(singlePresse),
+            @"doublePresse":@(doublePresse),
+            @"longPresse":@(longPresse),
+            @"abnormal":@(abnormal),
+        };
+        operationID = mk_mt_taskReadBXPButtonAlarmFilterStatusOperation;
+    }else if ([cmd isEqualToString:@"85"]) {
+        //读取蓝牙定位机制选择
+        resultDic = @{
+            @"priority":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
+        };
+        operationID = mk_mt_taskReadBluetoothFixMechanismOperation;
     }else if ([cmd isEqualToString:@"90"]) {
         //读取LoRaWAN网络状态
         resultDic = @{
@@ -1078,29 +1107,29 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
         //配置iBeacon类型过滤UUID
         operationID = mk_mt_taskConfigFilterByBeaconUUIDOperation;
     }else if ([cmd isEqualToString:@"63"]) {
-        //配置MKiBeacon类型过滤开关
-        operationID = mk_mt_taskConfigFilterByMKBeaconStatusOperation;
+        //配置BXP-iBeacon类型过滤开关
+        operationID = mk_mt_taskConfigFilterByBXPBeaconStatusOperation;
     }else if ([cmd isEqualToString:@"64"]) {
-        //配置MKiBeacon类型过滤Major范围
-        operationID = mk_mt_taskConfigFilterByMKBeaconMajorOperation;
+        //配置BXP-iBeacon类型过滤Major范围
+        operationID = mk_mt_taskConfigFilterByBXPBeaconMajorOperation;
     }else if ([cmd isEqualToString:@"65"]) {
-        //配置MKiBeacon类型过滤Minor范围
-        operationID = mk_mt_taskConfigFilterByMKBeaconMinorOperation;
+        //配置BXP-iBeacon类型过滤Minor范围
+        operationID = mk_mt_taskConfigFilterByBXPBeaconMinorOperation;
     }else if ([cmd isEqualToString:@"66"]) {
-        //配置MKiBeacon类型过滤UUID
-        operationID = mk_mt_taskConfigFilterByMKBeaconUUIDOperation;
+        //配置BXP-iBeacon类型过滤UUID
+        operationID = mk_mt_taskConfigFilterByBXPBeaconUUIDOperation;
     }else if ([cmd isEqualToString:@"67"]) {
-        //配置MKiBeacon&ACC类型过滤开关
-        operationID = mk_mt_taskConfigFilterByMKBeaconAccStatusOperation;
+        //配置BXP-TagID类型过滤开关
+        operationID = mk_mt_taskConfigFilterByBXPTagIDStatusOperation;
     }else if ([cmd isEqualToString:@"68"]) {
-        //配置MKiBeacon&ACC类型过滤Major范围
-        operationID = mk_mt_taskConfigFilterByMKBeaconAccMajorOperation;
+        //配置BXP-TagID类型精准过滤Tag-ID开关
+        operationID = mk_mt_taskConfigPreciseMatchTagIDStatusOperation;
     }else if ([cmd isEqualToString:@"69"]) {
-        //配置MKiBeacon&ACC类型过滤Minor范围
-        operationID = mk_mt_taskConfigFilterByMKBeaconAccMinorOperation;
+        //配置BXP-TagID类型反向过滤Tag-ID开关
+        operationID = mk_mt_taskConfigReverseFilterTagIDStatusOperation;
     }else if ([cmd isEqualToString:@"6a"]) {
-        //配置MKiBeacon&ACC类型过滤UUID
-        operationID = mk_mt_taskConfigFilterByMKBeaconAccUUIDOperation;
+        //配置BXP-TagID过滤规则
+        operationID = mk_mt_taskConfigFilterBXPTagIDListOperation;
     }else if ([cmd isEqualToString:@"6b"]) {
         //配置UID类型过滤开关
         operationID = mk_mt_taskConfigFilterByUIDStatusOperation;
@@ -1167,6 +1196,18 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
     }else if ([cmd isEqualToString:@"81"]) {
         //配置星历结束更新事件开关(LR1110)
         operationID = mk_mt_taskConfigLRNotifyOnEphemerisEndStatusOperation;
+    }else if ([cmd isEqualToString:@"82"]) {
+        //配置BXP-DeviceInfo过滤开关
+        operationID = mk_mt_taskConfigFilterByBXPDeviceInfoStatusOperation;
+    }else if ([cmd isEqualToString:@"83"]) {
+        //配置BXP-Button过滤开关
+        operationID = mk_mt_taskConfigFilterByBXPButtonStatusOperation;
+    }else if ([cmd isEqualToString:@"84"]) {
+        //配置BXP-Button类型过滤内容
+        operationID = mk_mt_taskConfigFilterByBXPButtonAlarmStatusOperation;
+    }else if ([cmd isEqualToString:@"85"]) {
+        //配置蓝牙定位机制
+        operationID = mk_mt_taskConfigBluetoothFixMechanismOperation;
     }else if ([cmd isEqualToString:@"91"]) {
         //配置LoRaWAN频段
         operationID = mk_mt_taskConfigRegionOperation;

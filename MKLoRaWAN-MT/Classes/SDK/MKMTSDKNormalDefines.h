@@ -120,6 +120,11 @@ typedef NS_ENUM(NSInteger, mk_mt_txPower) {
     mk_mt_txPower8dBm,       //8dBm
 };
 
+typedef NS_ENUM(NSInteger, mk_mt_bluetoothFixMechanism) {
+    mk_mt_bluetoothFixMechanism_timePriority,
+    mk_mt_bluetoothFixMechanism_rssiPriority,
+};
+
 @protocol mk_mt_indicatorSettingsProtocol <NSObject>
 
 @property (nonatomic, assign)BOOL LowPower;

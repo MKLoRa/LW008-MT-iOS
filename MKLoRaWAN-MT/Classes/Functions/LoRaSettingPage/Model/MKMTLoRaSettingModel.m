@@ -809,9 +809,9 @@
         if (self.transmissions < 0 || self.transmissions > 1) {
             return NO;
         }
-        if (!ValidStr(self.ackLimit) || [self.ackLimit integerValue] < 1 || [self.ackLimit integerValue] > 100) {
+        if (!ValidStr(self.ackLimit) || [self.ackLimit integerValue] < 1 || [self.ackLimit integerValue] > 255) {
             return NO;
-        }if (!ValidStr(self.ackDelay) || [self.ackDelay integerValue] < 1 || [self.ackDelay integerValue] > 100) {
+        }if (!ValidStr(self.ackDelay) || [self.ackDelay integerValue] < 1 || [self.ackDelay integerValue] > 255) {
             return NO;
         }
     }

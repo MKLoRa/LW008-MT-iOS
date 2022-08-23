@@ -322,6 +322,8 @@ TODO: Add long description of the pod here.
           sssss.dependency 'MKLoRaWAN-MT/Functions/FilterPages/FilterByUIDPage/Controller'
           sssss.dependency 'MKLoRaWAN-MT/Functions/FilterPages/FilterByURLPage/Controller'
           sssss.dependency 'MKLoRaWAN-MT/Functions/FilterPages/FilterByTLMPage/Controller'
+          sssss.dependency 'MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPButtonPage/Controller'
+          sssss.dependency 'MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPTagPage/Controller'
           sssss.dependency 'MKLoRaWAN-MT/Functions/FilterPages/FilterByOtherPage/Controller'
           
         end
@@ -367,6 +369,32 @@ TODO: Add long description of the pod here.
       
         ssss.subspec 'Model' do |sssss|
           sssss.source_files = 'MKLoRaWAN-MT/Classes/Functions/FilterPages/FilterByURLPage/Model/**'
+        end
+      end
+      
+      sss.subspec 'FilterByBXPButtonPage' do |ssss|
+        ssss.subspec 'Controller' do |sssss|
+          sssss.source_files = 'MKLoRaWAN-MT/Classes/Functions/FilterPages/FilterByBXPButtonPage/Controller/**'
+        
+          sssss.dependency 'MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPButtonPage/Model'
+          
+        end
+      
+        ssss.subspec 'Model' do |sssss|
+          sssss.source_files = 'MKLoRaWAN-MT/Classes/Functions/FilterPages/FilterByBXPButtonPage/Model/**'
+        end
+      end
+      
+      sss.subspec 'FilterByBXPTagPage' do |ssss|
+        ssss.subspec 'Controller' do |sssss|
+          sssss.source_files = 'MKLoRaWAN-MT/Classes/Functions/FilterPages/FilterByBXPTagPage/Controller/**'
+        
+          sssss.dependency 'MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPTagPage/Model'
+          
+        end
+      
+        ssss.subspec 'Model' do |sssss|
+          sssss.source_files = 'MKLoRaWAN-MT/Classes/Functions/FilterPages/FilterByBXPTagPage/Model/**'
         end
       end
       

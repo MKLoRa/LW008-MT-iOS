@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 1~5
 @property (nonatomic, copy)NSString *number;
 
+/// @"0":Time Priority, @"1":Rssi Priority.
+@property (nonatomic, assign)NSInteger priority;
+
 /// -127~0
 @property (nonatomic, assign)NSInteger rssi;
 

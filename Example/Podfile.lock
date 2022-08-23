@@ -914,6 +914,8 @@ PODS:
     - MKLoRaWAN-MT/Expand
     - MKLoRaWAN-MT/Functions/FilterPages/FilterByAdvNamePage (= 0.0.1)
     - MKLoRaWAN-MT/Functions/FilterPages/FilterByBeaconPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPButtonPage (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPTagPage (= 0.0.1)
     - MKLoRaWAN-MT/Functions/FilterPages/FilterByMacPage (= 0.0.1)
     - MKLoRaWAN-MT/Functions/FilterPages/FilterByOtherPage (= 0.0.1)
     - MKLoRaWAN-MT/Functions/FilterPages/FilterByRawDataPage (= 0.0.1)
@@ -1006,6 +1008,78 @@ PODS:
     - MKLoRaWAN-MT/DatabaseManager
     - MKLoRaWAN-MT/Expand
     - MKLoRaWAN-MT/Functions/FilterPages/FilterByBeaconPage/Header
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPButtonPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPButtonPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPButtonPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPButtonPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPButtonPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPButtonPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPTagPage (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPTagPage/Controller (= 0.0.1)
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPTagPage/Model (= 0.0.1)
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPTagPage/Controller (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPTagPage/Model
+    - MKLoRaWAN-MT/SDK
+    - MLInputDodger
+  - MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPTagPage/Model (0.0.1):
+    - HHTransition
+    - iOSDFULibrary
+    - MKBaseModuleLibrary
+    - MKCustomUIModule
+    - MKLoRaWAN-MT/ConnectModule
+    - MKLoRaWAN-MT/CTMediator
+    - MKLoRaWAN-MT/DatabaseManager
+    - MKLoRaWAN-MT/Expand
     - MKLoRaWAN-MT/SDK
     - MLInputDodger
   - MKLoRaWAN-MT/Functions/FilterPages/FilterByMacPage (0.0.1):
@@ -1103,6 +1177,8 @@ PODS:
     - MKLoRaWAN-MT/DatabaseManager
     - MKLoRaWAN-MT/Expand
     - MKLoRaWAN-MT/Functions/FilterPages/FilterByBeaconPage/Controller
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPButtonPage/Controller
+    - MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPTagPage/Controller
     - MKLoRaWAN-MT/Functions/FilterPages/FilterByOtherPage/Controller
     - MKLoRaWAN-MT/Functions/FilterPages/FilterByRawDataPage/Model
     - MKLoRaWAN-MT/Functions/FilterPages/FilterByTLMPage/Controller
@@ -2014,7 +2090,7 @@ SPEC CHECKSUMS:
   MKBaseBleModule: ae6aa81e33e016777c5bf0ca7b05762647dfff77
   MKBaseModuleLibrary: bfe8141f0ec3f60a9d3d71fb3ea82eac1bcf74fb
   MKCustomUIModule: 49a47c2e1683bb06f15ba9659d6ce693a76c6a1b
-  MKLoRaWAN-MT: 938578d64fc2da953675fa4eb086de726fe0783f
+  MKLoRaWAN-MT: 05d384d40b01330834b2af6e7dd29310608aac05
   MLInputDodger: 79a0e420a80d0d3bba122bf2639603cc76609ba8
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   WRNavigationBar: 10bfdf96addf14d640d07c2ef08a029c18d8af10

@@ -27,6 +27,8 @@
 #import "MKMTFilterByUIDController.h"
 #import "MKMTFilterByURLController.h"
 #import "MKMTFilterByTLMController.h"
+#import "MKMTFilterByBXPButtonController.h"
+#import "MKMTFilterByBXPTagController.h"
 #import "MKMTFilterByOtherController.h"
 
 @interface MKMTFilterByRawDataController ()<UITableViewDelegate,
@@ -94,20 +96,25 @@ mk_textSwitchCellDelegate>
         return;
     }
     if (indexPath.section == 0 && indexPath.row == 4) {
-        //MKiBeacon
+        //BXP-iBeacon
         MKMTFilterByBeaconController *vc = [[MKMTFilterByBeaconController alloc] init];
-        vc.pageType = mk_mt_filterByBeaconPageType_MKBeacon;
-        [self.navigationController pushViewController:vc animated:YES];
-        return;
-    }
-    if (indexPath.section == 0 && indexPath.row == 5) {
-        //MKiBeacon&ACC
-        MKMTFilterByBeaconController *vc = [[MKMTFilterByBeaconController alloc] init];
-        vc.pageType = mk_mt_filterByBeaconPageType_MKBeaconAcc;
+        vc.pageType = mk_mt_filterByBeaconPageType_bxpBeacon;
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
     if (indexPath.section == 2 && indexPath.row == 0) {
+        //BXP-Button
+        MKMTFilterByBXPButtonController *vc = [[MKMTFilterByBXPButtonController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+        return;
+    }
+    if (indexPath.section == 2 && indexPath.row == 1) {
+        //BXP - Tag
+        MKMTFilterByBXPTagController *vc = [[MKMTFilterByBXPTagController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+        return;
+    }
+    if (indexPath.section == 2 && indexPath.row == 2) {
         //Other
         MKMTFilterByOtherController *vc = [[MKMTFilterByOtherController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
@@ -156,11 +163,16 @@ mk_textSwitchCellDelegate>
 /// @param index 当前cell所在的index
 - (void)mk_textSwitchCellStatusChanged:(BOOL)isOn index:(NSInteger)index {
     if (index == 0) {
-        //BeaconX Pro - ACC
-        [self configBXPAcc:isOn];
+        //BXP - Device Info
+        [self configDeviceInfo:isOn];
         return;
     }
     if (index == 1) {
+        //BXP - ACC
+        [self configBXPAcc:isOn];
+        return;
+    }
+    if (index == 2) {
         //BeaconX Pro - T&H
         [self configBXPTH:isOn];
         return;
@@ -182,11 +194,11 @@ mk_textSwitchCellDelegate>
     }];
 }
 
-- (void)configBXPAcc:(BOOL)isOn {
+- (void)configDeviceInfo:(BOOL)isOn {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-    [MKMTInterface mt_configBXPAccFilterStatus:isOn sucBlock:^{
+    [MKMTInterface mt_configFilterByBXPDeviceInfoStatus:isOn sucBlock:^{
         [[MKHudManager share] hide];
-        self.dataModel.bxpAcc = isOn;
+        self.dataModel.bxpDeviceInfo = isOn;
         MKTextSwitchCellModel *cellModel = self.section1List[0];
         cellModel.isOn = isOn;
     } failedBlock:^(NSError * _Nonnull error) {
@@ -196,17 +208,31 @@ mk_textSwitchCellDelegate>
     }];
 }
 
-- (void)configBXPTH:(BOOL)isOn {
+- (void)configBXPAcc:(BOOL)isOn {
     [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
-    [MKMTInterface mt_configBXPTHFilterStatus:isOn sucBlock:^{
+    [MKMTInterface mt_configBXPAccFilterStatus:isOn sucBlock:^{
         [[MKHudManager share] hide];
-        self.dataModel.bxpTH = isOn;
+        self.dataModel.bxpAcc = isOn;
         MKTextSwitchCellModel *cellModel = self.section1List[1];
         cellModel.isOn = isOn;
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
         [self.tableView mk_reloadRow:1 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
+    }];
+}
+
+- (void)configBXPTH:(BOOL)isOn {
+    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
+    [MKMTInterface mt_configBXPTHFilterStatus:isOn sucBlock:^{
+        [[MKHudManager share] hide];
+        self.dataModel.bxpTH = isOn;
+        MKTextSwitchCellModel *cellModel = self.section1List[2];
+        cellModel.isOn = isOn;
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+        [self.tableView mk_reloadRow:2 inSection:1 withRowAnimation:UITableViewRowAnimationNone];
     }];
 }
 
@@ -225,19 +251,25 @@ mk_textSwitchCellDelegate>
     cellModel4.rightMsg = (self.dataModel.tlm ? @"ON" : @"OFF");
     
     MKNormalTextCellModel *cellModel5 = self.section0List[4];
-    cellModel5.rightMsg = (self.dataModel.mk_iBeacon ? @"ON" : @"OFF");
+    cellModel5.rightMsg = (self.dataModel.bxpBeacon ? @"ON" : @"OFF");
     
-    MKNormalTextCellModel *cellModel6 = self.section0List[5];
-    cellModel6.rightMsg = (self.dataModel.mk_iBeaconAcc ? @"ON" : @"OFF");
+    MKTextSwitchCellModel *cellModel6 = self.section1List[0];
+    cellModel6.isOn = self.dataModel.bxpDeviceInfo;
     
-    MKTextSwitchCellModel *cellModel7 = self.section1List[0];
+    MKTextSwitchCellModel *cellModel7 = self.section1List[1];
     cellModel7.isOn = self.dataModel.bxpAcc;
     
-    MKTextSwitchCellModel *cellModel8 = self.section1List[1];
+    MKTextSwitchCellModel *cellModel8 = self.section1List[2];
     cellModel8.isOn = self.dataModel.bxpTH;
     
     MKNormalTextCellModel *cellModel9 = self.section2List[0];
-    cellModel9.rightMsg = (self.dataModel.other ? @"ON" : @"OFF");
+    cellModel9.rightMsg = (self.dataModel.bxpButton ? @"ON" : @"OFF");
+    
+    MKNormalTextCellModel *cellModel10 = self.section2List[1];
+    cellModel10.rightMsg = (self.dataModel.bxpTag ? @"ON" : @"OFF");
+    
+    MKNormalTextCellModel *cellModel11 = self.section2List[2];
+    cellModel11.rightMsg = (self.dataModel.other ? @"ON" : @"OFF");
     
     [self.tableView reloadData];
 }
@@ -273,32 +305,42 @@ mk_textSwitchCellDelegate>
     
     MKNormalTextCellModel *cellModel5 = [[MKNormalTextCellModel alloc] init];
     cellModel5.showRightIcon = YES;
-    cellModel5.leftMsg = @"MKiBeacon";
+    cellModel5.leftMsg = @"BXP-iBeacon";
     [self.section0List addObject:cellModel5];
-    
-    MKNormalTextCellModel *cellModel6 = [[MKNormalTextCellModel alloc] init];
-    cellModel6.showRightIcon = YES;
-    cellModel6.leftMsg = @"MKiBeacon&ACC";
-    [self.section0List addObject:cellModel6];
 }
 
 - (void)loadSection1Datas {
     MKTextSwitchCellModel *cellModel1 = [[MKTextSwitchCellModel alloc] init];
     cellModel1.index = 0;
-    cellModel1.msg = @"BeaconX Pro - ACC";
+    cellModel1.msg = @"BXP - Device Info";
     [self.section1List addObject:cellModel1];
     
     MKTextSwitchCellModel *cellModel2 = [[MKTextSwitchCellModel alloc] init];
     cellModel2.index = 1;
-    cellModel2.msg = @"BeaconX Pro - T&H";
+    cellModel2.msg = @"BXP - ACC";
     [self.section1List addObject:cellModel2];
+    
+    MKTextSwitchCellModel *cellModel3 = [[MKTextSwitchCellModel alloc] init];
+    cellModel3.index = 2;
+    cellModel3.msg = @"BXP - T&H";
+    [self.section1List addObject:cellModel3];
 }
 
 - (void)loadSection2Datas {
-    MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
-    cellModel.showRightIcon = YES;
-    cellModel.leftMsg = @"Other";
-    [self.section2List addObject:cellModel];
+    MKNormalTextCellModel *cellModel1 = [[MKNormalTextCellModel alloc] init];
+    cellModel1.showRightIcon = YES;
+    cellModel1.leftMsg = @"BXP - Button";
+    [self.section2List addObject:cellModel1];
+    
+    MKNormalTextCellModel *cellModel2 = [[MKNormalTextCellModel alloc] init];
+    cellModel2.showRightIcon = YES;
+    cellModel2.leftMsg = @"BXP - Tag";
+    [self.section2List addObject:cellModel2];
+    
+    MKNormalTextCellModel *cellModel3 = [[MKNormalTextCellModel alloc] init];
+    cellModel3.showRightIcon = YES;
+    cellModel3.leftMsg = @"Other";
+    [self.section2List addObject:cellModel3];
 }
 
 #pragma mark - UI

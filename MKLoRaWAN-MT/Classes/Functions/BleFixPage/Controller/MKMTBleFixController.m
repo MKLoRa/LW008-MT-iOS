@@ -48,6 +48,8 @@ MKMTFilterRelationshipCellDelegate>
 
 @property (nonatomic, strong)NSMutableArray *section3List;
 
+@property (nonatomic, strong)NSMutableArray *section4List;
+
 @property (nonatomic, strong)NSMutableArray *headerList;
 
 @property (nonatomic, strong)MKMTBleFixDataModel *dataModel;
@@ -86,14 +88,14 @@ MKMTFilterRelationshipCellDelegate>
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1) {
+    if (indexPath.section == 2) {
         return 90.f;
     }
     return 44.f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
+    if (section == 2) {
         return 10.f;
     }
     return 0.f;
@@ -106,19 +108,19 @@ MKMTFilterRelationshipCellDelegate>
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 3 && indexPath.row == 0) {
+    if (indexPath.section == 4 && indexPath.row == 0) {
         //Filter by MAC
         MKMTFilterByMacController *vc = [[MKMTFilterByMacController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
-    if (indexPath.section == 3 && indexPath.row == 1) {
+    if (indexPath.section == 4 && indexPath.row == 1) {
         //Filter by ADV Name
         MKMTFilterByAdvNameController *vc = [[MKMTFilterByAdvNameController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
-    if (indexPath.section == 3 && indexPath.row == 2) {
+    if (indexPath.section == 4 && indexPath.row == 2) {
         //Filter by Raw Data
         MKMTFilterByRawDataController *vc = [[MKMTFilterByRawDataController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
@@ -144,6 +146,9 @@ MKMTFilterRelationshipCellDelegate>
     if (section == 3) {
         return self.section3List.count;
     }
+    if (section == 4) {
+        return self.section4List.count;
+    }
     return 0;
 }
 
@@ -155,19 +160,25 @@ MKMTFilterRelationshipCellDelegate>
         return cell;
     }
     if (indexPath.section == 1) {
-        MKNormalSliderCell *cell = [MKNormalSliderCell initCellWithTableView:tableView];
+        MKMTFilterRelationshipCell *cell = [MKMTFilterRelationshipCell initCellWithTableView:tableView];
         cell.dataModel = self.section1List[indexPath.row];
         cell.delegate = self;
         return cell;
     }
     if (indexPath.section == 2) {
-        MKMTFilterRelationshipCell *cell = [MKMTFilterRelationshipCell initCellWithTableView:tableView];
+        MKNormalSliderCell *cell = [MKNormalSliderCell initCellWithTableView:tableView];
         cell.dataModel = self.section2List[indexPath.row];
         cell.delegate = self;
         return cell;
     }
+    if (indexPath.section == 3) {
+        MKMTFilterRelationshipCell *cell = [MKMTFilterRelationshipCell initCellWithTableView:tableView];
+        cell.dataModel = self.section3List[indexPath.row];
+        cell.delegate = self;
+        return cell;
+    }
     MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
-    cell.dataModel = self.section3List[indexPath.row];
+    cell.dataModel = self.section4List[indexPath.row];
     return cell;
 }
 
@@ -200,7 +211,7 @@ MKMTFilterRelationshipCellDelegate>
     if (index == 0) {
         //RSSI Filter
         self.dataModel.rssi = value;
-        MKNormalSliderCellModel *cellModel = self.section1List[0];
+        MKNormalSliderCellModel *cellModel = self.section2List[0];
         cellModel.sliderValue = value;
         return;
     }
@@ -209,16 +220,23 @@ MKMTFilterRelationshipCellDelegate>
 #pragma mark - MKMTFilterRelationshipCellDelegate
 - (void)mt_filterRelationshipChanged:(NSInteger)index dataListIndex:(NSInteger)dataListIndex {
     if (index == 0) {
-        //Scanning Type/PHY
-        self.dataModel.phy = dataListIndex;
-        MKMTFilterRelationshipCellModel *cellModel = self.section2List[0];
+        //Bluetooth Fix Mechanism
+        self.dataModel.priority = dataListIndex;
+        MKMTFilterRelationshipCellModel *cellModel = self.section1List[0];
         cellModel.dataListIndex = dataListIndex;
         return;
     }
     if (index == 1) {
+        //Scanning Type/PHY
+        self.dataModel.phy = dataListIndex;
+        MKMTFilterRelationshipCellModel *cellModel = self.section3List[0];
+        cellModel.dataListIndex = dataListIndex;
+        return;
+    }
+    if (index == 2) {
         //Filter Relationship
         self.dataModel.relationship = dataListIndex;
-        MKMTFilterRelationshipCellModel *cellModel = self.section2List[1];
+        MKMTFilterRelationshipCellModel *cellModel = self.section3List[1];
         cellModel.dataListIndex = dataListIndex;
         return;
     }
@@ -259,8 +277,9 @@ MKMTFilterRelationshipCellDelegate>
     [self loadSection1Datas];
     [self loadSection2Datas];
     [self loadSection3Datas];
+    [self loadSection4Datas];
     
-    for (NSInteger i = 0; i < 4; i ++) {
+    for (NSInteger i = 0; i < 5; i ++) {
         MKTableSectionLineHeaderModel *headerModel = [[MKTableSectionLineHeaderModel alloc] init];
         [self.headerList addObject:headerModel];
     }
@@ -290,6 +309,15 @@ MKMTFilterRelationshipCellDelegate>
 }
 
 - (void)loadSection1Datas {
+    MKMTFilterRelationshipCellModel *cellModel1 = [[MKMTFilterRelationshipCellModel alloc] init];
+    cellModel1.index = 0;
+    cellModel1.msg = @"Bluetooth Fix Mechanism";
+    cellModel1.dataList = @[@"Time Priority",@"RSSI Priority"];
+    cellModel1.dataListIndex = self.dataModel.priority;
+    [self.section1List addObject:cellModel1];
+}
+
+- (void)loadSection2Datas {
     MKNormalSliderCellModel *cellModel = [[MKNormalSliderCellModel alloc] init];
     cellModel.index = 0;
     cellModel.msg = [MKCustomUIAdopter attributedString:@[@"RSSI Filter",@"   (-127dBm ~ 0dBm)"] fonts:@[MKFont(15.f),MKFont(13.f)] colors:@[DEFAULT_TEXT_COLOR,RGBCOLOR(223, 223, 223)]];
@@ -298,41 +326,41 @@ MKMTFilterRelationshipCellDelegate>
     cellModel.leftNoteMsg = @"*The device will uplink valid ADV data with RSSI no less than";
     cellModel.rightNoteMsg = @".";
     cellModel.sliderValue = self.dataModel.rssi;
-    [self.section1List addObject:cellModel];
+    [self.section2List addObject:cellModel];
 }
 
-- (void)loadSection2Datas {
+- (void)loadSection3Datas {
     MKMTFilterRelationshipCellModel *cellModel1 = [[MKMTFilterRelationshipCellModel alloc] init];
-    cellModel1.index = 0;
+    cellModel1.index = 1;
     cellModel1.msg = @"Scanning Type/PHY";
     cellModel1.dataList = @[@"1M PHY (BLE 4.x)",@"1M PHY (BLE 5)",@"1M PHY(BLE4.x+BLE5)",
                             @"Coded PHY(BLE 5)"];
     cellModel1.dataListIndex = self.dataModel.phy;
-    [self.section2List addObject:cellModel1];
+    [self.section3List addObject:cellModel1];
     
     MKMTFilterRelationshipCellModel *cellModel2 = [[MKMTFilterRelationshipCellModel alloc] init];
-    cellModel2.index = 1;
+    cellModel2.index = 2;
     cellModel2.msg = @"Filter Relationship";
     cellModel2.dataList = @[@"Null",@"Only MAC",@"Only ADV Name",@"Only Raw Data",@"ADV Name & Raw Data",@"MAC & ADV Name & Raw Data",@"ADV Name | Raw Data"];
     cellModel2.dataListIndex = self.dataModel.relationship;
-    [self.section2List addObject:cellModel2];
+    [self.section3List addObject:cellModel2];
 }
 
-- (void)loadSection3Datas {
+- (void)loadSection4Datas {
     MKNormalTextCellModel *cellModel1 = [[MKNormalTextCellModel alloc] init];
     cellModel1.leftMsg = @"Filter by MAC";
     cellModel1.showRightIcon = YES;
-    [self.section3List addObject:cellModel1];
+    [self.section4List addObject:cellModel1];
     
     MKNormalTextCellModel *cellModel2 = [[MKNormalTextCellModel alloc] init];
     cellModel2.leftMsg = @"Filter by ADV Name";
     cellModel2.showRightIcon = YES;
-    [self.section3List addObject:cellModel2];
+    [self.section4List addObject:cellModel2];
     
     MKNormalTextCellModel *cellModel3 = [[MKNormalTextCellModel alloc] init];
     cellModel3.leftMsg = @"Filter by Raw Data";
     cellModel3.showRightIcon = YES;
-    [self.section3List addObject:cellModel3];
+    [self.section4List addObject:cellModel3];
 }
 
 #pragma mark - UI
@@ -384,6 +412,13 @@ MKMTFilterRelationshipCellDelegate>
         _section3List = [NSMutableArray array];
     }
     return _section3List;
+}
+
+- (NSMutableArray *)section4List {
+    if (!_section4List) {
+        _section4List = [NSMutableArray array];
+    }
+    return _section4List;
 }
 
 - (NSMutableArray *)headerList {

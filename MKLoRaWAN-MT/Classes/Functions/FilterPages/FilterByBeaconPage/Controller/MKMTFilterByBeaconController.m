@@ -211,10 +211,8 @@ MKMTFilterBeaconCellDelegate>
     cellModel.index = 0;
     if (self.pageType == mk_mt_filterByBeaconPageType_beacon) {
         cellModel.msg = @"iBeacon";
-    }else if (self.pageType == mk_mt_filterByBeaconPageType_MKBeacon) {
-        cellModel.msg = @"MKiBeacon";
-    }else if (self.pageType == mk_mt_filterByBeaconPageType_MKBeaconAcc) {
-        cellModel.msg = @"MKiBeacon&ACC";
+    }else if (self.pageType == mk_mt_filterByBeaconPageType_bxpBeacon) {
+        cellModel.msg = @"BXP-iBeacon";
     }
     cellModel.isOn = self.dataModel.isOn;
     [self.section0List addObject:cellModel];
@@ -225,10 +223,8 @@ MKMTFilterBeaconCellDelegate>
     cellModel.index = 0;
     if (self.pageType == mk_mt_filterByBeaconPageType_beacon) {
         cellModel.msg = @"iBeacon UUID";
-    }else if (self.pageType == mk_mt_filterByBeaconPageType_MKBeacon) {
-        cellModel.msg = @"MKiBeacon UUID";
-    }else if (self.pageType == mk_mt_filterByBeaconPageType_MKBeaconAcc) {
-        cellModel.msg = @"MKiBeacon&ACC UUID";
+    }else if (self.pageType == mk_mt_filterByBeaconPageType_bxpBeacon) {
+        cellModel.msg = @"BXP-iBeacon UUID";
     }
     cellModel.textFieldType = mk_hexCharOnly;
     cellModel.textPlaceholder = @"0~16 Bytes";
@@ -253,12 +249,9 @@ MKMTFilterBeaconCellDelegate>
     if (self.pageType == mk_mt_filterByBeaconPageType_beacon) {
         cellModel1.msg = @"iBeacon Major";
         cellModel2.msg = @"iBeacon Minor";
-    }else if (self.pageType == mk_mt_filterByBeaconPageType_MKBeacon) {
-        cellModel1.msg = @"MKiBeacon Major";
-        cellModel2.msg = @"MKiBeacon Minor";
-    }else if (self.pageType == mk_mt_filterByBeaconPageType_MKBeaconAcc) {
-        cellModel1.msg = @"MKiBeacon&ACC Major";
-        cellModel2.msg = @"MKiBeacon&ACC Minor";
+    }else if (self.pageType == mk_mt_filterByBeaconPageType_bxpBeacon) {
+        cellModel1.msg = @"BXP-iBeacon Major";
+        cellModel2.msg = @"BXP-iBeacon Minor";
     }
 }
 

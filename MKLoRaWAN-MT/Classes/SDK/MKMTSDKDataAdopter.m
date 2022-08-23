@@ -461,4 +461,13 @@
     }
 }
 
++ (NSString *)fetchBluetoothFixMechanismString:(mk_mt_bluetoothFixMechanism)priority {
+    switch (priority) {
+        case mk_mt_bluetoothFixMechanism_timePriority:
+            return @"00";
+        case mk_mt_bluetoothFixMechanism_rssiPriority:
+            return @"01";
+    }
+}
+
 @end

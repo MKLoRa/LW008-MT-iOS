@@ -20,13 +20,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign)BOOL tlm;
 
-@property (nonatomic, assign)BOOL mk_iBeacon;
+@property (nonatomic, assign)BOOL bxpBeacon;
 
-@property (nonatomic, assign)BOOL mk_iBeaconAcc;
+@property (nonatomic, assign)BOOL bxpDeviceInfo;
 
 @property (nonatomic, assign)BOOL bxpAcc;
 
 @property (nonatomic, assign)BOOL bxpTH;
+
+@property (nonatomic, assign)BOOL bxpButton;
+
+@property (nonatomic, assign)BOOL bxpTag;
 
 @property (nonatomic, assign)BOOL other;
 

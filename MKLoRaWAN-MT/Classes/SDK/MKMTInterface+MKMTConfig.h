@@ -407,85 +407,77 @@ NS_ASSUME_NONNULL_BEGIN
                            sucBlock:(void (^)(void))sucBlock
                         failedBlock:(void (^)(NSError *error))failedBlock;
 
-/// Switch status of filter by MKiBeacon.
+/// Switch status of filter by BXP-iBeacon.
 /// @param isOn isOn
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
-+ (void)mt_configFilterByMKBeaconStatus:(BOOL)isOn
++ (void)mt_configFilterByBXPBeaconStatus:(BOOL)isOn
                                sucBlock:(void (^)(void))sucBlock
                             failedBlock:(void (^)(NSError *error))failedBlock;
 
-/// Major filter range of MKiBeacon.
+/// Major filter range of BXP-iBeacon.
 /// @param isOn isOn
 /// @param minValue 0~65535(isOn=YES)
 /// @param maxValue minValue~65535(isOn=YES)
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
-+ (void)mt_configFilterByMKBeaconMajor:(BOOL)isOn
++ (void)mt_configFilterByBXPBeaconMajor:(BOOL)isOn
                               minValue:(NSInteger)minValue
                               maxValue:(NSInteger)maxValue
                               sucBlock:(void (^)(void))sucBlock
                            failedBlock:(void (^)(NSError *error))failedBlock;
 
-/// Minor filter range of MKiBeacon.
+/// Minor filter range of BXP-iBeacon.
 /// @param isOn isOn
 /// @param minValue 0~65535(isOn=YES)
 /// @param maxValue minValue~65535(isOn=YES)
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
-+ (void)mt_configFilterByMKBeaconMinor:(BOOL)isOn
++ (void)mt_configFilterByBXPBeaconMinor:(BOOL)isOn
                               minValue:(NSInteger)minValue
                               maxValue:(NSInteger)maxValue
                               sucBlock:(void (^)(void))sucBlock
                            failedBlock:(void (^)(NSError *error))failedBlock;
 
-/// UUID status of filter by MKiBeacon.
+/// UUID status of filter by BXP-iBeacon.
 /// @param uuid 0~16 Bytes.
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
-+ (void)mt_configFilterByMKBeaconUUID:(NSString *)uuid
++ (void)mt_configFilterByBXPBeaconUUID:(NSString *)uuid
                              sucBlock:(void (^)(void))sucBlock
                           failedBlock:(void (^)(NSError *error))failedBlock;
 
-/// Switch status of filter by MKiBeacon&ACC.
+/// Switch status of filter by BXP-TagID.
 /// @param isOn isOn
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
-+ (void)mt_configFilterByMKBeaconAccStatus:(BOOL)isOn
-                                  sucBlock:(void (^)(void))sucBlock
-                               failedBlock:(void (^)(NSError *error))failedBlock;
++ (void)mt_configFilterByBXPTagIDStatus:(BOOL)isOn
+                               sucBlock:(void (^)(void))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock;
 
-/// Major filter range of MKiBeacon&ACC.
+/// Precise Match Tag ID.
 /// @param isOn isOn
-/// @param minValue 0~65535(isOn=YES)
-/// @param maxValue minValue~65535(isOn=YES)
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
-+ (void)mt_configFilterByMKBeaconAccMajor:(BOOL)isOn
-                                 minValue:(NSInteger)minValue
-                                 maxValue:(NSInteger)maxValue
-                                 sucBlock:(void (^)(void))sucBlock
-                              failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Minor filter range of MKiBeacon&ACC.
-/// @param isOn isOn
-/// @param minValue 0~65535(isOn=YES)
-/// @param maxValue minValue~65535(isOn=YES)
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)mt_configFilterByMKBeaconAccMinor:(BOOL)isOn
-                                 minValue:(NSInteger)minValue
-                                 maxValue:(NSInteger)maxValue
-                                 sucBlock:(void (^)(void))sucBlock
-                              failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// UUID status of filter by MKiBeacon&ACC.
-/// @param uuid 0~16 Bytes.
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)mt_configFilterByMKBeaconAccUUID:(NSString *)uuid
++ (void)mt_configPreciseMatchTagIDStatus:(BOOL)isOn
                                 sucBlock:(void (^)(void))sucBlock
                              failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Reverse Filter Tag ID.
+/// @param isOn isOn
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configReverseFilterTagIDStatus:(BOOL)isOn
+                                 sucBlock:(void (^)(void))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Filtered list of BXP-TagID.
+/// @param macList You can set up to 10 filters.1-6 Bytes.
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configFilterBXPTagIDList:(NSArray <NSString *>*)tagIDList
+                           sucBlock:(void (^)(void))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock;
 
 /// Switch status of filter by UID.
 /// @param isOn isOn
@@ -672,6 +664,44 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)mt_configLRNotifyOnEphemerisEndStatus:(BOOL)isOn
                                      sucBlock:(void (^)(void))sucBlock
                                   failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Switch status of filter by BXP Device Info.
+/// @param isOn isOn
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configFilterByBXPDeviceInfoStatus:(BOOL)isOn
+                                    sucBlock:(void (^)(void))sucBlock
+                                 failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Switch status of filter by BXP Button.
+/// @param isOn isOn
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configFilterByBXPButtonStatus:(BOOL)isOn
+                                sucBlock:(void (^)(void))sucBlock
+                             failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// BXP-Button type filter content.
+/// @param singlePress Filter Single Press alarm message switch.
+/// @param doublePress Filter Double Press alarm message switch
+/// @param longPress Filter Long Press alarm message switch
+/// @param abnormalInactivity Abnormal Inactivity
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configFilterByBXPButtonAlarmStatus:(BOOL)singlePress
+                                  doublePress:(BOOL)doublePress
+                                    longPress:(BOOL)longPress
+                           abnormalInactivity:(BOOL)abnormalInactivity
+                                     sucBlock:(void (^)(void))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Bluetooth Fix Mechanism.
+/// @param priority priority
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_configBluetoothFixMechanism:(mk_mt_bluetoothFixMechanism)priority
+                              sucBlock:(void (^)(void))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock;
 
 #pragma mark ****************************************设备lorawan信息设置************************************************
 

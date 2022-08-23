@@ -611,15 +611,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// Read switch status of filtered device types.
 /*
  @{
- @"unknown":@(YES),
- @"iBeacon":@(NO),
- @"uid":@(NO),
- @"url":@(NO),
- @"tlm":@(NO),
- @"bxp_acc":@(YES),
- @"bxp_th":@(YES),
- @"mk_iBeacon":@(YES),
- @"mk_iBeacon_acc":@(YES)
+     @"iBeacon":@(YES),
+     @"uid":@(YES),
+     @"url":@(YES),
+     @"tlm":@(YES),
+     @"bxp_beacon":@(YES),
+     @"bxp_deviceInfo":@(YES),
+     @"bxp_acc":@(YES),
+     @"bxp_th":@(YES),
+     @"bxp_button":@(YES),
+     @"bxp_tag":@(YES),
+     @"other":@(YES)
  }
  */
 /// @param sucBlock Success callback
@@ -675,7 +677,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)mt_readFilterByBeaconUUIDWithSucBlock:(void (^)(id returnData))sucBlock
                                   failedBlock:(void (^)(NSError *error))failedBlock;
 
-/// Switch status of filter by MKiBeacon.
+/// Switch status of filter by BXP-iBeacon.
 /*
  @{
  @"isOn":@(YES)
@@ -683,48 +685,59 @@ NS_ASSUME_NONNULL_BEGIN
  */
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
-+ (void)mt_readFilterByMKBeaconStatusWithSucBlock:(void (^)(id returnData))sucBlock
++ (void)mt_readFilterByBXPBeaconStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                       failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Major filter range of BXP-iBeacon.
+/*
+ @{
+     @"isOn":@(YES),
+     @"minValue":@"00",         //isOn=YES
+     @"maxValue":@"11",         //isOn=YES
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readFilterByBXPBeaconMajorRangeWithSucBlock:(void (^)(id returnData))sucBlock
+                                           failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Minor filter range of BXP-iBeacon.
+/*
+ @{
+     @"isOn":@(YES),
+     @"minValue":@"00",         //isOn=YES
+     @"maxValue":@"11",         //isOn=YES
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readFilterByBXPBeaconMinorRangeWithSucBlock:(void (^)(id returnData))sucBlock
+                                           failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// UUID status of filter by BXP-iBeacon.
+/*
+ @{
+ @"uuid":@"xx"
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readFilterByBXPBeaconUUIDWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock;
+
+
+/// Switch status of filter by BXP-TagID.
+/*
+ @{
+ @"isOn":@(YES)
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readFilterByBXPTagIDStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                       failedBlock:(void (^)(NSError *error))failedBlock;
 
-/// Major filter range of MKiBeacon.
-/*
- @{
-     @"isOn":@(YES),
-     @"minValue":@"00",         //isOn=YES
-     @"maxValue":@"11",         //isOn=YES
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)mt_readFilterByMKBeaconMajorRangeWithSucBlock:(void (^)(id returnData))sucBlock
-                                          failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Minor filter range of MKiBeacon.
-/*
- @{
-     @"isOn":@(YES),
-     @"minValue":@"00",         //isOn=YES
-     @"maxValue":@"11",         //isOn=YES
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)mt_readFilterByMKBeaconMinorRangeWithSucBlock:(void (^)(id returnData))sucBlock
-                                          failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// UUID status of filter by MKiBeacon.
-/*
- @{
- @"uuid":@"xx"
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)mt_readFilterByMKBeaconUUIDWithSucBlock:(void (^)(id returnData))sucBlock
-                                    failedBlock:(void (^)(NSError *error))failedBlock;
-
-
-/// Switch status of filter by MKiBeacon&ACC.
+/// Precise Match Tag ID.
 /*
  @{
  @"isOn":@(YES)
@@ -732,45 +745,34 @@ NS_ASSUME_NONNULL_BEGIN
  */
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
-+ (void)mt_readFilterByMKBeaconAccStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                                         failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Major filter range of MKiBeacon&ACC.
-/*
- @{
-     @"isOn":@(YES),
-     @"minValue":@"00",         //isOn=YES
-     @"maxValue":@"11",         //isOn=YES
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)mt_readFilterByMKBeaconAccMajorRangeWithSucBlock:(void (^)(id returnData))sucBlock
-                                             failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// Minor filter range of MKiBeacon&ACC.
-/*
- @{
-     @"isOn":@(YES),
-     @"minValue":@"00",         //isOn=YES
-     @"maxValue":@"11",         //isOn=YES
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)mt_readFilterByMKBeaconAccMinorRangeWithSucBlock:(void (^)(id returnData))sucBlock
-                                             failedBlock:(void (^)(NSError *error))failedBlock;
-
-/// UUID status of filter by iBeacon.
-/*
- @{
- @"uuid":@"xx"
- }
- */
-/// @param sucBlock Success callback
-/// @param failedBlock Failure callback
-+ (void)mt_readFilterByMKBeaconAccUUIDWithSucBlock:(void (^)(id returnData))sucBlock
++ (void)mt_readPreciseMatchTagIDStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                        failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Reverse Filter Tag ID.
+/*
+ @{
+ @"isOn":@(YES)
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readReverseFilterTagIDStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                        failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Filtered list of BXP-TagID addresses.
+/*
+ @{
+ @"tagIDList":@[
+    @"aabb",
+ @"aabbccdd",
+ @"ddeeff"
+ ],
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readFilterBXPTagIDListWithSucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock;
 
 /// Switch status of filter by UID.
 /*
@@ -1047,6 +1049,53 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param failedBlock Failure callback
 + (void)mt_readLRNotifyOnEphemerisEndStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                             failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read the filter status of the BXP Device Info.
+/*
+ @{
+ @"isOn":@(YES)
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readBXPDeviceInfoFilterStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                         failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read the filter status of the BXP Button Info.
+/*
+ @{
+ @"isOn":@(YES)
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readBXPButtonFilterStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Read the Alarm Filter status of the BXP Button Info.
+/*
+ @{
+     @"singlePresse":@(YES),
+     @"doublePresse":@(YES),
+     @"longPresse":@(YES),
+     @"abnormal":@(YES),
+ };
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readBXPButtonAlarmFilterStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                          failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// Bluetooth Fix Mechanism.
+/*
+ @{
+    @"priority":@"0",       //@"0":Time Priority, @"1":Rssi Priority.
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readBluetoothFixMechanismWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock;
 
 #pragma mark **************************************** LoRaWAN ************************************************
 /// Read the current network status of LoRaWAN.

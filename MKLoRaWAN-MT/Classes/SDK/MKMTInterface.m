@@ -479,65 +479,65 @@
                  failedBlock:failedBlock];
 }
 
-+ (void)mt_readFilterByMKBeaconStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                                      failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_mt_taskReadFilterByMKBeaconStatusOperation
++ (void)mt_readFilterByBXPBeaconStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                       failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadFilterByBXPBeaconStatusOperation
                      cmdFlag:@"63"
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
 }
 
-+ (void)mt_readFilterByMKBeaconMajorRangeWithSucBlock:(void (^)(id returnData))sucBlock
-                                          failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_mt_taskReadFilterByMKBeaconMajorRangeOperation
++ (void)mt_readFilterByBXPBeaconMajorRangeWithSucBlock:(void (^)(id returnData))sucBlock
+                                           failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadFilterByBXPBeaconMajorRangeOperation
                      cmdFlag:@"64"
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
 }
 
-+ (void)mt_readFilterByMKBeaconMinorRangeWithSucBlock:(void (^)(id returnData))sucBlock
-                                          failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_mt_taskReadFilterByMKBeaconMinorRangeOperation
++ (void)mt_readFilterByBXPBeaconMinorRangeWithSucBlock:(void (^)(id returnData))sucBlock
+                                           failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadFilterByBXPBeaconMinorRangeOperation
                      cmdFlag:@"65"
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
 }
 
-+ (void)mt_readFilterByMKBeaconUUIDWithSucBlock:(void (^)(id returnData))sucBlock
-                                    failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_mt_taskReadFilterByMKBeaconUUIDOperation
++ (void)mt_readFilterByBXPBeaconUUIDWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadFilterByBXPBeaconUUIDOperation
                      cmdFlag:@"66"
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
 }
 
-+ (void)mt_readFilterByMKBeaconAccStatusWithSucBlock:(void (^)(id returnData))sucBlock
-                                         failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_mt_taskReadFilterByMKBeaconAccStatusOperation
++ (void)mt_readFilterByBXPTagIDStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                      failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadFilterByBXPTagIDStatusOperation
                      cmdFlag:@"67"
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
 }
 
-+ (void)mt_readFilterByMKBeaconAccMajorRangeWithSucBlock:(void (^)(id returnData))sucBlock
-                                             failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_mt_taskReadFilterByMKBeaconAccMajorRangeOperation
++ (void)mt_readPreciseMatchTagIDStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                       failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadPreciseMatchTagIDStatusOperation
                      cmdFlag:@"68"
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
 }
 
-+ (void)mt_readFilterByMKBeaconAccMinorRangeWithSucBlock:(void (^)(id returnData))sucBlock
-                                             failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_mt_taskReadFilterByMKBeaconAccMinorRangeOperation
++ (void)mt_readReverseFilterTagIDStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                        failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadReverseFilterTagIDStatusOperation
                      cmdFlag:@"69"
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
 }
 
-+ (void)mt_readFilterByMKBeaconAccUUIDWithSucBlock:(void (^)(id returnData))sucBlock
-                                       failedBlock:(void (^)(NSError *error))failedBlock {
-    [self readDataWithTaskID:mk_mt_taskReadFilterByMKBeaconAccUUIDOperation
++ (void)mt_readFilterBXPTagIDListWithSucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadFilterBXPTagIDListOperation
                      cmdFlag:@"6a"
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
@@ -738,6 +738,38 @@
                                             failedBlock:(void (^)(NSError *error))failedBlock {
     [self readDataWithTaskID:mk_mt_taskReadLRNotifyOnEphemerisEndStatusOperation
                      cmdFlag:@"81"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readBXPDeviceInfoFilterStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                         failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadBXPDeviceInfoFilterStatusOperation
+                     cmdFlag:@"82"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readBXPButtonFilterStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadBXPButtonFilterStatusOperation
+                     cmdFlag:@"83"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readBXPButtonAlarmFilterStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                                          failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadBXPButtonAlarmFilterStatusOperation
+                     cmdFlag:@"84"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
++ (void)mt_readBluetoothFixMechanismWithSucBlock:(void (^)(id returnData))sucBlock
+                                     failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadBluetoothFixMechanismOperation
+                     cmdFlag:@"85"
                     sucBlock:sucBlock
                  failedBlock:failedBlock];
 }

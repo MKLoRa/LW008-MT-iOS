@@ -81,10 +81,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// 0~3
 @property (nonatomic, assign)NSInteger retransmission;
 
-/// 1~100
+/// 1~255
 @property (nonatomic, copy)NSString *ackLimit;
 
-/// 1~100
+/// 1~255
 @property (nonatomic, copy)NSString *ackDelay;
 
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;

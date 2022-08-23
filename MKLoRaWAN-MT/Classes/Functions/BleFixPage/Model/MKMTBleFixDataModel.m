@@ -33,6 +33,10 @@
             [self operationFailedBlockWithMsg:@"Read Number Error" block:failedBlock];
             return;
         }
+        if (![self readBlePriority]) {
+            [self operationFailedBlockWithMsg:@"Read Ble Priority Error" block:failedBlock];
+            return;
+        }
         if (![self readFilterRssi]) {
             [self operationFailedBlockWithMsg:@"Read Filter Rssi Error" block:failedBlock];
             return;
@@ -65,6 +69,10 @@
         }
         if (![self configBlePositioningMac]) {
             [self operationFailedBlockWithMsg:@"Config Number Error" block:failedBlock];
+            return;
+        }
+        if (![self configBlePriority]) {
+            [self operationFailedBlockWithMsg:@"Config Ble Priority Error" block:failedBlock];
             return;
         }
         if (![self configFilterRssi]) {
@@ -129,6 +137,31 @@
 - (BOOL)configBlePositioningMac {
     __block BOOL success = NO;
     [MKMTInterface mt_configBlePositioningNumberOfMac:[self.number integerValue] sucBlock:^{
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)readBlePriority {
+    __block BOOL success = NO;
+    [MKMTInterface mt_readBluetoothFixMechanismWithSucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        self.priority = [returnData[@"result"][@"priority"] integerValue];
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configBlePriority {
+    __block BOOL success = NO;
+    [MKMTInterface mt_configBluetoothFixMechanism:self.priority sucBlock:^{
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {

@@ -48,7 +48,7 @@
     [super layoutSubviews];
     [self.msgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15.f);
-        make.right.mas_equalTo(self.contentView.mas_centerX).mas_offset(-5.f);
+        make.right.mas_equalTo(self.contentView.mas_centerX).mas_offset(-3.f);
         make.centerY.mas_equalTo(self.contentView.mas_centerY);
         make.height.mas_equalTo(MKFont(15.f).lineHeight);
     }];
@@ -103,7 +103,7 @@
         _msgLabel = [[UILabel alloc] init];
         _msgLabel.textAlignment = NSTextAlignmentLeft;
         _msgLabel.textColor = DEFAULT_TEXT_COLOR;
-        _msgLabel.font = MKFont(15.f);
+        _msgLabel.font = MKFont(13.f);
     }
     return _msgLabel;
 }

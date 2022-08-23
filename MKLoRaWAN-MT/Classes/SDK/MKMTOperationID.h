@@ -67,14 +67,14 @@ typedef NS_ENUM(NSInteger, mk_mt_taskOperationID) {
     mk_mt_taskReadFilterByBeaconMajorRangeOperation,    //读取iBeacon类型Major范围
     mk_mt_taskReadFilterByBeaconMinorRangeOperation,    //读取iBeacon类型Minor范围
     mk_mt_taskReadFilterByBeaconUUIDOperation,          //读取iBeacon类型UUID
-    mk_mt_taskReadFilterByMKBeaconStatusOperation,      //读取MKiBeacon类型过滤开关
-    mk_mt_taskReadFilterByMKBeaconMajorRangeOperation,    //读取MKiBeacon类型Major范围
-    mk_mt_taskReadFilterByMKBeaconMinorRangeOperation,    //读取MKiBeacon类型Minor范围
-    mk_mt_taskReadFilterByMKBeaconUUIDOperation,          //读取MKiBeacon类型UUID
-    mk_mt_taskReadFilterByMKBeaconAccStatusOperation,     //读取MKiBeacon&ACC类型过滤开关
-    mk_mt_taskReadFilterByMKBeaconAccMajorRangeOperation,    //读取MKiBeacon&ACC类型Major范围
-    mk_mt_taskReadFilterByMKBeaconAccMinorRangeOperation,    //读取MKiBeacon&ACC类型Minor范围
-    mk_mt_taskReadFilterByMKBeaconAccUUIDOperation,          //读取MKiBeacon&ACC类型UUID
+    mk_mt_taskReadFilterByBXPBeaconStatusOperation,      //读取BXP-iBeacon类型过滤开关
+    mk_mt_taskReadFilterByBXPBeaconMajorRangeOperation,    //读取BXP-iBeacon类型Major范围
+    mk_mt_taskReadFilterByBXPBeaconMinorRangeOperation,    //读取BXP-iBeacon类型Minor范围
+    mk_mt_taskReadFilterByBXPBeaconUUIDOperation,          //读取BXP-iBeacon类型UUID
+    mk_mt_taskReadFilterByBXPTagIDStatusOperation,         //读取BXP-TagID类型开关
+    mk_mt_taskReadPreciseMatchTagIDStatusOperation,        //读取BXP-TagID类型精准过滤tagID开关
+    mk_mt_taskReadReverseFilterTagIDStatusOperation,       //读取读取BXP-TagID类型反向过滤tagID开关
+    mk_mt_taskReadFilterBXPTagIDListOperation,             //读取BXP-TagID过滤规则
     mk_mt_taskReadFilterByUIDStatusOperation,                //读取UID类型过滤开关
     mk_mt_taskReadFilterByUIDNamespaceIDOperation,           //读取UID类型过滤的Namespace ID
     mk_mt_taskReadFilterByUIDInstanceIDOperation,            //读取UID类型过滤的Instance ID
@@ -98,6 +98,10 @@ typedef NS_ENUM(NSInteger, mk_mt_taskOperationID) {
     mk_mt_taskReadLRLatitudeLongitudeOperation,         //读取辅助定位经纬度(LR1110)
     mk_mt_taskReadLRNotifyOnEphemerisStartStatusOperation,  //读取星历开始更新事件开关(LR1110)
     mk_mt_taskReadLRNotifyOnEphemerisEndStatusOperation,    //读取星历结束更新事件开关(LR1110)
+    mk_mt_taskReadBXPDeviceInfoFilterStatusOperation,       //读取BXP-DeviceInfo过滤条件开关
+    mk_mt_taskReadBXPButtonFilterStatusOperation,           //读取BXP-Button过滤条件开关
+    mk_mt_taskReadBXPButtonAlarmFilterStatusOperation,      //读取BXP-Button报警过滤开关
+    mk_mt_taskReadBluetoothFixMechanismOperation,           //读取蓝牙定位机制选择
     
 #pragma mark - 设备控制参数配置
     mk_mt_taskPowerOffOperation,                        //关机
@@ -155,14 +159,14 @@ typedef NS_ENUM(NSInteger, mk_mt_taskOperationID) {
     mk_mt_taskConfigFilterByBeaconMajorOperation,           //配置iBeacon类型过滤的Major范围
     mk_mt_taskConfigFilterByBeaconMinorOperation,           //配置iBeacon类型过滤的Minor范围
     mk_mt_taskConfigFilterByBeaconUUIDOperation,            //配置iBeacon类型过滤的UUID
-    mk_mt_taskConfigFilterByMKBeaconStatusOperation,          //配置MKiBeacon类型过滤开关
-    mk_mt_taskConfigFilterByMKBeaconMajorOperation,           //配置MKiBeacon类型过滤的Major范围
-    mk_mt_taskConfigFilterByMKBeaconMinorOperation,           //配置MKiBeacon类型过滤的Minor范围
-    mk_mt_taskConfigFilterByMKBeaconUUIDOperation,            //配置MKiBeacon类型过滤的UUID
-    mk_mt_taskConfigFilterByMKBeaconAccStatusOperation,          //配置MKiBeacon&ACC类型过滤开关
-    mk_mt_taskConfigFilterByMKBeaconAccMajorOperation,           //配置iBeacon类型过滤的Major范围
-    mk_mt_taskConfigFilterByMKBeaconAccMinorOperation,           //配置iBeacon类型过滤的Minor范围
-    mk_mt_taskConfigFilterByMKBeaconAccUUIDOperation,            //配置iBeacon类型过滤的UUID
+    mk_mt_taskConfigFilterByBXPBeaconStatusOperation,          //配置BXP-iBeacon类型过滤开关
+    mk_mt_taskConfigFilterByBXPBeaconMajorOperation,           //配置BXP-iBeacon类型过滤的Major范围
+    mk_mt_taskConfigFilterByBXPBeaconMinorOperation,           //配置BXP-iBeacon类型过滤的Minor范围
+    mk_mt_taskConfigFilterByBXPBeaconUUIDOperation,            //配置BXP-iBeacon类型过滤的UUID
+    mk_mt_taskConfigFilterByBXPTagIDStatusOperation,            //配置BXP-TagID类型过滤开关
+    mk_mt_taskConfigPreciseMatchTagIDStatusOperation,           //配置BXP-TagID类型精准过滤Tag-ID开关
+    mk_mt_taskConfigReverseFilterTagIDStatusOperation,          //配置BXP-TagID类型反向过滤Tag-ID开关
+    mk_mt_taskConfigFilterBXPTagIDListOperation,                //配置BXP-TagID过滤规则
     mk_mt_taskConfigFilterByUIDStatusOperation,                 //配置UID类型过滤的开关状态
     mk_mt_taskConfigFilterByUIDNamespaceIDOperation,            //配置UID类型过滤的Namespace ID
     mk_mt_taskConfigFilterByUIDInstanceIDOperation,             //配置UID类型过滤的Instance ID
@@ -186,6 +190,10 @@ typedef NS_ENUM(NSInteger, mk_mt_taskOperationID) {
     mk_mt_taskConfigLRLatitudeLongitudeOperation,           //配置辅助定位经纬度(LR1110)
     mk_mt_taskConfigLRNotifyOnEphemerisStartStatusOperation,    //配置星历开始更新事件开关(LR1110)
     mk_mt_taskConfigLRNotifyOnEphemerisEndStatusOperation,      //配置星历结束更新事件开关(LR1110)
+    mk_mt_taskConfigFilterByBXPDeviceInfoStatusOperation,       //配置BXP-DeviceInfo过滤开关
+    mk_mt_taskConfigFilterByBXPButtonStatusOperation,           //配置BXP-Button过滤开关
+    mk_mt_taskConfigFilterByBXPButtonAlarmStatusOperation,      //配置BXP-Button类型过滤内容
+    mk_mt_taskConfigBluetoothFixMechanismOperation,             //配置蓝牙定位机制
     
 #pragma mark - 密码特征
     mk_mt_connectPasswordOperation,             //连接设备时候发送密码

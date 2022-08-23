@@ -28,12 +28,8 @@
         [self readBeaconDataWithSucBlock:sucBlock failedBlock:failedBlock];
         return;
     }
-    if (self.pageType == mk_mt_filterByBeaconPageType_MKBeacon) {
-        [self readMKBeaconDataWithSucBlock:sucBlock failedBlock:failedBlock];
-        return;
-    }
-    if (self.pageType == mk_mt_filterByBeaconPageType_MKBeaconAcc) {
-        [self readMKBeaconAccDataWithSucBlock:sucBlock failedBlock:failedBlock];
+    if (self.pageType == mk_mt_filterByBeaconPageType_bxpBeacon) {
+        [self readBXPBeaconDataWithSucBlock:sucBlock failedBlock:failedBlock];
         return;
     }
     moko_dispatch_main_safe(^{
@@ -48,12 +44,8 @@
         [self configBeaconDataWithSucBlock:sucBlock failedBlock:failedBlock];
         return;
     }
-    if (self.pageType == mk_mt_filterByBeaconPageType_MKBeacon) {
-        [self configMKBeaconDataWithSucBlock:sucBlock failedBlock:failedBlock];
-        return;
-    }
-    if (self.pageType == mk_mt_filterByBeaconPageType_MKBeaconAcc) {
-        [self configMKBeaconAccDataWithSucBlock:sucBlock failedBlock:failedBlock];
+    if (self.pageType == mk_mt_filterByBeaconPageType_bxpBeacon) {
+        [self configBXPBeaconDataWithSucBlock:sucBlock failedBlock:failedBlock];
         return;
     }
     moko_dispatch_main_safe(^{
@@ -250,22 +242,22 @@
     return success;
 }
 
-#pragma mark - MKiBeacon
-- (void)readMKBeaconDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
+#pragma mark - BXP-iBeacon
+- (void)readBXPBeaconDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
-        if (![self readMKBeaconFilterStatus]) {
+        if (![self readBXPBeaconFilterStatus]) {
             [self operationFailedBlockWithMsg:@"Read Filter Status Error" block:failedBlock];
             return;
         }
-        if (![self readMKBeaconFilterMajor]) {
+        if (![self readBXPBeaconFilterMajor]) {
             [self operationFailedBlockWithMsg:@"Read Beacon Major Error" block:failedBlock];
             return;
         }
-        if (![self readMKBeaconFilterMinor]) {
+        if (![self readBXPBeaconFilterMinor]) {
             [self operationFailedBlockWithMsg:@"Read Beacon Minor Error" block:failedBlock];
             return;
         }
-        if (![self readMKBeaconFilterUUID]) {
+        if (![self readBXPBeaconFilterUUID]) {
             [self operationFailedBlockWithMsg:@"Read Beacon UUID Error" block:failedBlock];
             return;
         }
@@ -278,25 +270,25 @@
     });
 }
 
-- (void)configMKBeaconDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
+- (void)configBXPBeaconDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
         if (![self validParams]) {
             [self operationFailedBlockWithMsg:@"Opps！Save failed. Please check the input characters and try again." block:failedBlock];
             return;
         }
-        if (![self configMKBeaconFilterStatus]) {
+        if (![self configBXPBeaconFilterStatus]) {
             [self operationFailedBlockWithMsg:@"Config Filter Status Error" block:failedBlock];
             return;
         }
-        if (![self configMKBeaconFilterMajor]) {
+        if (![self configBXPBeaconFilterMajor]) {
             [self operationFailedBlockWithMsg:@"Config Beacon Major Error" block:failedBlock];
             return;
         }
-        if (![self configMKBeaconFilterMinor]) {
+        if (![self configBXPBeaconFilterMinor]) {
             [self operationFailedBlockWithMsg:@"Config Beacon Minor Error" block:failedBlock];
             return;
         }
-        if (![self configMKBeaconFilterUUID]) {
+        if (![self configBXPBeaconFilterUUID]) {
             [self operationFailedBlockWithMsg:@"Config Beacon UUID Error" block:failedBlock];
             return;
         }
@@ -309,9 +301,9 @@
     });
 }
 
-- (BOOL)readMKBeaconFilterStatus {
+- (BOOL)readBXPBeaconFilterStatus {
     __block BOOL success = NO;
-    [MKMTInterface mt_readFilterByMKBeaconStatusWithSucBlock:^(id  _Nonnull returnData) {
+    [MKMTInterface mt_readFilterByBXPBeaconStatusWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         self.isOn = [returnData[@"result"][@"isOn"] boolValue];
         dispatch_semaphore_signal(self.semaphore);
@@ -322,9 +314,9 @@
     return success;
 }
 
-- (BOOL)configMKBeaconFilterStatus {
+- (BOOL)configBXPBeaconFilterStatus {
     __block BOOL success = NO;
-    [MKMTInterface mt_configFilterByMKBeaconStatus:self.isOn sucBlock:^{
+    [MKMTInterface mt_configFilterByBXPBeaconStatus:self.isOn sucBlock:^{
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
@@ -334,9 +326,9 @@
     return success;
 }
 
-- (BOOL)readMKBeaconFilterMajor {
+- (BOOL)readBXPBeaconFilterMajor {
     __block BOOL success = NO;
-    [MKMTInterface mt_readFilterByMKBeaconMajorRangeWithSucBlock:^(id  _Nonnull returnData) {
+    [MKMTInterface mt_readFilterByBXPBeaconMajorRangeWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         BOOL isOn = [returnData[@"result"][@"isOn"] boolValue];
         if (isOn) {
@@ -351,7 +343,7 @@
     return success;
 }
 
-- (BOOL)configMKBeaconFilterMajor {
+- (BOOL)configBXPBeaconFilterMajor {
     __block BOOL success = NO;
     BOOL isOn = ValidStr(self.minMajor);
     NSInteger min = 0;
@@ -362,7 +354,7 @@
     if (ValidStr(self.maxMajor)) {
         max = [self.maxMajor integerValue];
     }
-    [MKMTInterface mt_configFilterByMKBeaconMajor:isOn minValue:min maxValue:max sucBlock:^{
+    [MKMTInterface mt_configFilterByBXPBeaconMajor:isOn minValue:min maxValue:max sucBlock:^{
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
@@ -372,9 +364,9 @@
     return success;
 }
 
-- (BOOL)readMKBeaconFilterMinor {
+- (BOOL)readBXPBeaconFilterMinor {
     __block BOOL success = NO;
-    [MKMTInterface mt_readFilterByMKBeaconMinorRangeWithSucBlock:^(id  _Nonnull returnData) {
+    [MKMTInterface mt_readFilterByBXPBeaconMinorRangeWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         BOOL isOn = [returnData[@"result"][@"isOn"] boolValue];
         if (isOn) {
@@ -389,7 +381,7 @@
     return success;
 }
 
-- (BOOL)configMKBeaconFilterMinor {
+- (BOOL)configBXPBeaconFilterMinor {
     __block BOOL success = NO;
     BOOL isOn = ValidStr(self.minMinor);
     NSInteger min = 0;
@@ -400,7 +392,7 @@
     if (ValidStr(self.maxMinor)) {
         max = [self.maxMinor integerValue];
     }
-    [MKMTInterface mt_configFilterByMKBeaconMinor:isOn minValue:min maxValue:max sucBlock:^{
+    [MKMTInterface mt_configFilterByBXPBeaconMinor:isOn minValue:min maxValue:max sucBlock:^{
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
@@ -410,194 +402,9 @@
     return success;
 }
 
-- (BOOL)readMKBeaconFilterUUID {
+- (BOOL)readBXPBeaconFilterUUID {
     __block BOOL success = NO;
-    [MKMTInterface mt_readFilterByMKBeaconUUIDWithSucBlock:^(id  _Nonnull returnData) {
-        success = YES;
-        self.uuid = returnData[@"result"][@"uuid"];
-        dispatch_semaphore_signal(self.semaphore);
-    } failedBlock:^(NSError * _Nonnull error) {
-        dispatch_semaphore_signal(self.semaphore);
-    }];
-    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-    return success;
-}
-
-- (BOOL)configMKBeaconFilterUUID {
-    __block BOOL success = NO;
-    [MKMTInterface mt_configFilterByMKBeaconUUID:self.uuid sucBlock:^{
-        success = YES;
-        dispatch_semaphore_signal(self.semaphore);
-    } failedBlock:^(NSError * _Nonnull error) {
-        dispatch_semaphore_signal(self.semaphore);
-    }];
-    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-    return success;
-}
-
-#pragma mark - iBeacon
-- (void)readMKBeaconAccDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
-    dispatch_async(self.readQueue, ^{
-        if (![self readMKBeaconAccFilterStatus]) {
-            [self operationFailedBlockWithMsg:@"Read Filter Status Error" block:failedBlock];
-            return;
-        }
-        if (![self readMKBeaconAccFilterMajor]) {
-            [self operationFailedBlockWithMsg:@"Read Beacon Major Error" block:failedBlock];
-            return;
-        }
-        if (![self readMKBeaconAccFilterMinor]) {
-            [self operationFailedBlockWithMsg:@"Read Beacon Minor Error" block:failedBlock];
-            return;
-        }
-        if (![self readMKBeaconAccFilterUUID]) {
-            [self operationFailedBlockWithMsg:@"Read Beacon UUID Error" block:failedBlock];
-            return;
-        }
-        
-        moko_dispatch_main_safe(^{
-            if (sucBlock) {
-                sucBlock();
-            }
-        });
-    });
-}
-
-- (void)configMKBeaconAccDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
-    dispatch_async(self.readQueue, ^{
-        if (![self validParams]) {
-            [self operationFailedBlockWithMsg:@"Opps！Save failed. Please check the input characters and try again." block:failedBlock];
-            return;
-        }
-        if (![self configMKBeaconAccFilterStatus]) {
-            [self operationFailedBlockWithMsg:@"Config Filter Status Error" block:failedBlock];
-            return;
-        }
-        if (![self configMKBeaconAccFilterMajor]) {
-            [self operationFailedBlockWithMsg:@"Config Beacon Major Error" block:failedBlock];
-            return;
-        }
-        if (![self configMKBeaconAccFilterMinor]) {
-            [self operationFailedBlockWithMsg:@"Config Beacon Minor Error" block:failedBlock];
-            return;
-        }
-        if (![self configMKBeaconAccFilterUUID]) {
-            [self operationFailedBlockWithMsg:@"Config Beacon UUID Error" block:failedBlock];
-            return;
-        }
-        
-        moko_dispatch_main_safe(^{
-            if (sucBlock) {
-                sucBlock();
-            }
-        });
-    });
-}
-
-- (BOOL)readMKBeaconAccFilterStatus {
-    __block BOOL success = NO;
-    [MKMTInterface mt_readFilterByMKBeaconAccStatusWithSucBlock:^(id  _Nonnull returnData) {
-        success = YES;
-        self.isOn = [returnData[@"result"][@"isOn"] boolValue];
-        dispatch_semaphore_signal(self.semaphore);
-    } failedBlock:^(NSError * _Nonnull error) {
-        dispatch_semaphore_signal(self.semaphore);
-    }];
-    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-    return success;
-}
-
-- (BOOL)configMKBeaconAccFilterStatus {
-    __block BOOL success = NO;
-    [MKMTInterface mt_configFilterByMKBeaconAccStatus:self.isOn sucBlock:^{
-        success = YES;
-        dispatch_semaphore_signal(self.semaphore);
-    } failedBlock:^(NSError * _Nonnull error) {
-        dispatch_semaphore_signal(self.semaphore);
-    }];
-    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-    return success;
-}
-
-- (BOOL)readMKBeaconAccFilterMajor {
-    __block BOOL success = NO;
-    [MKMTInterface mt_readFilterByMKBeaconAccMajorRangeWithSucBlock:^(id  _Nonnull returnData) {
-        success = YES;
-        BOOL isOn = [returnData[@"result"][@"isOn"] boolValue];
-        if (isOn) {
-            self.minMajor = returnData[@"result"][@"minValue"];
-            self.maxMajor = returnData[@"result"][@"maxValue"];
-        }
-        dispatch_semaphore_signal(self.semaphore);
-    } failedBlock:^(NSError * _Nonnull error) {
-        dispatch_semaphore_signal(self.semaphore);
-    }];
-    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-    return success;
-}
-
-- (BOOL)configMKBeaconAccFilterMajor {
-    __block BOOL success = NO;
-    BOOL isOn = ValidStr(self.minMajor);
-    NSInteger min = 0;
-    if (ValidStr(self.minMajor)) {
-        min = [self.minMajor integerValue];
-    }
-    NSInteger max = 0;
-    if (ValidStr(self.maxMajor)) {
-        max = [self.maxMajor integerValue];
-    }
-    [MKMTInterface mt_configFilterByMKBeaconAccMajor:isOn minValue:min maxValue:max sucBlock:^{
-        success = YES;
-        dispatch_semaphore_signal(self.semaphore);
-    } failedBlock:^(NSError * _Nonnull error) {
-        dispatch_semaphore_signal(self.semaphore);
-    }];
-    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-    return success;
-}
-
-- (BOOL)readMKBeaconAccFilterMinor {
-    __block BOOL success = NO;
-    [MKMTInterface mt_readFilterByMKBeaconAccMinorRangeWithSucBlock:^(id  _Nonnull returnData) {
-        success = YES;
-        BOOL isOn = [returnData[@"result"][@"isOn"] boolValue];
-        if (isOn) {
-            self.minMinor = returnData[@"result"][@"minValue"];
-            self.maxMinor = returnData[@"result"][@"maxValue"];
-        }
-        dispatch_semaphore_signal(self.semaphore);
-    } failedBlock:^(NSError * _Nonnull error) {
-        dispatch_semaphore_signal(self.semaphore);
-    }];
-    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-    return success;
-}
-
-- (BOOL)configMKBeaconAccFilterMinor {
-    __block BOOL success = NO;
-    BOOL isOn = ValidStr(self.minMinor);
-    NSInteger min = 0;
-    if (ValidStr(self.minMinor)) {
-        min = [self.minMinor integerValue];
-    }
-    NSInteger max = 0;
-    if (ValidStr(self.maxMinor)) {
-        max = [self.maxMinor integerValue];
-    }
-    [MKMTInterface mt_configFilterByMKBeaconAccMinor:isOn minValue:min maxValue:max sucBlock:^{
-        success = YES;
-        dispatch_semaphore_signal(self.semaphore);
-    } failedBlock:^(NSError * _Nonnull error) {
-        dispatch_semaphore_signal(self.semaphore);
-    }];
-    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-    return success;
-}
-
-- (BOOL)readMKBeaconAccFilterUUID {
-    __block BOOL success = NO;
-    [MKMTInterface mt_readFilterByMKBeaconAccUUIDWithSucBlock:^(id  _Nonnull returnData) {
+    [MKMTInterface mt_readFilterByBXPBeaconUUIDWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         self.uuid = returnData[@"result"][@"uuid"];
         dispatch_semaphore_signal(self.semaphore);
@@ -608,9 +415,9 @@
     return success;
 }
 
-- (BOOL)configMKBeaconAccFilterUUID {
+- (BOOL)configBXPBeaconFilterUUID {
     __block BOOL success = NO;
-    [MKMTInterface mt_configFilterByMKBeaconAccUUID:self.uuid sucBlock:^{
+    [MKMTInterface mt_configFilterByBXPBeaconUUID:self.uuid sucBlock:^{
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {

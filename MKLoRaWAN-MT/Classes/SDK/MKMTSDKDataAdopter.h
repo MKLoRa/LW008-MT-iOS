@@ -64,6 +64,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)fetchLRPositioningSystemString:(mk_mt_positioningSystem)system;
 
++ (NSString *)fetchBluetoothFixMechanismString:(mk_mt_bluetoothFixMechanism)priority;
+
 @end
 
 NS_ASSUME_NONNULL_END

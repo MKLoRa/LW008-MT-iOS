@@ -818,7 +818,7 @@ MKLoRaSettingCHCellDelegate>
     cellModel1.index = 6;
     cellModel1.msg = @"ADR_ACK_LIMIT";
     cellModel1.textFieldType = mk_realNumberOnly;
-    cellModel1.textPlaceholder = @"1-100";
+    cellModel1.textPlaceholder = @"1-255";
     cellModel1.maxLength = 3;
     cellModel1.textFieldValue = self.dataModel.ackLimit;
     [self.optionsList9 addObject:cellModel1];
@@ -827,7 +827,7 @@ MKLoRaSettingCHCellDelegate>
     cellModel2.index = 7;
     cellModel2.msg = @"ADR_ACK_DELAY";
     cellModel2.textFieldType = mk_realNumberOnly;
-    cellModel2.textPlaceholder = @"1-100";
+    cellModel2.textPlaceholder = @"1-255";
     cellModel2.maxLength = 3;
     cellModel2.textFieldValue = self.dataModel.ackDelay;
     [self.optionsList9 addObject:cellModel2];

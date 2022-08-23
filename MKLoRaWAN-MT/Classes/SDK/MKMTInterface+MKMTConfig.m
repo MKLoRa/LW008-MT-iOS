@@ -749,17 +749,17 @@ static NSInteger const maxDataLen = 100;
                    failedBlock:failedBlock];
 }
 
-+ (void)mt_configFilterByMKBeaconStatus:(BOOL)isOn
++ (void)mt_configFilterByBXPBeaconStatus:(BOOL)isOn
                                sucBlock:(void (^)(void))sucBlock
                             failedBlock:(void (^)(NSError *error))failedBlock {
     NSString *commandString = (isOn ? @"ed01630101" : @"ed01630100");
-    [self configDataWithTaskID:mk_mt_taskConfigFilterByMKBeaconStatusOperation
+    [self configDataWithTaskID:mk_mt_taskConfigFilterByBXPBeaconStatusOperation
                           data:commandString
                       sucBlock:sucBlock
                    failedBlock:failedBlock];
 }
 
-+ (void)mt_configFilterByMKBeaconMajor:(BOOL)isOn
++ (void)mt_configFilterByBXPBeaconMajor:(BOOL)isOn
                               minValue:(NSInteger)minValue
                               maxValue:(NSInteger)maxValue
                               sucBlock:(void (^)(void))sucBlock
@@ -771,13 +771,13 @@ static NSInteger const maxDataLen = 100;
     NSString *minString = [MKBLEBaseSDKAdopter fetchHexValue:minValue byteLen:2];
     NSString *maxString = [MKBLEBaseSDKAdopter fetchHexValue:maxValue byteLen:2];
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"ed016405",(isOn ? @"01" : @"00"),minString,maxString];
-    [self configDataWithTaskID:mk_mt_taskConfigFilterByMKBeaconMajorOperation
+    [self configDataWithTaskID:mk_mt_taskConfigFilterByBXPBeaconMajorOperation
                           data:commandString
                       sucBlock:sucBlock
                    failedBlock:failedBlock];
 }
 
-+ (void)mt_configFilterByMKBeaconMinor:(BOOL)isOn
++ (void)mt_configFilterByBXPBeaconMinor:(BOOL)isOn
                               minValue:(NSInteger)minValue
                               maxValue:(NSInteger)maxValue
                               sucBlock:(void (^)(void))sucBlock
@@ -789,13 +789,13 @@ static NSInteger const maxDataLen = 100;
     NSString *minString = [MKBLEBaseSDKAdopter fetchHexValue:minValue byteLen:2];
     NSString *maxString = [MKBLEBaseSDKAdopter fetchHexValue:maxValue byteLen:2];
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"ed016505",(isOn ? @"01" : @"00"),minString,maxString];
-    [self configDataWithTaskID:mk_mt_taskConfigFilterByMKBeaconMinorOperation
+    [self configDataWithTaskID:mk_mt_taskConfigFilterByBXPBeaconMinorOperation
                           data:commandString
                       sucBlock:sucBlock
                    failedBlock:failedBlock];
 }
 
-+ (void)mt_configFilterByMKBeaconUUID:(NSString *)uuid
++ (void)mt_configFilterByBXPBeaconUUID:(NSString *)uuid
                              sucBlock:(void (^)(void))sucBlock
                           failedBlock:(void (^)(NSError *error))failedBlock {
     if (uuid.length > 32) {
@@ -813,77 +813,64 @@ static NSInteger const maxDataLen = 100;
     }
     NSString *lenString = [MKBLEBaseSDKAdopter fetchHexValue:(uuid.length / 2) byteLen:1];
     NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ed0166",lenString,uuid];
-    [self configDataWithTaskID:mk_mt_taskConfigFilterByMKBeaconUUIDOperation
+    [self configDataWithTaskID:mk_mt_taskConfigFilterByBXPBeaconUUIDOperation
                           data:commandString
                       sucBlock:sucBlock
                    failedBlock:failedBlock];
 }
 
-+ (void)mt_configFilterByMKBeaconAccStatus:(BOOL)isOn
-                                  sucBlock:(void (^)(void))sucBlock
-                               failedBlock:(void (^)(NSError *error))failedBlock {
++ (void)mt_configFilterByBXPTagIDStatus:(BOOL)isOn
+                               sucBlock:(void (^)(void))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock {
     NSString *commandString = (isOn ? @"ed01670101" : @"ed01670100");
-    [self configDataWithTaskID:mk_mt_taskConfigFilterByMKBeaconAccStatusOperation
+    [self configDataWithTaskID:mk_mt_taskConfigFilterByBXPTagIDStatusOperation
                           data:commandString
                       sucBlock:sucBlock
                    failedBlock:failedBlock];
 }
 
-+ (void)mt_configFilterByMKBeaconAccMajor:(BOOL)isOn
-                                 minValue:(NSInteger)minValue
-                                 maxValue:(NSInteger)maxValue
-                                 sucBlock:(void (^)(void))sucBlock
-                              failedBlock:(void (^)(NSError *error))failedBlock {
-    if (isOn && (minValue < 0 || minValue > 65535 || maxValue < minValue || maxValue > 65535)) {
-        [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
-        return;
-    }
-    NSString *minString = [MKBLEBaseSDKAdopter fetchHexValue:minValue byteLen:2];
-    NSString *maxString = [MKBLEBaseSDKAdopter fetchHexValue:maxValue byteLen:2];
-    NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"ed016805",(isOn ? @"01" : @"00"),minString,maxString];
-    [self configDataWithTaskID:mk_mt_taskConfigFilterByMKBeaconAccMajorOperation
-                          data:commandString
-                      sucBlock:sucBlock
-                   failedBlock:failedBlock];
-}
-
-+ (void)mt_configFilterByMKBeaconAccMinor:(BOOL)isOn
-                                 minValue:(NSInteger)minValue
-                                 maxValue:(NSInteger)maxValue
-                                 sucBlock:(void (^)(void))sucBlock
-                              failedBlock:(void (^)(NSError *error))failedBlock {
-    if (isOn && (minValue < 0 || minValue > 65535 || maxValue < minValue || maxValue > 65535)) {
-        [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
-        return;
-    }
-    NSString *minString = [MKBLEBaseSDKAdopter fetchHexValue:minValue byteLen:2];
-    NSString *maxString = [MKBLEBaseSDKAdopter fetchHexValue:maxValue byteLen:2];
-    NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@",@"ed016905",(isOn ? @"01" : @"00"),minString,maxString];
-    [self configDataWithTaskID:mk_mt_taskConfigFilterByMKBeaconAccMinorOperation
-                          data:commandString
-                      sucBlock:sucBlock
-                   failedBlock:failedBlock];
-}
-
-+ (void)mt_configFilterByMKBeaconAccUUID:(NSString *)uuid
++ (void)mt_configPreciseMatchTagIDStatus:(BOOL)isOn
                                 sucBlock:(void (^)(void))sucBlock
                              failedBlock:(void (^)(NSError *error))failedBlock {
-    if (uuid.length > 32) {
+    NSString *commandString = (isOn ? @"ed01680101" : @"ed01680100");
+    [self configDataWithTaskID:mk_mt_taskConfigPreciseMatchTagIDStatusOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configReverseFilterTagIDStatus:(BOOL)isOn
+                                 sucBlock:(void (^)(void))sucBlock
+                              failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = (isOn ? @"ed01690101" : @"ed01690100");
+    [self configDataWithTaskID:mk_mt_taskConfigReverseFilterTagIDStatusOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configFilterBXPTagIDList:(NSArray <NSString *>*)tagIDList
+                           sucBlock:(void (^)(void))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock {
+    if (tagIDList.count > 10) {
         [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
-    if (!uuid) {
-        uuid = @"";
-    }
-    if (MKValidStr(uuid)) {
-        if (![MKBLEBaseSDKAdopter checkHexCharacter:uuid] || uuid.length % 2 != 0) {
-            [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
-            return;
+    NSString *tagIDString = @"";
+    if (MKValidArray(tagIDList)) {
+        for (NSString *tagID in tagIDList) {
+            if ((tagID.length % 2 != 0) || !MKValidStr(tagID) || tagID.length > 12 || ![MKBLEBaseSDKAdopter checkHexCharacter:tagID]) {
+                [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
+                return;
+            }
+            NSString *tempLen = [MKBLEBaseSDKAdopter fetchHexValue:(tagID.length / 2) byteLen:1];
+            NSString *string = [tempLen stringByAppendingString:tagID];
+            tagIDString = [tagIDString stringByAppendingString:string];
         }
     }
-    NSString *lenString = [MKBLEBaseSDKAdopter fetchHexValue:(uuid.length / 2) byteLen:1];
-    NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ed016a",lenString,uuid];
-    [self configDataWithTaskID:mk_mt_taskConfigFilterByMKBeaconAccUUIDOperation
+    NSString *dataLen = [MKBLEBaseSDKAdopter fetchHexValue:(tagIDString.length / 2) byteLen:1];
+    NSString *commandString = [NSString stringWithFormat:@"ed016a%@%@",dataLen,tagIDString];
+    [self configDataWithTaskID:mk_mt_taskConfigFilterBXPTagIDListOperation
                           data:commandString
                       sucBlock:sucBlock
                    failedBlock:failedBlock];
@@ -1257,6 +1244,50 @@ static NSInteger const maxDataLen = 100;
                                   failedBlock:(void (^)(NSError *error))failedBlock {
     NSString *commandString = (isOn ? @"ed01810101" : @"ed01810100");
     [self configDataWithTaskID:mk_mt_taskConfigLRNotifyOnEphemerisEndStatusOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configFilterByBXPDeviceInfoStatus:(BOOL)isOn
+                                    sucBlock:(void (^)(void))sucBlock
+                                 failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = (isOn ? @"ed01820101" : @"ed01820100");
+    [self configDataWithTaskID:mk_mt_taskConfigFilterByBXPDeviceInfoStatusOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configFilterByBXPButtonStatus:(BOOL)isOn
+                                sucBlock:(void (^)(void))sucBlock
+                             failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = (isOn ? @"ed01830101" : @"ed01830100");
+    [self configDataWithTaskID:mk_mt_taskConfigFilterByBXPButtonStatusOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configFilterByBXPButtonAlarmStatus:(BOOL)singlePress
+                                  doublePress:(BOOL)doublePress
+                                    longPress:(BOOL)longPress
+                           abnormalInactivity:(BOOL)abnormalInactivity
+                                     sucBlock:(void (^)(void))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@%@",@"ed018404",(singlePress ? @"01" : @"00"),(doublePress ? @"01" : @"00"),(longPress ? @"01" : @"00"),(abnormalInactivity ? @"01" : @"00")];
+    [self configDataWithTaskID:mk_mt_taskConfigFilterByBXPButtonAlarmStatusOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
++ (void)mt_configBluetoothFixMechanism:(mk_mt_bluetoothFixMechanism)priority
+                              sucBlock:(void (^)(void))sucBlock
+                           failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *type = [MKMTSDKDataAdopter fetchBluetoothFixMechanismString:priority];
+    NSString *commandString = [@"ed018501" stringByAppendingString:type];
+    [self configDataWithTaskID:mk_mt_taskConfigBluetoothFixMechanismOperation
                           data:commandString
                       sucBlock:sucBlock
                    failedBlock:failedBlock];

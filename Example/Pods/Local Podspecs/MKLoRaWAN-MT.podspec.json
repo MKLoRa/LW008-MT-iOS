@@ -492,6 +492,12 @@
                     "MKLoRaWAN-MT/Functions/FilterPages/FilterByTLMPage/Controller": [
 
                     ],
+                    "MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPButtonPage/Controller": [
+
+                    ],
+                    "MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPTagPage/Controller": [
+
+                    ],
                     "MKLoRaWAN-MT/Functions/FilterPages/FilterByOtherPage/Controller": [
 
                     ]
@@ -554,6 +560,42 @@
                 {
                   "name": "Model",
                   "source_files": "MKLoRaWAN-MT/Classes/Functions/FilterPages/FilterByURLPage/Model/**"
+                }
+              ]
+            },
+            {
+              "name": "FilterByBXPButtonPage",
+              "subspecs": [
+                {
+                  "name": "Controller",
+                  "source_files": "MKLoRaWAN-MT/Classes/Functions/FilterPages/FilterByBXPButtonPage/Controller/**",
+                  "dependencies": {
+                    "MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPButtonPage/Model": [
+
+                    ]
+                  }
+                },
+                {
+                  "name": "Model",
+                  "source_files": "MKLoRaWAN-MT/Classes/Functions/FilterPages/FilterByBXPButtonPage/Model/**"
+                }
+              ]
+            },
+            {
+              "name": "FilterByBXPTagPage",
+              "subspecs": [
+                {
+                  "name": "Controller",
+                  "source_files": "MKLoRaWAN-MT/Classes/Functions/FilterPages/FilterByBXPTagPage/Controller/**",
+                  "dependencies": {
+                    "MKLoRaWAN-MT/Functions/FilterPages/FilterByBXPTagPage/Model": [
+
+                    ]
+                  }
+                },
+                {
+                  "name": "Model",
+                  "source_files": "MKLoRaWAN-MT/Classes/Functions/FilterPages/FilterByBXPTagPage/Model/**"
                 }
               ]
             }

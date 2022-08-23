@@ -91,17 +91,19 @@
             [self operationFailedBlockWithMsg:@"Config Autonomous Aiding Error" block:failedBlock];
             return;
         }
-        if (![self configLatitudeLongitude]) {
-            [self operationFailedBlockWithMsg:@"Config Latitude Longitude Error" block:failedBlock];
-            return;
-        }
-        if (![self configEphemerisStart]) {
-            [self operationFailedBlockWithMsg:@"Config Notify On Ephemeris Start Error" block:failedBlock];
-            return;
-        }
-        if (![self configEphemerisEnd]) {
-            [self operationFailedBlockWithMsg:@"Config Notify On Ephemeris End Error" block:failedBlock];
-            return;
+        if (self.aiding) {
+            if (![self configLatitudeLongitude]) {
+                [self operationFailedBlockWithMsg:@"Config Latitude Longitude Error" block:failedBlock];
+                return;
+            }
+            if (![self configEphemerisStart]) {
+                [self operationFailedBlockWithMsg:@"Config Notify On Ephemeris Start Error" block:failedBlock];
+                return;
+            }
+            if (![self configEphemerisEnd]) {
+                [self operationFailedBlockWithMsg:@"Config Notify On Ephemeris End Error" block:failedBlock];
+                return;
+            }
         }
         moko_dispatch_main_safe(^{
             if (sucBlock) {
@@ -330,11 +332,13 @@
     if (!ValidStr(self.threshold) || [self.threshold integerValue] < 4 || [self.threshold integerValue] > 10) {
         return NO;
     }
-    if (!ValidStr(self.longitude) || [self.longitude integerValue] < -9000000 || [self.longitude integerValue] > 9000000) {
-        return NO;
-    }
-    if (!ValidStr(self.latitude) || [self.latitude integerValue] < -18000000 || [self.latitude integerValue] > 18000000) {
-        return NO;
+    if (self.aiding) {
+        if (!ValidStr(self.longitude) || [self.longitude integerValue] < -9000000 || [self.longitude integerValue] > 9000000) {
+            return NO;
+        }
+        if (!ValidStr(self.latitude) || [self.latitude integerValue] < -18000000 || [self.latitude integerValue] > 18000000) {
+            return NO;
+        }
     }
     
     return YES;

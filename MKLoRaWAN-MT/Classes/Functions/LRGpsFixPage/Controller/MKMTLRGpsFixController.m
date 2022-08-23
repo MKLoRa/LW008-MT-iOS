@@ -93,7 +93,7 @@ MKMTAutonomousValueCellDelegate>
         return self.section2List.count;
     }
     if (section == 3) {
-        return self.section3List.count;
+        return (self.dataModel.aiding ? self.section3List.count : 0);
     }
     if (section == 4) {
         return (self.dataModel.aiding ? self.section4List.count : 0);
@@ -187,7 +187,7 @@ MKMTAutonomousValueCellDelegate>
         self.dataModel.aiding = isOn;
         MKTextSwitchCellModel *cellModel = self.section2List[0];
         cellModel.isOn = isOn;
-        [self.tableView mk_reloadSection:4 withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadData];
         return;
     }
     if (index == 1) {
@@ -267,11 +267,11 @@ MKMTAutonomousValueCellDelegate>
 - (void)loadSection0Datas {
     MKTextFieldCellModel *cellModel1 = [[MKTextFieldCellModel alloc] init];
     cellModel1.index = 0;
-    cellModel1.msg = @"Positioning Timeout";
+    cellModel1.msg = @"Positioning Times";
     cellModel1.textFieldValue = self.dataModel.timeout;
     cellModel1.textPlaceholder = @"1 ~ 5";
     cellModel1.textFieldType = mk_realNumberOnly;
-    cellModel1.unit = @"x9s";
+    cellModel1.unit = @" ";
     cellModel1.maxLength = 1;
     [self.section0List addObject:cellModel1];
     
