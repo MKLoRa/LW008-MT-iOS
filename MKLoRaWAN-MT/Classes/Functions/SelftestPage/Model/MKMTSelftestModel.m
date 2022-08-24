@@ -57,10 +57,9 @@
     [MKMTInterface mt_readSelftestStatusWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         NSString *binary = [self binaryByhex:returnData[@"result"][@"status"]];
-        self.bit0 = [binary substringWithRange:NSMakeRange(7, 1)];
-        self.bit1 = [binary substringWithRange:NSMakeRange(6, 1)];
-        self.bit2 = [binary substringWithRange:NSMakeRange(5, 1)];
-        self.bit3 = [binary substringWithRange:NSMakeRange(4, 1)];
+        self.gps = [binary substringWithRange:NSMakeRange(7, 1)];
+        self.acceData = [binary substringWithRange:NSMakeRange(6, 1)];
+        self.flash = [binary substringWithRange:NSMakeRange(5, 1)];
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);

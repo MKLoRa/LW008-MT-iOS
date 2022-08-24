@@ -209,15 +209,15 @@ MKMTAutonomousValueCellDelegate>
 #pragma mark - MKMTAutonomousValueCellDelegate
 - (void)mt_autonomousValueCellValueChanged:(NSString *)value index:(NSInteger)index {
     if (index == 0) {
-        //Autonomous Longitude
-        self.dataModel.longitude = value;
+        //Autonomous Latitude
+        self.dataModel.latitude = value;
         MKMTAutonomousValueCellModel *cellModel = self.section3List[0];
         cellModel.value = value;
         return;
     }
     if (index == 1) {
-        //Autonomous Latitude
-        self.dataModel.latitude = value;
+        //Autonomous Longitude
+        self.dataModel.longitude = value;
         MKMTAutonomousValueCellModel *cellModel = self.section3List[1];
         cellModel.value = value;
         return;
@@ -313,16 +313,16 @@ MKMTAutonomousValueCellDelegate>
 - (void)loadSection3Datas {
     MKMTAutonomousValueCellModel *cellModel1 = [[MKMTAutonomousValueCellModel alloc] init];
     cellModel1.index = 0;
-    cellModel1.msg = @"Autonomous Longitude";
-    cellModel1.value = self.dataModel.longitude;
+    cellModel1.msg = @"Autonomous Latitude";
+    cellModel1.value = self.dataModel.latitude;
     cellModel1.placeholder = @"-9000000~9000000";
     cellModel1.maxLength = 8;
     [self.section3List addObject:cellModel1];
     
     MKMTAutonomousValueCellModel *cellModel2 = [[MKMTAutonomousValueCellModel alloc] init];
     cellModel2.index = 1;
-    cellModel2.msg = @"Autonomous Latitude";
-    cellModel2.value = self.dataModel.latitude;
+    cellModel2.msg = @"Autonomous Longitude";
+    cellModel2.value = self.dataModel.longitude;
     cellModel2.placeholder = @"-18000000~18000000";
     cellModel2.maxLength = 9;
     [self.section3List addObject:cellModel2];

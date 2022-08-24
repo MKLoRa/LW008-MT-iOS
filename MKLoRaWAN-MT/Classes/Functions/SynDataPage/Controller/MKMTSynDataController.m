@@ -362,7 +362,7 @@ mk_mt_storageDataDelegate>
     dispatch_source_set_event_handler(self.dataTimer, ^{
         @strongify(self);
         moko_dispatch_main_safe(^{
-//            [MKMTInterface mt_readThreeAxisWakeupConditionsWithSucBlock:nil failedBlock:nil];
+            [MKMTInterface mt_readThreeAxisWakeupConditionsWithSucBlock:nil failedBlock:nil];
         });
     });
     dispatch_resume(self.dataTimer);
@@ -384,14 +384,14 @@ mk_mt_storageDataDelegate>
 
 - (void)parseContentDatas {
     if (self.contentList.count == 0) {
-        NSInteger number = self.dataList.count;
-        if (ValidStr(self.totalSum) && [self.totalSum integerValue] == number) {
+        NSInteger tempNumber = self.dataList.count;
+        if (ValidStr(self.totalSum) && [self.totalSum integerValue] == tempNumber) {
             //解析完成
             if (self.parseTimer) {
                 dispatch_cancel(self.parseTimer);
             }
         }
-        self.headerView.countLabel.text = [NSString stringWithFormat:@"Count: %ld",(long)number];
+        self.headerView.countLabel.text = [NSString stringWithFormat:@"Count: %ld",(long)tempNumber];
         return;
     }
     NSString *firstContent = self.contentList[0];

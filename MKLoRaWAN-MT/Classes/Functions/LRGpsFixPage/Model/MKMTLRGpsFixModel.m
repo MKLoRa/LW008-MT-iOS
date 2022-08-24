@@ -333,10 +333,10 @@
         return NO;
     }
     if (self.aiding) {
-        if (!ValidStr(self.longitude) || [self.longitude integerValue] < -9000000 || [self.longitude integerValue] > 9000000) {
+        if (!ValidStr(self.latitude) || [self.latitude integerValue] < -9000000 || [self.latitude integerValue] > 9000000) {
             return NO;
         }
-        if (!ValidStr(self.latitude) || [self.latitude integerValue] < -18000000 || [self.latitude integerValue] > 18000000) {
+        if (!ValidStr(self.longitude) || [self.longitude integerValue] < -18000000 || [self.longitude integerValue] > 18000000) {
             return NO;
         }
     }

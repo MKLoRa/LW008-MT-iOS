@@ -12,13 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MKMTSelftestModel : NSObject
 
-@property (nonatomic, copy)NSString *bit0;
+@property (nonatomic, copy)NSString *gps;
 
-@property (nonatomic, copy)NSString *bit1;
+@property (nonatomic, copy)NSString *acceData;
 
-@property (nonatomic, copy)NSString *bit2;
-
-@property (nonatomic, copy)NSString *bit3;
+@property (nonatomic, copy)NSString *flash;
 
 @property (nonatomic, copy)NSString *pcbaStatus;
 

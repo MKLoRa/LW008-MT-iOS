@@ -102,13 +102,12 @@ UITableViewDataSource>
 
 - (void)loadSection0Datas {
     MKMTSelftestCellModel *cellModel = [[MKMTSelftestCellModel alloc] init];
-    if ([self.dataModel.bit0 integerValue] == 0 && [self.dataModel.bit1 integerValue] == 0 && [self.dataModel.bit2 integerValue] == 0 && [self.dataModel.bit3 integerValue] == 0) {
+    if ([self.dataModel.gps integerValue] == 0 && [self.dataModel.acceData integerValue] == 0 && [self.dataModel.flash integerValue] == 0) {
         cellModel.value0 = @"0";
     }
-    cellModel.value1 = ([self.dataModel.bit0 integerValue] == 1 ? @"1" : @"");
-    cellModel.value2 = ([self.dataModel.bit1 integerValue] == 1 ? @"2" : @"");
-    cellModel.value3 = ([self.dataModel.bit2 integerValue] == 1 ? @"3" : @"");
-    cellModel.value4 = ([self.dataModel.bit3 integerValue] == 1 ? @"4" : @"");
+    cellModel.value1 = ([self.dataModel.flash integerValue] == 1 ? @"1" : @"");
+    cellModel.value2 = ([self.dataModel.acceData integerValue] == 1 ? @"2" : @"");
+    cellModel.value3 = ([self.dataModel.gps integerValue] == 1 ? @"3" : @"");
     
     [self.section0List addObject:cellModel];
 }
