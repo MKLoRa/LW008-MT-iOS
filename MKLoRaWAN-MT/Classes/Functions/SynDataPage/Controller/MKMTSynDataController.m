@@ -129,6 +129,7 @@ mk_mt_storageDataDelegate>
 #pragma mark - mk_mt_storageDataDelegate
 - (void)mk_mt_receiveStorageData:(NSString *)content {
     NSInteger number = [MKBLEBaseSDKAdopter getDecimalWithHex:content range:NSMakeRange(8, 2)];
+    NSLog(@"接收到数据了:+++++++++++%@",content);
     if (number == 0) {
         //最后一条数据
         self.totalSum = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(10, 4)];
@@ -299,6 +300,7 @@ mk_mt_storageDataDelegate>
     [self.headerView.synButton.topIcon.layer addAnimation:[MKCustomUIAdopter refreshAnimation:2.f] forKey:synIconAnimationKey];
     self.headerView.synButton.msgLabel.text = @"STOP";
     self.headerView.sumLabel.text = @"Sum:N/A";
+    self.totalSum = @"";
     [self addTimerForRefresh];
 }
 
@@ -316,6 +318,7 @@ mk_mt_storageDataDelegate>
         //开始旋转
         [self.headerView.synButton.topIcon.layer addAnimation:[MKCustomUIAdopter refreshAnimation:2.f] forKey:synIconAnimationKey];
         self.headerView.synButton.msgLabel.text = @"STOP";
+        self.totalSum = @"";
         [self addTimerForRefresh];
     }else {
         //停止监听数据，start按钮恢复正常状态,本地如果有数据,empty、export都可用，如果没有则empty、export都不可用

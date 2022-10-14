@@ -121,9 +121,6 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
         if ([cmd isEqualToString:@"5d"]) {
             //读取Adv Name过滤规则
             operationID = mk_mt_taskReadFilterAdvNameListOperation;
-        }else if ([cmd isEqualToString:@"6f"]) {
-            //读取URL类型过滤内容
-            operationID = mk_mt_taskReadFilterByURLContentOperation;
         }
         return [self dataParserGetDataSuccess:resultDic operationID:operationID];
     }
@@ -136,9 +133,6 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
         if ([cmd isEqualToString:@"5d"]) {
             //配置Adv Name过滤规则
             operationID = mk_mt_taskConfigFilterAdvNameListOperation;
-        }else if ([cmd isEqualToString:@"6f"]) {
-            //配置URL类型过滤的内容
-            operationID = mk_mt_taskConfigFilterByURLContentOperation;
         }
         return [self dataParserGetDataSuccess:@{@"success":@(success)} operationID:operationID];
     }
@@ -552,6 +546,17 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
             @"isOn":@(isOn)
         };
         operationID = mk_mt_taskReadFilterByBXPTagIDStatusOperation;
+    }else if ([cmd isEqualToString:@"6f"]) {
+        //读取URL类型过滤内容
+        NSString *url = @"";
+        if (content.length > 0) {
+            NSData *urlData = [data subdataWithRange:NSMakeRange(4, data.length - 4)];
+            url = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
+        }
+        resultDic = @{
+            @"url":(MKValidStr(url) ? url : @""),
+        };
+        operationID = mk_mt_taskReadFilterByURLContentOperation;
     }else if ([cmd isEqualToString:@"68"]) {
         //读取BXP-TagID类型精准过滤tagID开关
         BOOL isOn = ([content isEqualToString:@"01"]);
@@ -1142,6 +1147,9 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
     }else if ([cmd isEqualToString:@"6e"]) {
         //配置URL类型过滤开关
         operationID = mk_mt_taskConfigFilterByURLStatusOperation;
+    }else if ([cmd isEqualToString:@"6f"]) {
+        //配置URL类型过滤的内容
+        operationID = mk_mt_taskConfigFilterByURLContentOperation;
     }else if ([cmd isEqualToString:@"70"]) {
         //配置TLM类型开关
         operationID = mk_mt_taskConfigFilterByTLMStatusOperation;

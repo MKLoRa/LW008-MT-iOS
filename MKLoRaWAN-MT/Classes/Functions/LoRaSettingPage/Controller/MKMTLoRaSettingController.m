@@ -482,6 +482,14 @@ MKLoRaSettingCHCellDelegate>
         MKLoRaSettingCHCellModel *cellModel = self.optionsList7[0];
         cellModel.chHighIndex = chHighIndex;
         cellModel.chLowValueList = [self.dataModel DRLValueList];
+        
+        if (self.dataModel.DRH < self.dataModel.DRL) {
+            cellModel.chLowIndex = cellModel.chLowValueList.count - 1;
+            self.dataModel.DRL = self.dataModel.DRH;
+        }
+        cellModel.chLowIndex = [self getCurrentDRLIndex];
+        
+        [self.tableView mk_reloadSection:10 withRowAnimation:UITableViewRowAnimationNone];
         return;
     }
 }
@@ -507,6 +515,14 @@ MKLoRaSettingCHCellDelegate>
         MKLoRaSettingCHCellModel *cellModel = self.optionsList7[0];
         cellModel.chLowIndex = chLowIndex;
         cellModel.chHighValueList = [self.dataModel DRHValueList];
+        
+        if (self.dataModel.DRH < self.dataModel.DRL) {
+            cellModel.chHighIndex = 0;
+            self.dataModel.DRH = self.dataModel.DRL;
+        }
+        cellModel.chHighIndex = [self getCurrentDRHIndex];
+        
+        [self.tableView mk_reloadSection:10 withRowAnimation:UITableViewRowAnimationNone];
         return;
     }
 }

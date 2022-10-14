@@ -231,19 +231,16 @@
         return @"2";
     }
     if ([other isEqualToString:@"03"]) {
-        //协议中A | B | C
-        //对应原型中的5
-        return @"5";
-    }
-    if ([other isEqualToString:@"04"]) {
-        //协议中A & B & C
-        //对应原型3
+        //A & B & C
         return @"3";
     }
-    if ([other isEqualToString:@"05"]) {
-        //协议中(A & B) | C
-        //对应原型4
+    if ([other isEqualToString:@"04"]) {
+        //(A & B) | C
         return @"4";
+    }
+    if ([other isEqualToString:@"05"]) {
+        //A | B | C
+        return @"5";
     }
     return @"0";
 }
@@ -292,17 +289,25 @@
         case mk_mt_filterByOther_AOrB:
             return @"02";
         case mk_mt_filterByOther_ABC:
-            return @"04";
-        case mk_mt_filterByOther_ABOrC:
-            return @"05";
-        case mk_mt_filterByOther_AOrBOrC:
             return @"03";
+        case mk_mt_filterByOther_ABOrC:
+            return @"04";
+        case mk_mt_filterByOther_AOrBOrC:
+            return @"05";
     }
 }
 
 + (BOOL)isConfirmRawFilterProtocol:(id <mk_mt_BLEFilterRawDataProtocol>)protocol {
     if (![protocol conformsToProtocol:@protocol(mk_mt_BLEFilterRawDataProtocol)]) {
         return NO;
+    }
+    if (!MKValidStr(protocol.dataType)) {
+        //新需求，DataType为空等同于00，
+        protocol.dataType = @"00";
+    }
+    if ([protocol.dataType isEqualToString:@"00"]) {
+        protocol.minIndex = 0;
+        protocol.maxIndex = 0;
     }
     if (!MKValidStr(protocol.dataType) || protocol.dataType.length != 2 || ![MKBLEBaseSDKAdopter checkHexCharacter:protocol.dataType]) {
         return NO;

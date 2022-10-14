@@ -173,9 +173,9 @@ MKMTFilterNormalTextFieldCellDelegate>
     cellModel1.index = 0;
     cellModel1.msg = @"URL";
     cellModel1.textFieldType = mk_normal;
-    cellModel1.textPlaceholder = @"0-255 Characters";
+    cellModel1.textPlaceholder = @"0-100 Characters";
     cellModel1.textFieldValue = self.dataModel.url;
-    cellModel1.maxLength = 255;
+    cellModel1.maxLength = 100;
     [self.section1List addObject:cellModel1];
 }
 

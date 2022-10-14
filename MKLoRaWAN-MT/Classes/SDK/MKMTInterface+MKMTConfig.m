@@ -947,8 +947,16 @@ static NSInteger const maxDataLen = 100;
 + (void)mt_configFilterByURLContent:(NSString *)content
                            sucBlock:(void (^)(void))sucBlock
                         failedBlock:(void (^)(NSError *error))failedBlock {
-    if (content.length > 255 || ![MKBLEBaseSDKAdopter asciiString:content]) {
+    if (content.length > 100 || ![MKBLEBaseSDKAdopter asciiString:content]) {
         [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    if (content.length == 0) {
+        NSString *commandString = @"ed016f00";
+        [self configDataWithTaskID:mk_mt_taskConfigFilterByURLContentOperation
+                              data:commandString
+                          sucBlock:sucBlock
+                       failedBlock:failedBlock];
         return;
     }
     NSString *tempString = @"";
@@ -957,63 +965,12 @@ static NSInteger const maxDataLen = 100;
         tempString = [tempString stringByAppendingString:[NSString stringWithFormat:@"%1lx",(unsigned long)asciiCode]];
     }
     
-    NSInteger totalLen = tempString.length / 2;
-    NSInteger totalNum = (totalLen / maxDataLen);
-    if (totalLen % maxDataLen != 0) {
-        totalNum ++;
-    }
-    NSMutableArray *commandList = [NSMutableArray array];
-    for (NSInteger i = 0; i < totalNum; i ++) {
-        NSString *contentString = @"";
-        if (i == totalNum - 1) {
-            //最后一帧
-            contentString = [tempString substringFromIndex:(i * 2 * maxDataLen)];
-        }else {
-            contentString = [tempString substringWithRange:NSMakeRange(i * 2 * maxDataLen, 2 * maxDataLen)];
-        }
-        [commandList addObject:contentString];
-    }
-    NSString *totalNumberHex = [MKBLEBaseSDKAdopter fetchHexValue:totalNum byteLen:1];
-    
-    __block NSInteger commandIndex = 0;
-    dispatch_queue_t dataQueue = dispatch_queue_create("filterURLQueue", DISPATCH_QUEUE_SERIAL);
-    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dataQueue);
-    //当2s内没有接收到新的数据的时候，也认为是接受超时
-    dispatch_source_set_timer(timer, dispatch_walltime(NULL, 0), 0.05 * NSEC_PER_SEC, 0);
-    dispatch_source_set_event_handler(timer, ^{
-        if (commandIndex >= commandList.count) {
-            //停止
-            dispatch_cancel(timer);
-            MKMTOperation *operation = [[MKMTOperation alloc] initOperationWithID:mk_mt_taskConfigFilterByURLContentOperation commandBlock:^{
-                
-            } completeBlock:^(NSError * _Nullable error, id  _Nullable returnData) {
-                BOOL success = [returnData[@"success"] boolValue];
-                if (!success) {
-                    [MKBLEBaseSDKAdopter operationSetParamsErrorBlock:failedBlock];
-                    return ;
-                }
-                if (sucBlock) {
-                    sucBlock();
-                }
-            }];
-            [[MKMTCentralManager shared] addOperation:operation];
-            return;
-        }
-        NSString *tempCommandString = commandList[commandIndex];
-        NSString *indexHex = [MKBLEBaseSDKAdopter fetchHexValue:commandIndex byteLen:1];
-        NSString *totalLenHex = [MKBLEBaseSDKAdopter fetchHexValue:(tempCommandString.length / 2) byteLen:1];
-        NSString *commandString = [NSString stringWithFormat:@"%@%@%@%@%@",@"ee016f",totalNumberHex,indexHex,totalLenHex,tempCommandString];
-        [[MKBLEBaseCentralManager shared] sendDataToPeripheral:commandString characteristic:[MKBLEBaseCentralManager shared].peripheral.mt_custom type:CBCharacteristicWriteWithResponse];
-        commandIndex ++;
-    });
-    dispatch_resume(timer);
-    
-//    NSString *lenString = [MKBLEBaseSDKAdopter fetchHexValue:content.length byteLen:1];
-//    NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ed016f",lenString,tempString];
-//    [self configDataWithTaskID:mk_mt_taskConfigFilterByURLContentOperation
-//                          data:commandString
-//                      sucBlock:sucBlock
-//                   failedBlock:failedBlock];
+    NSString *lenString = [MKBLEBaseSDKAdopter fetchHexValue:content.length byteLen:1];
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ed016f",lenString,tempString];
+    [self configDataWithTaskID:mk_mt_taskConfigFilterByURLContentOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
 }
 
 + (void)mt_configFilterByTLMStatus:(BOOL)isOn

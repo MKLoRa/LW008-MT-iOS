@@ -512,7 +512,7 @@ NS_ASSUME_NONNULL_BEGIN
                        failedBlock:(void (^)(NSError *error))failedBlock;
 
 /// Content of filter by URL.
-/// @param content 0~255 Characters.
+/// @param content 0~100 Characters.
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
 + (void)mt_configFilterByURLContent:(NSString *)content

@@ -577,25 +577,10 @@
 
 + (void)mt_readFilterByURLContentWithSucBlock:(void (^)(id returnData))sucBlock
                                   failedBlock:(void (^)(NSError *error))failedBlock {
-    NSString *commandString = @"ee006f00";
-    [centralManager addTaskWithTaskID:mk_mt_taskReadFilterByURLContentOperation
-                       characteristic:peripheral.mt_custom
-                          commandData:commandString
-                         successBlock:^(id  _Nonnull returnData) {
-        NSString *url = [MKMTSDKDataAdopter parseFilterUrlContent:returnData[@"result"]];
-        NSDictionary *resultDic = @{@"msg":@"success",
-                                    @"code":@"1",
-                                    @"result":@{
-                                        @"url":url,
-                                    },
-                                    };
-        MKBLEBase_main_safe(^{
-            if (sucBlock) {
-                sucBlock(resultDic);
-            }
-        });
-        
-    } failureBlock:failedBlock];
+    [self readDataWithTaskID:mk_mt_taskReadFilterByURLContentOperation
+                     cmdFlag:@"6f"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
 }
 
 + (void)mt_readFilterByTLMStatusWithSucBlock:(void (^)(id returnData))sucBlock

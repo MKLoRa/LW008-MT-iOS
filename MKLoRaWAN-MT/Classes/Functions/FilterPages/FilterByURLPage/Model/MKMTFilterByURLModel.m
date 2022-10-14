@@ -125,7 +125,7 @@
 }
 
 - (BOOL)validParams {
-    if (self.url.length > 255) {
+    if (self.url.length > 100) {
         return NO;
     }
     return YES;
