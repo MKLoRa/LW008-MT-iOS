@@ -189,7 +189,7 @@ typedef NS_ENUM(NSInteger, mk_mt_bluetoothFixMechanism) {
  @"peripheral":peripheral,
  @"deviceName":@"LW008-MT",
  
- @"deviceType":@"00",           //@"00":LR1110  @"01":L76
+ @"deviceType":@"00",           //@"00":LR1110  @"10":L76
  @"txPower":@(-55),             //dBm
  @"deviceState":@"0",           //0 (Standby Mode), 1 (Timing Mode), 2 (Periodic Mode), 3 (Motion Mode)
  @"lowPower":@(lowPower),       //Whether the device is in a low battery state.

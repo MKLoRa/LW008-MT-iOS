@@ -22,7 +22,7 @@ extern NSString *const mk_mt_peripheralConnectStateChangedNotification;
 extern NSString *const mk_mt_centralManagerStateChangedNotification;
 
 /*
- After connecting the device, if no password is entered within one minute, it returns 0x01. After successful password change, it returns 0x03, the device has no data communication for three consecutive minutes, it returns 0x02, and the shutdown protocol is sent to make the device shut down and return 0x04.Reset the device, return 0x05.
+ After connecting the device, if no password is entered within one minute, it returns 0x01. After successful password change, it returns 0x02, the device has no data communication for three consecutive minutes, it returns 0x03, and the shutdown protocol is sent to make the device shut down and return 0x04.Reset the device, return 0x05.
  */
 extern NSString *const mk_mt_deviceDisconnectTypeNotification;
 

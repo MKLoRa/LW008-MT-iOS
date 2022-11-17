@@ -18,13 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// 设备连接的时候是否需要密码
 @property (nonatomic, assign, readonly)BOOL hasPassword;
 
-/// 设备类型,   @"00":LR1110    @"01":L76
+/// 设备类型,   @"00":LR1110    @"19":L76
 @property (nonatomic, copy, readonly)NSString *deviceType;
 
 /// 连接设备
 /// @param peripheral 设备
 /// @param password 密码
-/// @param deviceType 00:LR1110    01:L76
+/// @param deviceType 00:LR1110    10:L76
 /// @param sucBlock 成功回调
 /// @param failedBlock 失败回调
 - (void)connectDevice:(CBPeripheral *)peripheral

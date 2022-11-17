@@ -73,7 +73,7 @@ typedef NS_ENUM(NSInteger, mk_mt_taskOperationID) {
     mk_mt_taskReadFilterByBXPBeaconUUIDOperation,          //读取BXP-iBeacon类型UUID
     mk_mt_taskReadFilterByBXPTagIDStatusOperation,         //读取BXP-TagID类型开关
     mk_mt_taskReadPreciseMatchTagIDStatusOperation,        //读取BXP-TagID类型精准过滤tagID开关
-    mk_mt_taskReadReverseFilterTagIDStatusOperation,       //读取读取BXP-TagID类型反向过滤tagID开关
+    mk_mt_taskReadReverseFilterTagIDStatusOperation,    //读取读取BXP-TagID类型反向过滤tagID开关
     mk_mt_taskReadFilterBXPTagIDListOperation,             //读取BXP-TagID过滤规则
     mk_mt_taskReadFilterByUIDStatusOperation,                //读取UID类型过滤开关
     mk_mt_taskReadFilterByUIDNamespaceIDOperation,           //读取UID类型过滤的Namespace ID
