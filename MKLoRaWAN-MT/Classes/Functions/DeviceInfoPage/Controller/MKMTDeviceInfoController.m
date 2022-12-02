@@ -45,13 +45,9 @@ MKMTTextButtonCellDelegate>
 
 @property (nonatomic, strong)NSMutableArray *section4List;
 
-@property (nonatomic, strong)NSMutableArray *section5List;
-
 @property (nonatomic, strong)NSMutableArray *headerList;
 
 @property (nonatomic, strong)MKMTDeviceInfoModel *dataModel;
-
-@property (nonatomic, assign)BOOL onlyBattery;
 
 /// 用户进入dfu页面开启升级模式，返回该页面，不需要读取任何的数据
 @property (nonatomic, assign)BOOL isDfuModel;
@@ -89,7 +85,7 @@ MKMTTextButtonCellDelegate>
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0 || section == 3 || section == 4 || section == 5) {
+    if (section == 0 || section == 3 || section == 4) {
         return 10.f;
     }
     return 0.f;
@@ -102,7 +98,7 @@ MKMTTextButtonCellDelegate>
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 5 && indexPath.row == 0) {
+    if (indexPath.section == 4 && indexPath.row == 0) {
         //Debugger Mode
         MKMTDebuggerController *vc = [[MKMTDebuggerController alloc] init];
         vc.macAddress = self.dataModel.macAddress;
@@ -113,7 +109,7 @@ MKMTTextButtonCellDelegate>
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 6;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -132,7 +128,7 @@ MKMTTextButtonCellDelegate>
     if (section == 4) {
         return self.section4List.count;
     }
-    return self.section5List.count;
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -157,13 +153,8 @@ MKMTTextButtonCellDelegate>
         cell.dataModel =  self.section3List[indexPath.row];
         return cell;
     }
-    if (indexPath.section == 4) {
-        MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
-        cell.dataModel =  self.section4List[indexPath.row];
-        return cell;
-    }
     MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
-    cell.dataModel =  self.section5List[indexPath.row];
+    cell.dataModel =  self.section4List[indexPath.row];
     return cell;
 }
 
@@ -194,12 +185,9 @@ MKMTTextButtonCellDelegate>
 - (void)readDataFromDevice {
     [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
     @weakify(self);
-    [self.dataModel startLoadSystemInformation:self.onlyBattery sucBlock:^{
+    [self.dataModel readDataWithSucBlock:^{
         @strongify(self);
         [[MKHudManager share] hide];
-        if (!self.onlyBattery) {
-            self.onlyBattery = YES;
-        }
         [self updateCellDatas];
     } failedBlock:^(NSError * _Nonnull error) {
         @strongify(self);
@@ -222,22 +210,17 @@ MKMTTextButtonCellDelegate>
         hardware.rightMsg = self.dataModel.hardware;
     }
     
-    if (ValidStr(self.dataModel.battery)) {
-        MKNormalTextCellModel *soc = self.section3List[0];
-        soc.rightMsg = [NSString stringWithFormat:@"%@%@",self.dataModel.battery,@"V"];
-    }
-    
     if (ValidStr(self.dataModel.macAddress)) {
-        MKNormalTextCellModel *mac = self.section4List[0];
+        MKNormalTextCellModel *mac = self.section3List[0];
         mac.rightMsg = self.dataModel.macAddress;
     }
     if (ValidStr(self.dataModel.productMode)) {
-        MKNormalTextCellModel *produceModel = self.section4List[1];
+        MKNormalTextCellModel *produceModel = self.section3List[1];
         produceModel.rightMsg = self.dataModel.productMode;
     }
     
     if (ValidStr(self.dataModel.manu)) {
-        MKNormalTextCellModel *manuModel = self.section4List[2];
+        MKNormalTextCellModel *manuModel = self.section3List[2];
         manuModel.rightMsg = self.dataModel.manu;
     }
     [self.tableView reloadData];
@@ -250,9 +233,8 @@ MKMTTextButtonCellDelegate>
     [self loadSection2Datas];
     [self loadSection3Datas];
     [self loadSection4Datas];
-    [self loadSection5Datas];
     
-    for (NSInteger i = 0; i < 6; i ++) {
+    for (NSInteger i = 0; i < 5; i ++) {
         MKTableSectionLineHeaderModel *headerModel = [[MKTableSectionLineHeaderModel alloc] init];
         [self.headerList addObject:headerModel];
     }
@@ -281,30 +263,24 @@ MKMTTextButtonCellDelegate>
 }
 
 - (void)loadSection3Datas {
-    MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
-    cellModel.leftMsg = @"Battery Voltage";
-    [self.section3List addObject:cellModel];
-}
-
-- (void)loadSection4Datas {
     MKNormalTextCellModel *cellModel1 = [[MKNormalTextCellModel alloc] init];
     cellModel1.leftMsg = @"MAC Address";
-    [self.section4List addObject:cellModel1];
+    [self.section3List addObject:cellModel1];
     
     MKNormalTextCellModel *cellModel2 = [[MKNormalTextCellModel alloc] init];
     cellModel2.leftMsg = @"Product Model";
-    [self.section4List addObject:cellModel2];
+    [self.section3List addObject:cellModel2];
     
     MKNormalTextCellModel *cellModel3 = [[MKNormalTextCellModel alloc] init];
     cellModel3.leftMsg = @"Manufacture";
-    [self.section4List addObject:cellModel3];
+    [self.section3List addObject:cellModel3];
 }
 
-- (void)loadSection5Datas {
+- (void)loadSection4Datas {
     MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
     cellModel.showRightIcon = YES;
     cellModel.leftMsg = @"Debugger Mode";
-    [self.section5List addObject:cellModel];
+    [self.section4List addObject:cellModel];
 }
 
 #pragma mark - UI
@@ -366,13 +342,6 @@ MKMTTextButtonCellDelegate>
         _section4List = [NSMutableArray array];
     }
     return _section4List;
-}
-
-- (NSMutableArray *)section5List {
-    if (!_section5List) {
-        _section5List = [NSMutableArray array];
-    }
-    return _section5List;
 }
 
 - (NSMutableArray *)headerList {

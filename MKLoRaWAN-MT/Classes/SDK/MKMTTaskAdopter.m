@@ -223,6 +223,32 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
             @"status":content,
         };
         operationID = mk_mt_taskReadSelftestStatusOperation;
+    }else if ([cmd isEqualToString:@"25"]) {
+        //读取电池信息
+        NSString *workTimes = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, 8)];
+        NSString *advCount = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(8, 8)];
+        NSString *flashOperationCount = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(16, 8)];
+        NSString *axisWakeupTimes = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(24, 8)];
+        NSString *blePostionTimes = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(32, 8)];
+        NSString *wifiPostionTimes = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(40, 8)];
+        NSString *gpsPostionTimes = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(48, 8)];
+        NSString *loraSendCount = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(56, 8)];
+        NSString *loraPowerConsumption = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(64, 8)];
+        NSString *batteryPower = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(72, 8)];
+        
+        resultDic = @{
+            @"workTimes":workTimes,
+            @"advCount":advCount,
+            @"flashOperationCount":flashOperationCount,
+            @"axisWakeupTimes":axisWakeupTimes,
+            @"blePostionTimes":blePostionTimes,
+            @"wifiPostionTimes":wifiPostionTimes,
+            @"gpsPostionTimes":gpsPostionTimes,
+            @"loraSendCount":loraSendCount,
+            @"loraPowerConsumption":loraPowerConsumption,
+            @"batteryPower":batteryPower
+        };
+        operationID = mk_mt_taskReadBatteryInformationOperation;
     }else if ([cmd isEqualToString:@"30"]) {
         //读取密码开关
         BOOL need = ([content isEqualToString:@"01"]);
@@ -1006,6 +1032,9 @@ NSString *const mk_mt_contentKey = @"mk_mt_contentKey";
     }else if ([cmd isEqualToString:@"1c"]) {
         //配置低电百分比
         operationID = mk_mt_taskConfigLowPowerPromptOperation;
+    }else if ([cmd isEqualToString:@"26"]) {
+        //清除电池电量数据
+        operationID = mk_mt_taskBatteryResetOperation;
     }else if ([cmd isEqualToString:@"30"]) {
         //配置是否需要连接密码
         operationID = mk_mt_taskConfigNeedPasswordOperation;

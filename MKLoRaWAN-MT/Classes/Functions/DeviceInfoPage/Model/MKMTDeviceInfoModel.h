@@ -27,9 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, copy)NSString *hardware;
 
-/// 电池电压
-@property (nonatomic, copy)NSString *battery;
-
 /**
  mac地址
  */
@@ -45,13 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, copy)NSString *manu;
 
-/// 开始读取设备信息
-/// @param onlyBattery 是否只读取电池电量
-/// @param sucBlock 成功回调
-/// @param failedBlock 失败回调
-- (void)startLoadSystemInformation:(BOOL)onlyBattery
-                          sucBlock:(void (^)(void))sucBlock
-                       failedBlock:(void (^)(NSError *error))failedBlock;
+- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

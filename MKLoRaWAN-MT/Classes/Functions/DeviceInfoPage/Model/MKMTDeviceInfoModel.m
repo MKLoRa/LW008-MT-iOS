@@ -22,20 +22,8 @@
 
 @implementation MKMTDeviceInfoModel
 
-- (void)startLoadSystemInformation:(BOOL)onlyBattery
-                          sucBlock:(void (^)(void))sucBlock
-                       failedBlock:(void (^)(NSError *error))failedBlock {
+- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
-        if (![self readBatteryPower]) {
-            [self operationFailedBlockWithMsg:@"Read battery power error" block:failedBlock];
-            return ;
-        }
-        if (onlyBattery) {
-            moko_dispatch_main_safe(^{
-                sucBlock();
-            });
-            return;
-        }
         if (![self readMacAddress]) {
             [self operationFailedBlockWithMsg:@"Read mac address error" block:failedBlock];
             return ;
@@ -67,20 +55,6 @@
 }
 
 #pragma mark - interface
-
-- (BOOL)readBatteryPower {
-    __block BOOL success = NO;
-    [MKMTInterface mt_readBatteryVoltageWithSucBlock:^(id  _Nonnull returnData) {
-        success = YES;
-        NSInteger battery = [returnData[@"result"][@"voltage"] integerValue];
-        self.battery = [NSString stringWithFormat:@"%.3f",(battery * 0.001)];
-        dispatch_semaphore_signal(self.semaphore);
-    } failedBlock:^(NSError * _Nonnull error) {
-        dispatch_semaphore_signal(self.semaphore);
-    }];
-    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-    return success;
-}
 
 - (BOOL)readMacAddress {
     __block BOOL success = NO;

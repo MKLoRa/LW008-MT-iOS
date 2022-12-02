@@ -180,6 +180,27 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)mt_readSelftestStatusWithSucBlock:(void (^)(id returnData))sucBlock
                               failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Information of the battery.
+/*
+ @{
+     @"workTimes":@"65535",         //Device working times.(Unit:s)
+     @"advCount":@"65535",          //The number of Bluetooth broadcasts by the device.
+     @"flashOperationCount":@"3000",    //Flash read and write times.
+     @"axisWakeupTimes":@"11111",       //Three-axis sensor wake-up times.(Unit:ms)
+     @"blePostionTimes":@"11111",       //Bluetooth positioning times.(Unit:ms)
+     @"wifiPostionTimes":@"11111",      //WIFI positioning times.(Unit:ms)
+     @"gpsPostionTimes":@"11111",       //GPS positioning times.(Unit:ms)
+     @"loraPowerConsumption":@"50000",      //Power consumption of LoRaWAN sending and receiving data.(Unit:mAS)
+     @"loraSendCount":@"10000",     //Number of LoRaWAN transmissions.
+     @"batteryPower":@"33500"       //Total battery power consumption.(Unit:0.001mAH)
+ };
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_readBatteryInformationWithSucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock;
+
+
 #pragma mark ****************************************蓝牙相关参数************************************************
 
 /// Is a password required when the device is connected.

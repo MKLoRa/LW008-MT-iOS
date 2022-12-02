@@ -32,6 +32,10 @@
             [self operationFailedBlockWithMsg:@"Read Self Test Status Error" block:failedBlock];
             return;
         }
+        if (![self readBatteryDatas]) {
+            [self operationFailedBlockWithMsg:@"Read Battery Datas Error" block:failedBlock];
+            return;
+        }
         moko_dispatch_main_safe(^{
             sucBlock();
         });
@@ -60,6 +64,28 @@
         self.gps = [binary substringWithRange:NSMakeRange(7, 1)];
         self.acceData = [binary substringWithRange:NSMakeRange(6, 1)];
         self.flash = [binary substringWithRange:NSMakeRange(5, 1)];
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)readBatteryDatas {
+    __block BOOL success = NO;
+    [MKMTInterface mt_readBatteryInformationWithSucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        self.workTimes = returnData[@"result"][@"workTimes"];
+        self.advCount = returnData[@"result"][@"advCount"];
+        self.flashOperationCount = returnData[@"result"][@"flashOperationCount"];
+        self.axisWakeupTimes = returnData[@"result"][@"axisWakeupTimes"];
+        self.blePostionTimes = returnData[@"result"][@"blePostionTimes"];
+        self.wifiPostionTimes = returnData[@"result"][@"wifiPostionTimes"];
+        self.gpsPostionTimes = returnData[@"result"][@"gpsPostionTimes"];
+        self.loraPowerConsumption = returnData[@"result"][@"loraPowerConsumption"];
+        self.loraSendCount = returnData[@"result"][@"loraSendCount"];
+        self.batteryPower = returnData[@"result"][@"batteryPower"];
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);

@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, mk_mt_taskOperationID) {
     mk_mt_taskReadMacAddressOperation,              //读取mac地址
     mk_mt_taskReadPCBAStatusOperation,              //读取产测状态
     mk_mt_taskReadSelftestStatusOperation,          //读取自检故障原因
+    mk_mt_taskReadBatteryInformationOperation,      //读取电池电量消耗
     
 #pragma mark - 蓝牙参数读取
     mk_mt_taskReadConnectationNeedPasswordOperation,    //读取连接是否需要密码
@@ -116,6 +117,7 @@ typedef NS_ENUM(NSInteger, mk_mt_taskOperationID) {
     mk_mt_taskConfigOfflineFixOperation,                //配置离线定位功能开关状态
     mk_mt_taskConfigLowPowerPayloadStatusOperation,     //配置低电触发心跳开关状态
     mk_mt_taskConfigLowPowerPromptOperation,            //配置低电百分比
+    mk_mt_taskBatteryResetOperation,                    //清除电池电量数据
     
 #pragma mark - 蓝牙参数配置
     mk_mt_taskConfigNeedPasswordOperation,              //配置是否需要连接密码

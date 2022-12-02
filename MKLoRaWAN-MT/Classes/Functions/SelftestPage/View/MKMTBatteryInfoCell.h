@@ -1,24 +1,16 @@
 //
-//  MKMTSelftestModel.h
-//  MKLoRaWAN-MT_Example
+//  MKMTBatteryInfoCell.h
+//  MKLoRaWAN-PIR_Example
 //
-//  Created by aa on 2022/5/26.
-//  Copyright © 2022 aadyx2007@163.com. All rights reserved.
+//  Created by aa on 2021/5/24.
+//  Copyright © 2021 aadyx2007@163.com. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <MKBaseModuleLibrary/MKBaseCell.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MKMTSelftestModel : NSObject
-
-@property (nonatomic, copy)NSString *gps;
-
-@property (nonatomic, copy)NSString *acceData;
-
-@property (nonatomic, copy)NSString *flash;
-
-@property (nonatomic, copy)NSString *pcbaStatus;
+@interface MKMTBatteryInfoCellModel : NSObject
 
 @property (nonatomic, copy)NSString *workTimes;
 
@@ -40,7 +32,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy)NSString *batteryPower;
 
-- (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;;
+@end
+
+@interface MKMTBatteryInfoCell : MKBaseCell
+
+@property (nonatomic, strong)MKMTBatteryInfoCellModel *dataModel;
+
++ (MKMTBatteryInfoCell *)initCellWithTableView:(UITableView *)tableView;
 
 @end
 

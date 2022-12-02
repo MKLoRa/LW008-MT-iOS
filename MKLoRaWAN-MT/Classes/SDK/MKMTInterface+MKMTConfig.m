@@ -158,6 +158,15 @@ static NSInteger const maxDataLen = 100;
                    failedBlock:failedBlock];
 }
 
++ (void)mt_batteryResetWithSucBlock:(void (^)(void))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = @"ed012600";
+    [self configDataWithTaskID:mk_mt_taskBatteryResetOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
 #pragma mark ****************************************蓝牙相关参数************************************************
 
 + (void)mt_configNeedPassword:(BOOL)need

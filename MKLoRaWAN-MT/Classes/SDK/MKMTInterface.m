@@ -162,6 +162,14 @@
                  failedBlock:failedBlock];
 }
 
++ (void)mt_readBatteryInformationWithSucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_mt_taskReadBatteryInformationOperation
+                     cmdFlag:@"25"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
 #pragma mark ****************************************蓝牙相关参数************************************************
 
 + (void)mt_readConnectationNeedPasswordWithSucBlock:(void (^)(id returnData))sucBlock

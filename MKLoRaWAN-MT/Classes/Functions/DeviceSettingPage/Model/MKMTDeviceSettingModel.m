@@ -28,10 +28,6 @@
             [self operationFailedBlockWithMsg:@"Read Time Zone Error" block:failedBlock];
             return;
         }
-        if (![self readLowPowerPrompt]) {
-            [self operationFailedBlockWithMsg:@"Read Low Power Prompt Error" block:failedBlock];
-            return;
-        }
         if (![self readLowPowerPayload]) {
             [self operationFailedBlockWithMsg:@"Read Low Power Payload Error" block:failedBlock];
             return;
@@ -54,19 +50,6 @@
     [MKMTInterface mt_readTimeZoneWithSucBlock:^(id  _Nonnull returnData) {
         success = YES;
         self.timeZone = [returnData[@"result"][@"timeZone"] integerValue] + 24;
-        dispatch_semaphore_signal(self.semaphore);
-    } failedBlock:^(NSError * _Nonnull error) {
-        dispatch_semaphore_signal(self.semaphore);
-    }];
-    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
-    return success;
-}
-
-- (BOOL)readLowPowerPrompt {
-    __block BOOL success = NO;
-    [MKMTInterface mt_readLowPowerPromptWithSucBlock:^(id  _Nonnull returnData) {
-        success = YES;
-        self.prompt = [returnData[@"result"][@"prompt"] integerValue];
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {
         dispatch_semaphore_signal(self.semaphore);

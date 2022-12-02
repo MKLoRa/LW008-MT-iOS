@@ -104,6 +104,12 @@ NS_ASSUME_NONNULL_BEGIN
                        sucBlock:(void (^)(void))sucBlock
                     failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Battery Reset.
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)mt_batteryResetWithSucBlock:(void (^)(void))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock;
+
 #pragma mark ****************************************蓝牙相关参数************************************************
 
 /// Do you need a password when configuring the device connection.
