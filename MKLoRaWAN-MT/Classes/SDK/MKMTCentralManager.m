@@ -495,7 +495,7 @@ static dispatch_once_t onceToken;
     }
     
     NSData *manufacturerData = advDic[@"kCBAdvDataServiceData"][[CBUUID UUIDWithString:@"AA09"]];
-    if (manufacturerData.length != 12) {
+    if (manufacturerData.length != 10) {
         return @{};
     }
     NSString *content = [MKBLEBaseSDKAdopter hexStringFromData:manufacturerData];
@@ -512,9 +512,7 @@ static dispatch_once_t onceToken;
     BOOL idle = [[binary substringWithRange:NSMakeRange(5, 1)] isEqualToString:@"1"];
     BOOL move = [[binary substringWithRange:NSMakeRange(4, 1)] isEqualToString:@"1"];
     
-    NSString *voltage = [NSString stringWithFormat:@"%.3f",([MKBLEBaseSDKAdopter getDecimalWithHex:content range:NSMakeRange(8, 4)] * 0.001)];
-    
-    NSString *tempMac = [[content substringWithRange:NSMakeRange(12, 12)] uppercaseString];
+    NSString *tempMac = [[content substringWithRange:NSMakeRange(8, 12)] uppercaseString];
     NSString *macAddress = [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",
     [tempMac substringWithRange:NSMakeRange(0, 2)],
     [tempMac substringWithRange:NSMakeRange(2, 2)],
@@ -536,7 +534,6 @@ static dispatch_once_t onceToken;
         @"needPassword":@(needPassword),
         @"idle":@(idle),
         @"move":@(move),
-        @"voltage":voltage,
         @"macAddress":macAddress,
         @"connectable":advDic[CBAdvertisementDataIsConnectable],
     };
