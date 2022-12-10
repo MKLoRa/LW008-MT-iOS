@@ -91,7 +91,6 @@
 #import "MKMTSelftestController.h"
 #import "MKMTSelftestModel.h"
 #import "MKMTBatteryInfoCell.h"
-#import "MKMTButtonMsgCell.h"
 #import "MKMTPCBAStatusCell.h"
 #import "MKMTSelftestCell.h"
 #import "MKMTSynDataController.h"

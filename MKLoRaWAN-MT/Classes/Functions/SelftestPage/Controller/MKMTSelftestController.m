@@ -13,6 +13,7 @@
 #import "MKMacroDefines.h"
 #import "MKBaseTableView.h"
 #import "UIView+MKAdd.h"
+#import "UITableView+MKAdd.h"
 
 #import "MKHudManager.h"
 #import "MKAlertController.h"
@@ -25,11 +26,11 @@
 #import "MKMTSelftestCell.h"
 #import "MKMTPCBAStatusCell.h"
 #import "MKMTBatteryInfoCell.h"
-#import "MKMTButtonMsgCell.h"
+#import "MKButtonMsgCell.h"
 
 @interface MKMTSelftestController ()<UITableViewDelegate,
 UITableViewDataSource,
-MKMTButtonMsgCellDelegate>
+MKButtonMsgCellDelegate>
 
 @property (nonatomic, strong)MKBaseTableView *tableView;
 
@@ -68,7 +69,7 @@ MKMTButtonMsgCellDelegate>
         return 300.f;
     }
     if (indexPath.section == 3) {
-        MKMTButtonMsgCellModel *cellModel = self.section3List[indexPath.row];
+        MKButtonMsgCellModel *cellModel = self.section3List[indexPath.row];
         return [cellModel cellHeightWithContentWidth:kViewWidth];
     }
     return 44.f;
@@ -121,13 +122,13 @@ MKMTButtonMsgCellDelegate>
         cell.dataModel = self.section2List[indexPath.row];
         return cell;
     }
-    MKMTButtonMsgCell *cell = [MKMTButtonMsgCell initCellWithTableView:tableView];
+    MKButtonMsgCell *cell = [MKButtonMsgCell initCellWithTableView:tableView];
     cell.dataModel = self.section3List[indexPath.row];
     cell.delegate = self;
     return cell;
 }
 
-#pragma mark - MKMTButtonMsgCellDelegate
+#pragma mark - MKButtonMsgCellDelegate
 /// 右侧按钮点击事件
 /// @param index 当前cell所在index
 - (void)mk_buttonMsgCellButtonPressed:(NSInteger)index {
@@ -180,7 +181,37 @@ MKMTButtonMsgCellDelegate>
                               isPenetration:NO];
     [MKMTInterface mt_batteryResetWithSucBlock:^{
         [[MKHudManager share] hide];
+        [self reloadBatteryDatas];
     } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
+}
+
+- (void)reloadBatteryDatas {
+    [[MKHudManager share] showHUDWithTitle:@"Reading..."
+                                     inView:self.view
+                              isPenetration:NO];
+    [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
+    @weakify(self);
+    [self.dataModel readDataWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        MKMTBatteryInfoCellModel *cellModel = self.section2List[0];
+        cellModel.workTimes = self.dataModel.workTimes;
+        cellModel.advCount = self.dataModel.advCount;
+        cellModel.flashOperationCount = self.dataModel.flashOperationCount;
+        cellModel.axisWakeupTimes = self.dataModel.axisWakeupTimes;
+        cellModel.blePostionTimes = self.dataModel.blePostionTimes;
+        cellModel.wifiPostionTimes = self.dataModel.wifiPostionTimes;
+        cellModel.gpsPostionTimes = self.dataModel.gpsPostionTimes;
+        cellModel.loraSendCount = self.dataModel.loraSendCount;
+        cellModel.loraPowerConsumption = self.dataModel.loraPowerConsumption;
+        cellModel.batteryPower = self.dataModel.batteryPower;
+        
+        [self.tableView mk_reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
     }];
@@ -237,7 +268,7 @@ MKMTButtonMsgCellDelegate>
 }
 
 - (void)loadSection3Datas {
-    MKMTButtonMsgCellModel *cellModel = [[MKMTButtonMsgCellModel alloc] init];
+    MKButtonMsgCellModel *cellModel = [[MKButtonMsgCellModel alloc] init];
     cellModel.index = 0;
     cellModel.msg = @"Battery Reset";
     cellModel.buttonTitle = @"Reset";
