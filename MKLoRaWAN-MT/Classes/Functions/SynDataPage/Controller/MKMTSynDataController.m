@@ -24,6 +24,8 @@
 
 #import "MKBLEBaseSDKAdopter.h"
 
+#import "MKMTDatabaseManager.h"
+
 #import "MKMTInterface.h"
 #import "MKMTInterface+MKMTConfig.h"
 #import "MKMTCentralManager.h"
@@ -52,6 +54,12 @@ mk_mt_storageDataDelegate>
 /// 定时解析数据
 @property (nonatomic, strong)dispatch_source_t parseTimer;
 
+/// 返回延时定时器
+@property (nonatomic, strong)dispatch_source_t backTimer;
+
+/// 点击了返回按钮，先发送暂停命令给设备，然后2s中没有需要解析的数据了，认为可用返回了
+@property (nonatomic, assign)NSInteger backCount;
+
 /// 为65535时，最近的数据在最上面；为1时，最早的数据在最上面；
 @property (nonatomic, assign)BOOL isMaxCount;
 
@@ -75,21 +83,43 @@ mk_mt_storageDataDelegate>
     if (self.parseTimer) {
         dispatch_cancel(self.parseTimer);
     }
+    if (self.backTimer) {
+        dispatch_cancel(self.backTimer);
+    }
     [[MKMTCentralManager shared] notifyStorageData:NO];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     self.view.shiftHeightAsDodgeViewForMLInputDodger = 50.0f;
     [self.view registerAsDodgeViewForMLInputDodgerWithOriginalY:self.view.frame.origin.y];
+    //本页面禁止右划退出手势
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadSubViews];
-    [self processStatus];
+    [self readDataFromLocal];
     [[MKMTCentralManager shared] notifyStorageData:YES];
     [MKMTCentralManager shared].dataDelegate = self;
+}
+
+#pragma mark - super method
+- (void)leftButtonMethod {
+    [self.headerView.synButton.topIcon.layer removeAnimationForKey:synIconAnimationKey];
+    self.headerView.synButton.msgLabel.text = @"SYNC";
+    [[MKHudManager share] showHUDWithTitle:@"Waiting..." inView:self.view isPenetration:NO];
+    [MKMTInterface  mt_pauseSendLocalData:YES sucBlock:^{
+        [self startBackTimer];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [self startBackTimer];
+    }];
 }
 
 #pragma mark - UITableViewDelegate
@@ -245,13 +275,33 @@ mk_mt_storageDataDelegate>
 }
 
 #pragma mark - 数据库
+- (void)readDataFromLocal {
+    [[MKHudManager share] showHUDWithTitle:@"Reading..." inView:self.view isPenetration:NO];
+    [MKMTDatabaseManager readDataListWithSucBlock:^(NSArray<NSDictionary *> * _Nonnull dataList) {
+        [[MKHudManager share] hide];
+        [self.dataList addObjectsFromArray:dataList];
+        [self processStatus];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
+}
 
 - (void)processStatus {
     self.headerView.countLabel.text = @"Count:N/A";
     self.headerView.textField.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"mt_readRecordDataDayNumKey"];
+    self.totalSum = [[NSUserDefaults standardUserDefaults] objectForKey:@"mt_recordDataTotalSumKey"];
+    if (ValidStr(self.totalSum)) {
+        self.headerView.sumLabel.text = [NSString stringWithFormat:@"Sum:%@",self.totalSum];
+    }
     self.headerView.sumLabel.text = @"Sum:N/A";
-    
-    if (self.dataList.count == 0) {
+    if (self.dataList.count > 0) {
+        //如果本地有数据存储，则start按钮不可用,sync按钮和empty、export按钮可用
+        self.headerView.startButton.enabled = NO;
+        [self.headerView.startButton setBackgroundColor:[UIColor grayColor]];
+        [self.headerView.startButton setTitleColor:DEFAULT_TEXT_COLOR forState:UIControlStateNormal];
+        
+    }else {
         //本地没有存储数据，则start、empty、sync不可用
         
         self.headerView.synButton.enabled = NO;
@@ -262,7 +312,6 @@ mk_mt_storageDataDelegate>
         
         self.headerView.exportButton.enabled = NO;
         self.headerView.exportButton.topIcon.image = LOADICON(@"MKLoRaWAN-MT", @"MKMTSynDataController", @"mt_export_disableIcon.png");
-        
     }
     
     [self.tableView reloadData];
@@ -355,6 +404,44 @@ mk_mt_storageDataDelegate>
     
     self.headerView.exportButton.enabled = YES;
     self.headerView.exportButton.topIcon.image = LOADICON(@"MKLoRaWAN-MT", @"MKMTSynDataController", @"mt_export_enableIcon.png");
+}
+
+- (void)startBackTimer {
+    self.backTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,dispatch_get_global_queue(0, 0));
+    dispatch_source_set_timer(self.backTimer, dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC),  0.5 * NSEC_PER_SEC, 0);
+    @weakify(self);
+    dispatch_source_set_event_handler(self.backTimer, ^{
+        @strongify(self);
+        self.backCount ++;
+        if (self.backCount == 4) {
+            //数据全部解析完成,把所有数据缓存到本地
+            moko_dispatch_main_safe(^{
+                dispatch_cancel(self.backTimer);
+                [self saveDataToLocal];
+            });
+            return;
+        }
+    });
+    dispatch_resume(self.backTimer);
+}
+
+- (void)saveDataToLocal {
+    [MKMTDatabaseManager clearDataTable];
+    if (ValidStr(self.totalSum)) {
+        [[NSUserDefaults standardUserDefaults] setValue:self.totalSum forKey:@"bv_recordDataTotalSumKey"];
+    }
+    if (self.dataList.count == 0) {
+        [[MKHudManager share] hide];
+        [super leftButtonMethod];
+        return;
+    }
+    [MKMTDatabaseManager insertDataList:self.dataList sucBlock:^{
+        [[MKHudManager share] hide];
+        [super leftButtonMethod];
+    } failedBlock:^(NSError * _Nonnull error) {
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
 }
 
 #pragma mark - 维持通信

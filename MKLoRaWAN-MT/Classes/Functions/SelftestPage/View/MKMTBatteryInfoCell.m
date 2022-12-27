@@ -154,7 +154,7 @@
     self.axisPostionLabel.text = [SafeStr(_dataModel.axisWakeupTimes) stringByAppendingString:@"ms"];
     self.blePostionLabel.text = [SafeStr(_dataModel.blePostionTimes) stringByAppendingString:@"ms"];
     self.wifiPostionLabel.text = [SafeStr(_dataModel.wifiPostionTimes) stringByAppendingString:@"ms"];
-    self.gpsPostionLabel.text = [SafeStr(_dataModel.gpsPostionTimes) stringByAppendingString:@"ms"];
+    self.gpsPostionLabel.text = [SafeStr(_dataModel.gpsPostionTimes) stringByAppendingString:@"s"];
     self.loraPowerLabel.text = [SafeStr(_dataModel.loraPowerConsumption) stringByAppendingString:@" mAS"];
     self.loraSendCountLabel.text = [SafeStr(_dataModel.loraSendCount) stringByAppendingString:@" times"];
     self.batteryPowerLabel.text = [NSString stringWithFormat:@"%.3f %@",([_dataModel.batteryPower integerValue] * 0.001),@"mAH"];
