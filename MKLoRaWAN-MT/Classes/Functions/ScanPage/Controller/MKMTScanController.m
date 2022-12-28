@@ -23,6 +23,8 @@
 #import "MKCustomUIAdopter.h"
 #import "MKAlertView.h"
 
+#import "MKMTDatabaseManager.h"
+
 #import "MKMTSDK.h"
 
 #import "MKMTConnectModel.h"
@@ -405,12 +407,23 @@ MKMTTabBarControllerDelegate>
         }
         [[MKHudManager share] hide];
         [self.view showCentralToast:@"Time sync completed!"];
+        [self configParams];
         [self performSelector:@selector(pushTabBarPage) withObject:nil afterDelay:0.6f];
     } failedBlock:^(NSError * _Nonnull error) {
         [[MKHudManager share] hide];
         [self.view showCentralToast:error.userInfo[@"errorInfo"]];
         [self connectFailed];
     }];
+}
+
+- (void)configParams {
+    //读取设备存储的扫描信息页面，左上角输入框显示的用户输入的读取多少天的数据
+    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"mt_readRecordDataDayNumKey"];
+    //读取设备存储的扫描信息页面，显示的设备总共存储了多少条的扫描数据
+    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"mt_recordDataTotalSumKey"];
+    
+    [MKMTDatabaseManager clearDataTable];
+    [MKMTDatabaseManager initDataBase];
 }
 
 - (void)pushTabBarPage {

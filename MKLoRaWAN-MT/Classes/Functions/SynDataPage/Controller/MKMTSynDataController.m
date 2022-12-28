@@ -288,21 +288,20 @@ mk_mt_storageDataDelegate>
 }
 
 - (void)processStatus {
-    self.headerView.countLabel.text = @"Count:N/A";
     self.headerView.textField.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"mt_readRecordDataDayNumKey"];
     self.totalSum = [[NSUserDefaults standardUserDefaults] objectForKey:@"mt_recordDataTotalSumKey"];
     if (ValidStr(self.totalSum)) {
         self.headerView.sumLabel.text = [NSString stringWithFormat:@"Sum:%@",self.totalSum];
+    }else {
+        self.headerView.sumLabel.text = @"Sum:N/A";
     }
-    self.headerView.sumLabel.text = @"Sum:N/A";
+    
     if (self.dataList.count > 0) {
-        //如果本地有数据存储，则start按钮不可用,sync按钮和empty、export按钮可用
-        self.headerView.startButton.enabled = NO;
-        [self.headerView.startButton setBackgroundColor:[UIColor grayColor]];
-        [self.headerView.startButton setTitleColor:DEFAULT_TEXT_COLOR forState:UIControlStateNormal];
+        self.headerView.countLabel.text = [NSString stringWithFormat:@"Count:%ld",(long)self.dataList.count];
         
     }else {
         //本地没有存储数据，则start、empty、sync不可用
+        self.headerView.countLabel.text = @"Count:N/A";
         
         self.headerView.synButton.enabled = NO;
         self.headerView.synButton.topIcon.image = LOADICON(@"MKLoRaWAN-MT", @"MKMTSynDataController", @"mt_sync_disableIcon.png");
@@ -427,9 +426,7 @@ mk_mt_storageDataDelegate>
 
 - (void)saveDataToLocal {
     [MKMTDatabaseManager clearDataTable];
-    if (ValidStr(self.totalSum)) {
-        [[NSUserDefaults standardUserDefaults] setValue:self.totalSum forKey:@"bv_recordDataTotalSumKey"];
-    }
+    [[NSUserDefaults standardUserDefaults] setValue:SafeStr(self.totalSum) forKey:@"mt_recordDataTotalSumKey"];
     if (self.dataList.count == 0) {
         [[MKHudManager share] hide];
         [super leftButtonMethod];
