@@ -244,7 +244,6 @@ The maximum length of each packet of data is 176 bytes, and the data format is s
             @"timestamp":timestamp,
             @"timezone":[NSString stringWithFormat:@"%@",timezone],
             @"port": port,
-            @"macAddress":macAddress,
             @"rawData": rawData,
         };
         [dataList addObject:dic];
