@@ -385,7 +385,7 @@ MKMTDebuggerCellDelegate>
     [headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15.f);
         make.right.mas_equalTo(-15.f);
-        make.top.mas_equalTo(defaultTopInset);
+        make.top.mas_equalTo(self.view.mas_safeAreaLayoutGuideTop);
         make.height.mas_equalTo(90.f);
     }];
     [self.view addSubview:self.tableView];
@@ -393,7 +393,7 @@ MKMTDebuggerCellDelegate>
         make.left.mas_equalTo(15.f);
         make.right.mas_equalTo(-15.f);
         make.top.mas_equalTo(headerView.mas_bottom);
-        make.bottom.mas_equalTo(-VirtualHomeHeight);
+        make.bottom.mas_equalTo(self.view.mas_safeAreaLayoutGuideBottom);
     }];
 }
 
