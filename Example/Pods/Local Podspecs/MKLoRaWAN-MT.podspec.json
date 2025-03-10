@@ -126,6 +126,15 @@
       ]
     },
     {
+      "name": "LoginManager",
+      "source_files": "MKLoRaWAN-MT/Classes/LoginManager/**",
+      "dependencies": {
+        "MKIotCloudManager": [
+
+        ]
+      }
+    },
+    {
       "name": "Functions",
       "dependencies": {
         "MKLoRaWAN-MT/SDK": [
@@ -141,6 +150,9 @@
 
         ],
         "MKLoRaWAN-MT/Expand": [
+
+        ],
+        "MKLoRaWAN-MT/LoginManager": [
 
         ],
         "MKBaseModuleLibrary": [
@@ -717,12 +729,19 @@
               "dependencies": {
                 "MKLoRaWAN-MT/Functions/LoRaSettingPage/Model": [
 
+                ],
+                "MKLoRaWAN-MT/Functions/LoRaSettingPage/View": [
+
                 ]
               }
             },
             {
               "name": "Model",
               "source_files": "MKLoRaWAN-MT/Classes/Functions/LoRaSettingPage/Model/**"
+            },
+            {
+              "name": "View",
+              "source_files": "MKLoRaWAN-MT/Classes/Functions/LoRaSettingPage/View/**"
             }
           ]
         },

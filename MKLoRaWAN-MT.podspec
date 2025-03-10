@@ -106,6 +106,12 @@ TODO: Add long description of the pod here.
     ss.dependency 'MKCustomUIModule'
   end
   
+  s.subspec 'LoginManager' do |ss|
+    ss.source_files = 'MKLoRaWAN-MT/Classes/LoginManager/**'
+  
+    ss.dependency 'MKIotCloudManager'
+  end
+  
   s.subspec 'Functions' do |ss|
     
     ss.subspec 'AboutPage' do |sss|
@@ -476,10 +482,15 @@ TODO: Add long description of the pod here.
         ssss.source_files = 'MKLoRaWAN-MT/Classes/Functions/LoRaSettingPage/Controller/**'
         
         ssss.dependency 'MKLoRaWAN-MT/Functions/LoRaSettingPage/Model'
+        ssss.dependency 'MKLoRaWAN-MT/Functions/LoRaSettingPage/View'
       end
       
       sss.subspec 'Model' do |ssss|
         ssss.source_files = 'MKLoRaWAN-MT/Classes/Functions/LoRaSettingPage/Model/**'
+      end
+      
+      sss.subspec 'View' do |ssss|
+        ssss.source_files = 'MKLoRaWAN-MT/Classes/Functions/LoRaSettingPage/View/**'
       end
       
     end
@@ -681,6 +692,7 @@ TODO: Add long description of the pod here.
     ss.dependency 'MKLoRaWAN-MT/CTMediator'
     ss.dependency 'MKLoRaWAN-MT/ConnectModule'
     ss.dependency 'MKLoRaWAN-MT/Expand'
+    ss.dependency 'MKLoRaWAN-MT/LoginManager'
     
     ss.dependency 'MKBaseModuleLibrary'
     ss.dependency 'MKCustomUIModule'

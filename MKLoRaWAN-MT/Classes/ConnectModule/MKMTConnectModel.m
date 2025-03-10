@@ -26,6 +26,8 @@
 /// 设备类型
 @property (nonatomic, copy)NSString *deviceType;
 
+@property (nonatomic, copy)NSString *macAddress;
+
 @end
 
 @implementation MKMTConnectModel
@@ -46,6 +48,7 @@
 - (void)connectDevice:(CBPeripheral *)peripheral
              password:(NSString *)password
            deviceType:(NSString *)deviceType
+           macAddress:(NSString *)macAddress
              sucBlock:(void (^)(void))sucBlock
           failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.connectQueue, ^{
@@ -69,6 +72,7 @@
             return;
         }
         self.deviceType = deviceType;
+        self.macAddress = macAddress;
         moko_dispatch_main_safe(^{
             if (sucBlock) {
                 sucBlock();
