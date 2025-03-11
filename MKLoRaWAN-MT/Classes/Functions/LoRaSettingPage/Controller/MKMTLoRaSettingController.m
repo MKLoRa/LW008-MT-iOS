@@ -142,6 +142,9 @@ MKMTLoRaSettingAccountCellDelegate>
         //当前未登录
         @weakify(self);
         MKIoTCloudAccountLoginAlertViewModel *viewModel = [[MKIoTCloudAccountLoginAlertViewModel alloc] init];
+        viewModel.account = [MKMTUserLoginManager shared].username;
+        viewModel.isHome = [MKMTUserLoginManager shared].isHome;
+        viewModel.password = [MKMTUserLoginManager shared].password;
         MKIoTCloudAccountLoginAlertView *alertView = [[MKIoTCloudAccountLoginAlertView alloc] init];
         [alertView showViewWithModel:viewModel completeBlock:^(NSString * _Nonnull account, NSString * _Nonnull password, BOOL isHome) {
             @strongify(self);
