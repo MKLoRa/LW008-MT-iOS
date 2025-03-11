@@ -1,6 +1,6 @@
 {
   "name": "MKLoRaWAN-MT",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "summary": "LW008-MT.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/MKLoRa/LW008-MT-iOS",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/MKLoRa/LW008-MT-iOS.git",
-    "tag": "0.0.3"
+    "tag": "0.0.4"
   },
   "platforms": {
     "ios": "14.0"
