@@ -109,6 +109,7 @@
 #import "MKMTVibrationDataModel.h"
 #import "MKMTWifiFixController.h"
 #import "MKMTWifiFixModel.h"
+#import "MKMTNetworkService.h"
 #import "MKMTUserLoginManager.h"
 #import "CBPeripheral+MKMTAdd.h"
 #import "MKMTCentralManager.h"
